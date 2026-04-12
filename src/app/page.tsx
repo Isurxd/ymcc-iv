@@ -57,9 +57,9 @@ export default function RecruitmentPage() {
           <motion.div variants={fadeUpVar} className="bg-[#E63E00] text-white px-6 py-2 text-sm font-medium uppercase tracking-widest mb-8 shadow-[4px_4px_0_0_#001F3F] border-2 border-[#001F3F] z-10 hover:-translate-y-1 transition-transform">
             {lang === 'ID' ? 'PANDUAN SELEKSI 2026 - 2027' : '2026 - 2027 SELECTION GUIDE'}
           </motion.div>
-          <motion.h1 variants={fadeUpVar} className="font-heading italic text-6xl md:text-8xl lg:text-[10rem] text-[#001F3F] uppercase tracking-tighter leading-none drop-shadow-[5px_5px_0_#CCFF00] [-webkit-text-stroke:1px_#CCFF00] z-10">
+          <motion.h1 variants={fadeUpVar} className="font-black text-5xl md:text-7xl lg:text-8xl text-[#001F3F] uppercase leading-tight drop-shadow-[4px_4px_0_#CCFF00] z-10">
             YMCC VII <br/> 
-            <span className="text-[#E63E00] drop-shadow-[4px_4px_0_#001F3F] [-webkit-text-stroke:1px_#001F3F]">THE GREEN</span><br/>
+            <span className="text-[#E63E00] drop-shadow-[4px_4px_0_#001F3F]">THE GREEN</span><br/>
             COMPASS
           </motion.h1>
 
@@ -142,7 +142,7 @@ export default function RecruitmentPage() {
               <motion.div variants={fadeUpVar} className="bg-[#E63E00] text-white px-3 py-1 font-medium text-[10px] uppercase tracking-widest inline-block mb-4 border border-white">
                 STRUCTURE DIRECTORY
               </motion.div>
-              <motion.h2 variants={fadeUpVar} className="font-heading italic text-6xl md:text-[7rem] leading-[0.8] uppercase">
+              <motion.h2 variants={fadeUpVar} className="font-black text-5xl md:text-7xl leading-tight uppercase">
                 <span className="text-white">THE STRATEGIC</span><br/>
                 <span className="text-[#CCFF00]">PILLARS</span>
               </motion.h2>
@@ -254,7 +254,7 @@ export default function RecruitmentPage() {
           className="border-b-4 border-[#001F3F] bg-white overflow-hidden py-16"
         >
           <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center justify-between px-6">
-            <motion.h2 variants={fadeUpVar} className="font-heading italic text-5xl lg:text-5xl text-[#001F3F] uppercase lg:w-1/3 mb-10 lg:mb-0 text-center lg:text-left leading-none tracking-tight">
+            <motion.h2 variants={fadeUpVar} className="font-black text-4xl lg:text-6xl text-[#001F3F] uppercase lg:w-1/3 mb-10 lg:mb-0 text-center lg:text-left leading-tight">
               Institutional<br/>Support.
             </motion.h2>
             <motion.div variants={staggerVar} className="flex flex-wrap items-center justify-center lg:justify-end gap-12 lg:w-2/3">
@@ -306,7 +306,7 @@ export default function RecruitmentPage() {
           className="bg-[#E63E00] py-32 px-6 md:px-12 border-b-4 border-[#001F3F]"
         >
           <div className="max-w-6xl mx-auto flex flex-col items-center">
-            <motion.h2 variants={fadeUpVar} className="font-heading italic text-6xl md:text-9xl text-white uppercase tracking-tighter drop-shadow-[6px_6px_0_#001F3F] [-webkit-text-stroke:1px_#001F3F] text-center mb-8 leading-none">
+            <motion.h2 variants={fadeUpVar} className="font-black text-5xl md:text-8xl text-white uppercase drop-shadow-[4px_4px_0_#001F3F] text-center mb-8 leading-tight">
               REQUIREMENTS
             </motion.h2>
             <motion.p variants={fadeUpVar} className="text-[#001F3F] bg-[#CCFF00] px-6 py-2 border-4 border-[#001F3F] font-black tracking-widest uppercase mb-20 text-center text-lg md:text-xl shadow-[6px_6px_0_0_#001F3F] hover:-translate-y-2 transition-transform duration-300">
