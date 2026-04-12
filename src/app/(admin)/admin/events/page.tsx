@@ -6,6 +6,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Calendar, Trash2, Edit } from 'lucide-react';
+import AppSwal from '@/lib/swal';
 
 export default function AdminEventsCMS() {
   const [events, setEvents] = useState<any[]>([]);
