@@ -51,7 +51,7 @@ export default function AdminDashboardPage() {
       className="space-y-6"
     >
       <header className="mb-10 border-b-4 border-foreground pb-6 bg-white p-6 shadow-brutal-sm">
-        <h1 className="text-5xl font-heading italic tracking-wide text-foreground uppercase">
+        <h1 className="text-5xl font-black tracking-wide text-foreground uppercase">
           PUSAT DATA STATISTIK.
         </h1>
         <p className="text-zinc-600 font-bold uppercase mt-2">Ringkasan pendaftar per cabang lomba secara real-time.</p>
@@ -69,7 +69,7 @@ export default function AdminDashboardPage() {
               </div>
             </CardHeader>
             <CardContent className="pt-4">
-              <div className="text-5xl font-heading italic text-foreground tracking-wide">
+              <div className="text-5xl font-black text-foreground tracking-wide">
                 {loading ? '...' : stat.value}
               </div>
             </CardContent>
@@ -80,12 +80,12 @@ export default function AdminDashboardPage() {
       <div className="grid lg:grid-cols-2 gap-6 mt-8">
         <Card className="bg-white rounded-none border-4 border-foreground shadow-[6px_6px_0_0_#E63E00] h-80 flex flex-col items-center justify-center text-foreground p-6">
           <Activity className="w-20 h-20 mb-4 opacity-20" />
-          <h3 className="font-heading italic text-2xl uppercase">GRAFIK PENDAFTAR</h3>
+          <h3 className="font-black text-2xl uppercase">GRAFIK PENDAFTAR</h3>
           <p className="font-bold border-t-2 border-foreground pt-2 mt-2">MODUL DALAM PERKEMBANGAN</p>
         </Card>
         <Card className="bg-white rounded-none border-4 border-foreground shadow-brutal-lg h-80 flex flex-col items-center justify-center text-foreground p-6">
           <CircleDollarSignIcon className="w-20 h-20 mb-4 opacity-20" />
-          <h3 className="font-heading italic text-2xl uppercase">ARUS KAS REGISTRASI</h3>
+          <h3 className="font-black text-2xl uppercase">ARUS KAS REGISTRASI</h3>
           <p className="font-bold border-t-2 border-foreground pt-2 mt-2">MODUL DALAM PERKEMBANGAN</p>
         </Card>
       </div>

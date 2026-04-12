@@ -23,7 +23,7 @@ export default async function FundraisingDashboard() {
   return (
     <div className="space-y-8">
       <header className="border-b-4 border-foreground pb-6">
-        <h1 className="text-5xl font-heading text-foreground italic uppercase tracking-wide drop-shadow-[4px_4px_0_#001F3F] [-webkit-text-stroke:1px_#001F3F]">
+        <h1 className="text-5xl font-black uppercase tracking-wide text-[#001F3F]">
           FUNDRAISING HQ.
         </h1>
         <p className="text-lg text-zinc-600 font-bold border-l-4 border-accent pl-4 mt-2 uppercase tracking-wide">
@@ -39,7 +39,7 @@ export default async function FundraisingDashboard() {
 
       <Card className="bg-white border-4 border-foreground shadow-brutal-lg rounded-none">
         <CardHeader className="bg-primary border-b-4 border-foreground text-white p-6">
-          <CardTitle className="text-3xl font-heading italic uppercase">ORDER MANAGEMENT</CardTitle>
+          <CardTitle className="text-3xl font-black uppercase">ORDER MANAGEMENT</CardTitle>
         </CardHeader>
         <CardContent className="p-0 overflow-x-auto">
           <table className="w-full text-left font-bold uppercase text-sm border-collapse min-w-[800px]">
@@ -123,7 +123,7 @@ function MetricCard({ title, value, icon }: { title: string, value: string, icon
       <CardContent className="p-6 flex items-center justify-between">
         <div>
           <p className="text-sm font-bold uppercase tracking-wider text-zinc-500 mb-1">{title}</p>
-          <p className="text-4xl font-heading italic text-foreground">{value}</p>
+          <p className="text-4xl font-black text-foreground">{value}</p>
         </div>
         <div className="bg-zinc-100 p-4 border-2 border-foreground rounded-full">
           {icon}

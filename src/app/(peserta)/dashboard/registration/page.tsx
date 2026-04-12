@@ -49,7 +49,7 @@ export default function RegistrationPage() {
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       <div className="border-l-[12px] border-amber-400 bg-white p-8 shadow-brutal-lg border-4 border-foreground relative overflow-hidden">
-        <h1 className="text-4xl md:text-5xl font-heading font-black italic uppercase tracking-tight text-foreground relative z-10 drop-shadow-[4px_4px_0_var(--color-accent)] [-webkit-text-stroke:1px_var(--color-foreground)]">
+        <h1 className="text-4xl font-black uppercase tracking-wide text-[#001F3F]">
           UNGGAH BERKAS TIM & PEMBAYARAN
         </h1>
         <p className="mt-4 font-bold text-zinc-600 uppercase tracking-widest max-w-2xl">
@@ -61,7 +61,7 @@ export default function RegistrationPage() {
         {/* Formulir Upload */}
         <Card className="bg-white border-4 border-foreground shadow-brutal-lg rounded-none">
           <CardHeader className="border-b-4 border-foreground bg-amber-100 p-6">
-            <CardTitle className="font-heading italic uppercase text-2xl flex items-center gap-3">
+            <CardTitle className="font-black uppercase text-2xl flex items-center gap-3">
               <UploadCloud className="w-6 h-6" /> FORMULIR PENGUNGGAHAN
             </CardTitle>
           </CardHeader>
@@ -106,7 +106,7 @@ export default function RegistrationPage() {
           {success ? (
             <Card className="bg-green-100 border-4 border-foreground rounded-none h-full min-h-[300px] flex flex-col items-center justify-center text-center p-8 shadow-[8px_8px_0_0_black]">
               <CheckCircle className="w-16 h-16 text-green-600 mb-6" />
-              <h3 className="font-heading italic uppercase text-3xl text-foreground mb-4 drop-shadow-[2px_2px_0_white]">BERKAS TERKIRIM</h3>
+              <h3 className="text-5xl font-black uppercase tracking-wide text-foreground font-sans">BERKAS TERKIRIM</h3>
               <p className="font-bold text-foreground uppercase text-sm max-w-sm">
                 Terima kasih! Seluruh berkas telah diterima server. Panitia membutuhkan 1-2 hari kerja untuk memverifikasi keabsahan dokumen dan pembayaran Anda.
               </p>
@@ -114,7 +114,7 @@ export default function RegistrationPage() {
           ) : (
             <Card className="bg-zinc-100 border-4 border-dashed border-zinc-400 rounded-none h-full min-h-[300px] flex flex-col items-center justify-center text-center p-8">
               <AlertCircle className="w-16 h-16 text-zinc-400 mb-6" />
-              <h3 className="font-heading italic uppercase text-2xl text-zinc-500 mb-4">BELUM ADA DOKUMEN</h3>
+              <h3 className="font-black uppercase text-2xl text-zinc-500 mb-4">BELUM ADA DOKUMEN</h3>
               <p className="font-bold text-zinc-500 uppercase text-sm max-w-sm">
                 Silakan lengkapi formulir di samping kiri untuk mengunggah berkas. Gabungkan data dalam bentuk terpadu sebelum menekan tombol Unggah.
               </p>

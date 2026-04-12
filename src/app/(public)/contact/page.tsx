@@ -16,7 +16,7 @@ export default function ContactPage() {
           className="bg-accent border-4 border-foreground shadow-[8px_8px_0_0_var(--color-foreground)] p-8 md:p-12 mb-12"
         >
           <div className="border-b-4 border-foreground pb-6 mb-8 text-foreground">
-            <h1 className="text-5xl md:text-7xl font-heading italic uppercase tracking-wider drop-shadow-[4px_4px_0_#001F3F] [-webkit-text-stroke:1px_#001F3F]">
+            <h1 className="text-5xl font-black uppercase tracking-wide text-[#001F3F]">
               {lang === 'ID' ? 'KONTAK & FAQ' : 'CONTACT & FAQ'}
             </h1>
             <p className="text-2xl font-bold uppercase mt-4">

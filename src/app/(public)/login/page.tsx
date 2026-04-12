@@ -72,7 +72,7 @@ export default function LoginPage() {
       >
         <Card className="w-full bg-white border-4 border-foreground shadow-brutal-lg rounded-none relative overflow-hidden">
           <CardHeader className="space-y-2 pb-6 pt-10 text-center border-b-4 border-foreground bg-cyan-100">
-            <CardTitle className="text-5xl font-heading uppercase italic tracking-tight text-foreground">Sign In.</CardTitle>
+            <CardTitle className="text-5xl font-black uppercase tracking-tight text-foreground">Sign In.</CardTitle>
             <CardDescription className="text-foreground font-bold">
               PORTAL ORGANISASI YMCC VII
             </CardDescription>
@@ -112,7 +112,7 @@ export default function LoginPage() {
                 />
               </div>
 
-              <Button type="submit" disabled={loading} className="w-full bg-foreground hover:bg-zinc-800 text-white border-4 border-transparent hover:border-accent hover:shadow-brutal-neon rounded-none h-14 text-xl font-heading italic uppercase shadow-brutal-sm transition-all active:translate-y-1 active:shadow-none mt-6">
+              <Button type="submit" disabled={loading} className="w-full bg-foreground hover:bg-zinc-800 text-white border-4 border-transparent hover:border-accent hover:shadow-brutal-neon rounded-none h-14 text-xl font-black uppercase shadow-brutal-sm transition-all active:translate-y-1 active:shadow-none mt-6">
                 {loading ? 'MEMVERIFIKASI...' : 'AKSES DASHBOARD'}
               </Button>
             </form>

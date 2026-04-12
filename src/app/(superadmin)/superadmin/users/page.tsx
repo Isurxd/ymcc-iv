@@ -105,7 +105,7 @@ export default function SuperAdminUsersPage() {
   return (
     <div className="space-y-6 animate-in fade-in duration-500">
       <header className="mb-10 border-b-8 border-black pb-6 bg-white p-8 shadow-[8px_8px_0_0_red]">
-        <h1 className="text-4xl md:text-5xl font-heading italic font-black tracking-wide text-black uppercase drop-shadow-[3px_3px_0_red] [-webkit-text-stroke:1px_black]">
+        <h1 className="text-4xl font-black uppercase tracking-wide text-[#001F3F]">
           ACCESS CONTROL.
         </h1>
         <p className="text-zinc-600 font-bold uppercase mt-4 text-xs tracking-widest border-l-4 border-red-600 pl-4">Manajemen staf internal, perizinan role, dan manipulasi kredensial (Root Access).</p>
@@ -145,7 +145,7 @@ export default function SuperAdminUsersPage() {
                 filteredUsers.map((user) => (
                   <tr key={user.id} className="hover:bg-zinc-100 transition-colors">
                     <td className="p-4">
-                      <div className="text-black font-heading italic text-xl">{user.name}</div>
+                      <div className="text-black font-black text-xl">{user.name}</div>
                       <div className="text-zinc-500 text-xs mt-1 lowercase">{user.email}</div>
                     </td>
                     <td className="p-4 text-center">

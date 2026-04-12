@@ -108,7 +108,7 @@ export default function AdminEventsCMS() {
       className="space-y-6"
     >
       <header className="mb-10 border-b-4 border-foreground pb-6 bg-white p-6 shadow-brutal-sm">
-        <h1 className="text-5xl font-heading italic tracking-wide text-foreground uppercase">
+        <h1 className="text-5xl font-black tracking-wide text-foreground uppercase">
           MODUL MANAJEMEN EVENT.
         </h1>
         <p className="text-zinc-600 font-bold uppercase mt-2">Pusat kendali master pengadaan kompetisi dan lini masa operasi YMCC VII.</p>
@@ -120,7 +120,7 @@ export default function AdminEventsCMS() {
         <div className="md:col-span-1">
           <Card className="rounded-none border-4 border-foreground shadow-[6px_6px_0_0_#E63E00] sticky top-8">
             <CardHeader className="bg-foreground border-b-4 border-foreground text-white p-6">
-              <CardTitle className="text-2xl font-heading italic uppercase tracking-wide">
+              <CardTitle className="text-2xl font-black uppercase tracking-wide">
                 {isEditing ? 'UPDATE MODUL EVENT' : 'TAMBAH EVENT BARU'}
               </CardTitle>
             </CardHeader>
@@ -166,11 +166,11 @@ export default function AdminEventsCMS() {
                   />
                 </div>
                 <div className="flex gap-4 pt-2">
-                  <Button type="submit" className="flex-1 bg-[#E63E00] hover:bg-[#CCFF00] hover:text-[#001F3F] text-white border-2 border-transparent hover:border-[#001F3F] transition-all rounded-none h-14 font-heading italic text-xl uppercase tracking-wider">
+                  <Button type="submit" className="flex-1 bg-[#E63E00] hover:bg-[#CCFF00] hover:text-[#001F3F] text-white border-2 border-transparent hover:border-[#001F3F] transition-all rounded-none h-14 font-black text-xl uppercase tracking-wider">
                     {isEditing ? "UPDATE ENTRI" : "INJEKSI DATA"}
                   </Button>
                   {isEditing && (
-                    <Button type="button" onClick={resetForm} className="bg-zinc-200 text-foreground hover:bg-zinc-300 border-2 border-transparent transition-all rounded-none h-14 font-heading italic text-xl uppercase tracking-wider">
+                    <Button type="button" onClick={resetForm} className="bg-zinc-200 text-foreground hover:bg-zinc-300 border-2 border-transparent transition-all rounded-none h-14 font-black text-xl uppercase tracking-wider">
                       BATAL
                     </Button>
                   )}
@@ -184,7 +184,7 @@ export default function AdminEventsCMS() {
         <div className="md:col-span-2 space-y-6">
           {loading ? (
             <div className="bg-white border-4 border-foreground p-8 text-center animate-pulse">
-              <p className="font-heading italic text-2xl uppercase tracking-wide text-[#E63E00]">MENGAKSES DATABASE SENTRAL...</p>
+              <p className="font-black text-2xl uppercase tracking-wide text-[#E63E00]">MENGAKSES DATABASE SENTRAL...</p>
             </div>
           ) : events.map(ev => {
               const start = new Date(ev.startDate).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' });
@@ -197,7 +197,7 @@ export default function AdminEventsCMS() {
                   </div>
                   <div className="p-6 flex-1 flex flex-col justify-between">
                     <div>
-                      <h3 className="font-heading italic font-black text-2xl uppercase tracking-wide text-[#001F3F] mb-1">{ev.name}</h3>
+                      <h3 className="font-black font-black text-2xl uppercase tracking-wide text-[#001F3F] mb-1">{ev.name}</h3>
                       <div className="inline-block bg-[#001F3F] text-white text-xs font-bold px-2 py-1 mb-4 uppercase tracking-widest">{start} - {end}</div>
                       <p className="text-zinc-600 text-sm font-semibold max-w-xl">{ev.description || 'Tidak ada deskripsi rinci.'}</p>
                     </div>
@@ -231,7 +231,7 @@ export default function AdminEventsCMS() {
           }
           {!loading && events.length === 0 && (
             <div className="bg-zinc-100 border-4 border-dashed border-zinc-400 p-12 text-center rounded-none">
-              <p className="font-heading italic text-3xl text-zinc-400 uppercase tracking-wide">TIDAK ADA EVENT AKTIF.</p>
+              <p className="font-black text-3xl text-zinc-400 uppercase tracking-wide">TIDAK ADA EVENT AKTIF.</p>
               <p className="font-bold text-zinc-500 mt-2">Daftar operasi kosong di database.</p>
             </div>
           )}

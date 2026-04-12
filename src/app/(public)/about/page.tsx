@@ -16,7 +16,7 @@ export default function AboutPage() {
           className="bg-white border-4 border-foreground shadow-[8px_8px_0_0_var(--color-primary)] p-8 md:p-12"
         >
           <div className="border-b-4 border-accent pb-6 mb-8">
-            <h1 className="text-5xl md:text-7xl font-heading text-foreground italic uppercase tracking-wider drop-shadow-[4px_4px_0_#001F3F] [-webkit-text-stroke:1px_#001F3F]">
+            <h1 className="text-5xl font-black uppercase tracking-wide text-[#001F3F]">
               {lang === 'ID' ? 'TENTANG KAMI' : 'ABOUT US'}
             </h1>
             <p className="text-2xl font-bold uppercase mt-4 text-zinc-600">

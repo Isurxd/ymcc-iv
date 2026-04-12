@@ -50,7 +50,7 @@ export default function CheatMonitorPage() {
       <header className="mb-10 border-b-8 border-[#001F3F] pb-6 bg-white p-8 shadow-[8px_8px_0_0_#E63E00]">
         <div className="flex justify-between items-start">
           <div>
-            <h1 className="text-6xl font-heading italic font-black tracking-wide text-[#001F3F] uppercase drop-shadow-[4px_4px_0_#001F3F] [-webkit-text-stroke:1px_#001F3F]">
+            <h1 className="text-6xl font-black uppercase tracking-wide text-[#001F3F]">
               LIVE CHEAT MONITOR.
             </h1>
             <p className="text-zinc-600 font-bold uppercase mt-4 text-xs tracking-[0.2em] border-l-4 border-[#001F3F] pl-4">Menangkap event Blur / Visibility API secara waktu-nyata selama durasi CBT.</p>
@@ -70,7 +70,7 @@ export default function CheatMonitorPage() {
             <Activity className="w-6 h-6 text-[#001F3F]" />
           </CardHeader>
           <CardContent className="pt-4">
-            <div className="text-6xl font-heading italic text-[#001F3F] font-black">{activeParticipants.toLocaleString('id-ID')}</div>
+            <div className="text-6xl font-black text-[#001F3F] font-black">{activeParticipants.toLocaleString('id-ID')}</div>
           </CardContent>
         </Card>
         
@@ -82,7 +82,7 @@ export default function CheatMonitorPage() {
             <AlertCircle className="w-6 h-6 text-[#E63E00]" />
           </CardHeader>
           <CardContent className="pt-4">
-            <div className="text-6xl font-heading italic text-[#E63E00] font-black">{totalViolations}</div>
+            <div className="text-6xl font-black text-[#E63E00] font-black">{totalViolations}</div>
           </CardContent>
         </Card>
 
@@ -94,7 +94,7 @@ export default function CheatMonitorPage() {
             <Ban className="w-6 h-6 text-red-500" />
           </CardHeader>
           <CardContent className="pt-4">
-            <div className="text-6xl font-heading italic text-white font-black drop-shadow-[4px_4px_0_#001F3F] [-webkit-text-stroke:1px_#001F3F]">{autolockBanned}</div>
+            <div className="text-6xl font-black uppercase tracking-wide text-[#001F3F]">{autolockBanned}</div>
           </CardContent>
         </Card>
       </div>
@@ -114,7 +114,7 @@ export default function CheatMonitorPage() {
               {logs.map((log, i) => (
                 <tr key={i} className="hover:bg-zinc-100 transition-colors">
                   <td className="p-6">
-                    <div className="text-[#001F3F] font-heading italic text-2xl">{log.name}</div>
+                    <div className="text-[#001F3F] font-black text-2xl">{log.name}</div>
                     <div className="text-zinc-500 text-xs mt-1">{log.id}</div>
                   </td>
                   <td className="p-6 text-center">

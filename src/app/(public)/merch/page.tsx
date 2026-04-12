@@ -26,7 +26,7 @@ export default async function MerchShopPage() {
       <div className="container mx-auto px-6 max-w-7xl">
         <header className="mb-12 border-b-4 border-foreground pb-8 flex justify-between items-end">
           <div>
-            <h1 className="text-6xl font-heading text-foreground italic uppercase tracking-wide drop-shadow-[4px_4px_0_#001F3F] [-webkit-text-stroke:1px_#001F3F]">
+            <h1 className="text-6xl font-black uppercase tracking-wide text-[#001F3F]">
               OFFICIAL MERCHANDISE.
             </h1>
             <p className="text-lg text-zinc-600 font-bold border-l-4 border-accent pl-4 mt-4 uppercase tracking-wider">
@@ -42,7 +42,7 @@ export default async function MerchShopPage() {
         {products.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 bg-white border-4 border-foreground shadow-[8px_8px_0_0_var(--color-foreground)]">
             <ShoppingCart className="w-24 h-24 text-zinc-300 mb-6" />
-            <h2 className="text-3xl font-heading text-foreground italic uppercase">STOK BELUM TERSEDIA</h2>
+            <h2 className="text-3xl font-black text-foreground uppercase">STOK BELUM TERSEDIA</h2>
             <p className="font-bold text-zinc-500 uppercase mt-2">NANTIKAN PERILISAN MERCHANDISE EKSKLUSIF.</p>
           </div>
         ) : (

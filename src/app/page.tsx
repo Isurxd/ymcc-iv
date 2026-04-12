@@ -76,7 +76,7 @@ export default function RecruitmentPage() {
           variants={staggerVar}
           className="py-24 px-6 md:px-12 border-b-4 border-[#001F3F] bg-[#CCFF00]"
         >
-          <motion.h2 variants={fadeUpVar} className="font-heading italic text-6xl md:text-7xl text-[#001F3F] mb-10 uppercase tracking-tight">
+          <motion.h2 variants={fadeUpVar} className="font-black text-6xl md:text-7xl text-[#001F3F] mb-10 uppercase tracking-tight">
             {lang === 'ID' ? 'Protokol & Validasi' : 'Protocol & Validation'}
           </motion.h2>
           <motion.div variants={scaleUpVar} className="bg-white border-4 border-[#001F3F] p-8 md:p-12 shadow-[12px_12px_0_0_#E63E00] max-w-5xl hover:shadow-[16px_16px_0_0_#E63E00] transition-shadow duration-300">
@@ -104,7 +104,7 @@ export default function RecruitmentPage() {
           variants={staggerVar}
           className="py-32 px-6 md:px-12 border-b-4 border-[#001F3F] overflow-hidden"
         >
-          <motion.h2 variants={fadeUpVar} className="font-heading italic text-6xl md:text-8xl text-[#001F3F] mb-8 uppercase">What is YMCC?</motion.h2>
+          <motion.h2 variants={fadeUpVar} className="font-black text-6xl md:text-8xl text-[#001F3F] mb-8 uppercase">What is YMCC?</motion.h2>
           <motion.p variants={fadeUpVar} className="text-2xl font-medium max-w-4xl mb-20 text-zinc-700 leading-snug">
             {lang === 'ID' 
               ? 'Kompetisi pertambangan berskala nasional dan internasional yang bertujuan mengembangkan kompetensi teknis, pemikiran strategis, serta kesadaran keberlanjutan generasi muda.'
@@ -153,32 +153,32 @@ export default function RecruitmentPage() {
               <div className="absolute -top-3 left-6 bg-[#CCFF00] text-[#001F3F] px-2 py-0.5 font-medium text-[9px] uppercase tracking-widest">
                 EXECUTIVE LAYER
               </div>
-              <h3 className="font-heading italic text-4xl text-white uppercase mb-10">BOARD OF DIRECTORS</h3>
+              <h3 className="font-black text-4xl text-white uppercase mb-10">BOARD OF DIRECTORS</h3>
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div className="bg-white border-4 border-[#CCFF00] p-6 hover:-translate-y-2 hover:shadow-[8px_8px_0_0_#CCFF00] transition-all flex flex-col justify-center gap-2 group">
                   <span className="text-[#001F3F] font-bold text-[10px] tracking-widest uppercase pb-2 border-b-2 border-zinc-200">EXECUTIVE DIRECTOR</span>
-                  <span className="font-heading italic text-xl text-[#E63E00] leading-tight uppercase">Aghniyo H. P. Hermawan</span>
+                  <span className="font-black text-xl text-[#E63E00] leading-tight uppercase">Aghniyo H. P. Hermawan</span>
                 </div>
                 <div className="bg-white border-4 border-[#CCFF00] p-6 hover:-translate-y-2 hover:shadow-[8px_8px_0_0_#CCFF00] transition-all flex flex-col justify-center gap-2 group">
                   <span className="text-[#001F3F] font-bold text-[10px] tracking-widest uppercase pb-2 border-b-2 border-zinc-200">VICE EXECUTIVE DIRECTOR</span>
-                  <span className="font-heading italic text-xl text-[#E63E00] leading-tight uppercase">Faiz Marvel A. Ridwan</span>
+                  <span className="font-black text-xl text-[#E63E00] leading-tight uppercase">Faiz Marvel A. Ridwan</span>
                 </div>
                 <div className="bg-white border-4 border-[#CCFF00] p-6 hover:-translate-y-2 hover:shadow-[8px_8px_0_0_#CCFF00] transition-all flex flex-col justify-center gap-2 group">
                   <span className="text-[#001F3F] font-bold text-[10px] tracking-widest uppercase pb-2 border-b-2 border-zinc-200">SECRETARY I</span>
-                  <span className="font-heading italic text-xl text-[#E63E00] leading-tight uppercase">Kartika Rahmadani</span>
+                  <span className="font-black text-xl text-[#E63E00] leading-tight uppercase">Kartika Rahmadani</span>
                 </div>
                 <div className="bg-white border-4 border-[#CCFF00] p-6 hover:-translate-y-2 hover:shadow-[8px_8px_0_0_#CCFF00] transition-all flex flex-col justify-center gap-2 group">
                   <span className="text-[#001F3F] font-bold text-[10px] tracking-widest uppercase pb-2 border-b-2 border-zinc-200">SECRETARY II</span>
-                  <span className="font-heading italic text-xl text-[#E63E00] leading-tight uppercase opacity-50">[TBA]</span>
+                  <span className="font-black text-xl text-[#E63E00] leading-tight uppercase opacity-50">[TBA]</span>
                 </div>
                 <div className="bg-white border-4 border-[#CCFF00] p-6 hover:-translate-y-2 hover:shadow-[8px_8px_0_0_#CCFF00] transition-all flex flex-col justify-center gap-2 group">
                   <span className="text-[#001F3F] font-bold text-[10px] tracking-widest uppercase pb-2 border-b-2 border-zinc-200">FINANCE DIRECTOR I</span>
-                  <span className="font-heading italic text-xl text-[#E63E00] leading-tight uppercase">Rizky Maylandra</span>
+                  <span className="font-black text-xl text-[#E63E00] leading-tight uppercase">Rizky Maylandra</span>
                 </div>
                 <div className="bg-white border-4 border-[#CCFF00] p-6 hover:-translate-y-2 hover:shadow-[8px_8px_0_0_#CCFF00] transition-all flex flex-col justify-center gap-2 group">
                   <span className="text-[#001F3F] font-bold text-[10px] tracking-widest uppercase pb-2 border-b-2 border-zinc-200">FINANCE DIRECTOR II</span>
-                  <span className="font-heading italic text-xl text-[#E63E00] leading-tight uppercase">Naila Farikiya</span>
+                  <span className="font-black text-xl text-[#E63E00] leading-tight uppercase">Naila Farikiya</span>
                 </div>
               </div>
             </motion.div>
@@ -289,7 +289,7 @@ export default function RecruitmentPage() {
           variants={staggerVar}
           className="py-32 px-6 md:px-12 border-b-4 border-[#001F3F] bg-zinc-100"
         >
-          <motion.h2 variants={fadeUpVar} className="font-heading italic text-6xl md:text-8xl text-[#001F3F] mb-20 text-center uppercase">Event Core Values</motion.h2>
+          <motion.h2 variants={fadeUpVar} className="font-black text-6xl md:text-8xl text-[#001F3F] mb-20 text-center uppercase">Event Core Values</motion.h2>
           <motion.div variants={staggerVar} className="grid md:grid-cols-3 gap-10">
             <ValueCard title="Academic Excellence" desc="Menjunjung tinggi kualitas dan standar akademik untuk menguji kemampuan teknis dan pola pikir." />
             <ValueCard title="Sustainability by Design" desc="Keberlanjutan menjadi dasar dalam setiap ide, solusi, dan pengambilan keputusan operasional." />
@@ -332,7 +332,7 @@ export default function RecruitmentPage() {
           variants={staggerVar}
           className="py-32 bg-white text-center flex flex-col items-center px-6"
         >
-          <motion.h2 variants={fadeUpVar} className="font-heading italic text-5xl md:text-7xl text-[#001F3F] uppercase mb-10">
+          <motion.h2 variants={fadeUpVar} className="font-black text-5xl md:text-7xl text-[#001F3F] uppercase mb-10">
             SIAP MEMBANGUN <span className="text-[#E63E00]">MASA DEPAN?</span>
           </motion.h2>
           <motion.div variants={scaleUpVar}>
@@ -346,7 +346,7 @@ export default function RecruitmentPage() {
 
       {/* Footer Minimalist */}
       <footer className="bg-[#001F3F] text-white py-16 text-center">
-        <div className="font-heading italic text-5xl mb-8 tracking-wide">Y7 <span className="text-[#E63E00]">STRATEGIC</span></div>
+        <div className="font-black text-5xl mb-8 tracking-wide">Y7 <span className="text-[#E63E00]">STRATEGIC</span></div>
         <div className="text-sm font-medium tracking-[0.2em] text-zinc-400 uppercase">
           {lang === 'ID' ? 'Direkayasa dari Kertas Menjadi Kekuatan oleh ARC Studio' : 'Engineered from Paper to Power by ARC Studio'}<br/><br/>
           © 2026 {lang === 'ID' ? 'Departemen Media' : 'Media Department'} YMCC VII
@@ -361,8 +361,8 @@ export default function RecruitmentPage() {
 function FeatureCard({ num, title, desc }: { num: string, title: string, desc: string }) {
   return (
     <motion.div variants={fadeUpVar} className="border-4 border-[#001F3F] p-8 shadow-[8px_8px_0_0_#001F3F] bg-white hover:-translate-y-2 hover:shadow-[12px_12px_0_0_#E63E00] transition-all duration-300">
-      <div className="font-heading italic text-7xl text-zinc-200 mb-4 font-black">{num}</div>
-      <h3 className="font-heading italic text-2xl text-[#001F3F] leading-none mb-4 uppercase">{title}</h3>
+      <div className="font-black text-7xl text-zinc-200 mb-4 font-black">{num}</div>
+      <h3 className="font-black text-2xl text-[#001F3F] leading-none mb-4 uppercase">{title}</h3>
       <p className="text-base font-medium text-zinc-600 leading-relaxed">{desc}</p>
     </motion.div>
   )
@@ -371,7 +371,7 @@ function FeatureCard({ num, title, desc }: { num: string, title: string, desc: s
 function ValueCard({ title, desc }: { title: string, desc: string }) {
   return (
     <motion.div variants={scaleUpVar} className="border-4 border-[#001F3F] bg-white p-8 shadow-brutal-lg hover:-translate-y-3 transition-transform duration-300 group">
-      <h3 className="font-heading italic text-3xl text-[#E63E00] mb-4 group-hover:text-[#001F3F] transition-colors">{title}</h3>
+      <h3 className="font-black text-3xl text-[#E63E00] mb-4 group-hover:text-[#001F3F] transition-colors">{title}</h3>
       <p className="font-medium text-base text-zinc-700 leading-relaxed">{desc}</p>
     </motion.div>
   )
@@ -380,7 +380,7 @@ function ValueCard({ title, desc }: { title: string, desc: string }) {
 function ReqCard({ num, title, desc }: { num: string, title: string, desc: string }) {
   return (
     <motion.div variants={fadeUpVar} className="bg-[#001F3F] border-4 border-[#CCFF00] shadow-[8px_8px_0_0_#CCFF00] p-8 text-left hover:-translate-x-2 hover:-translate-y-2 hover:shadow-[16px_16px_0_0_#CCFF00] transition-all duration-300 group">
-      <h3 className="font-heading italic text-3xl text-[#CCFF00] mb-4 uppercase group-hover:text-white transition-colors">{num}. {title}</h3>
+      <h3 className="font-black text-3xl text-[#CCFF00] mb-4 uppercase group-hover:text-white transition-colors">{num}. {title}</h3>
       <p className="text-white text-base font-semibold leading-relaxed">{desc}</p>
     </motion.div>
   )
@@ -392,18 +392,18 @@ function DeptCard({ title, head, subs }: { title: string, head: string, subs: {n
       <div className="bg-[#E63E00] text-white px-2 py-0.5 text-[10px] font-black uppercase w-fit tracking-widest mb-3 border-2 border-[#001F3F]">
         DEPARTMENT
       </div>
-      <h3 className="font-heading italic text-4xl text-[#001F3F] uppercase mb-4 leading-none group-hover:text-[#E63E00] transition-colors">{title}</h3>
+      <h3 className="font-black text-4xl text-[#001F3F] uppercase mb-4 leading-none group-hover:text-[#E63E00] transition-colors">{title}</h3>
       
       <div className="bg-[#001F3F] p-4 mb-6 relative border-l-4 border-[#CCFF00] hover:translate-x-2 transition-transform">
         <span className="block text-[#CCFF00] font-medium text-[10px] tracking-widest uppercase mb-1">HEAD OF DEPARTMENT</span>
-        <span className="block font-heading italic text-2xl text-white uppercase leading-none">{head}</span>
+        <span className="block font-black text-2xl text-white uppercase leading-none">{head}</span>
       </div>
 
       <div className="space-y-4">
         {subs.map((sub, i) => (
           <div key={i} className="border-b-2 border-zinc-100 pb-3 hover:border-[#001F3F] transition-colors group/item">
             <span className="block text-zinc-500 font-medium text-[10px] uppercase tracking-widest mb-1 leading-tight">{sub.name}</span>
-            <span className="block font-heading italic text-lg text-black uppercase">{sub.lead}</span>
+            <span className="block font-black text-lg text-black uppercase">{sub.lead}</span>
           </div>
         ))}
       </div>

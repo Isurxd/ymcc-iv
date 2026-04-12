@@ -50,7 +50,7 @@ export default function QRScannerOffline() {
   return (
     <div className="max-w-3xl mx-auto mt-10 space-y-8">
       <header className="border-b-4 border-foreground pb-4">
-        <h1 className="text-5xl font-heading text-foreground italic uppercase">ATTENDANCE SYSTEM.</h1>
+        <h1 className="text-5xl font-black text-foreground uppercase">ATTENDANCE SYSTEM.</h1>
         <p className="font-bold text-zinc-600 mt-2">Scan QR dari Nametag Peserta. Data akan disinkronisasikan secara otomatis.</p>
       </header>
 
@@ -84,7 +84,7 @@ export default function QRScannerOffline() {
           {status !== 'IDLE' && (
             <div className={`p-6 border-4 border-foreground flex flex-col items-center justify-center text-center space-y-4 animate-in fade-in slide-in-from-bottom-4 shadow-brutal-sm ${status === 'SUCCESS' ? 'bg-[#CCFF00]' : 'bg-red-500 text-white'}`}>
               {status === 'SUCCESS' ? <CheckCircle2 className="w-16 h-16" /> : <XCircle className="w-16 h-16" />}
-              <h3 className="text-3xl font-heading italic uppercase tracking-wider">{message}</h3>
+              <h3 className="text-3xl font-black uppercase tracking-wider">{message}</h3>
             </div>
           )}
 

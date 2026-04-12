@@ -118,7 +118,7 @@ export default function CheckoutPage() {
     return (
       <div className="min-h-[70vh] flex flex-col items-center justify-center p-6 bg-zinc-50">
         <ShoppingCart className="w-24 h-24 text-zinc-300 mb-6" />
-        <h2 className="text-3xl font-heading text-foreground italic uppercase">KERANJANG BELANJA KOSONG</h2>
+        <h2 className="text-3xl font-black text-foreground uppercase">KERANJANG BELANJA KOSONG</h2>
         <Link href="/merch" className="mt-6 uppercase px-8 py-3 bg-foreground text-white border-4 border-transparent hover:border-accent hover:bg-zinc-800 transition-all font-bold tracking-widest">
           KEMBALI KE MERCH SHOP
         </Link>
@@ -133,7 +133,7 @@ export default function CheckoutPage() {
           <div className="w-24 h-24 bg-accent border-4 border-foreground rounded-full flex items-center justify-center mx-auto mb-8 shadow-brutal-sm">
             <span className="text-4xl text-foreground font-bold">✓</span>
           </div>
-          <h2 className="text-4xl font-heading text-foreground italic uppercase tracking-wide mb-4">PESANAN DITERIMA.</h2>
+          <h2 className="text-4xl font-black text-foreground uppercase tracking-wide mb-4">PESANAN DITERIMA.</h2>
           <p className="font-bold text-zinc-600 mb-8 uppercase leading-relaxed border-l-4 border-accent pl-4 text-left inline-block">
             BUKTI PEMBAYARAN SEDANG DIVERIFIKASI.<br/>
             STATUS PESANAN AKAN DIKIRIM KE EMAIL ANDA DALAM 1X24 JAM.
@@ -206,7 +206,7 @@ export default function CheckoutPage() {
           <ArrowLeft className="w-4 h-4 mr-2" /> KEMBALI KE ETALASE
         </Link>
 
-        <h1 className="text-5xl font-heading text-foreground italic uppercase tracking-wide drop-shadow-[4px_4px_0_#001F3F] [-webkit-text-stroke:1px_#001F3F] mb-10">
+        <h1 className="text-5xl font-black uppercase tracking-wide text-[#001F3F]">
           CHECKOUT PESANAN.
         </h1>
 
@@ -216,7 +216,7 @@ export default function CheckoutPage() {
 
 
             <Card className="bg-white border-4 border-foreground shadow-brutal-lg rounded-none p-8">
-              <h3 className="font-heading text-3xl uppercase italic mb-6 border-b-4 border-foreground pb-4 inline-block">DATA PENGIRIMAN</h3>
+              <h3 className="font-black text-3xl uppercase mb-6 border-b-4 border-foreground pb-4 inline-block">DATA PENGIRIMAN</h3>
               
               <div className="space-y-6">
                 <div className="space-y-2">
@@ -285,7 +285,7 @@ export default function CheckoutPage() {
             </Card>
 
             <Card className="bg-white border-4 border-foreground shadow-brutal-lg rounded-none p-8">
-              <h3 className="font-heading text-3xl uppercase italic mb-6 border-b-4 border-foreground pb-4 inline-block flex items-center gap-3">
+              <h3 className="font-black text-3xl uppercase mb-6 border-b-4 border-foreground pb-4 inline-block flex items-center gap-3">
                 KURIR & PEMBAYARAN
               </h3>
               
@@ -310,14 +310,14 @@ export default function CheckoutPage() {
               </div>
             </Card>
 
-            <Button type="submit" disabled={loading} className="w-full h-20 text-2xl font-heading uppercase italic tracking-widest bg-accent hover:bg-orange-500 text-foreground border-4 border-foreground shadow-[8px_8px_0_0_var(--color-primary)] hover:translate-x-1 hover:-translate-y-1 transition-all rounded-none">
+            <Button type="submit" disabled={loading} className="w-full h-20 text-2xl font-black uppercase tracking-widest bg-accent hover:bg-orange-500 text-foreground border-4 border-foreground shadow-[8px_8px_0_0_var(--color-primary)] hover:translate-x-1 hover:-translate-y-1 transition-all rounded-none">
               {loading ? 'MEMPROSES KREDENSIAL TRASAKSI...' : 'PROSES PENYELESAIAN ORDER ->'}
             </Button>
           </form>
 
           {/* Cart Summary */}
           <div className="bg-white border-4 border-foreground shadow-brutal-lg p-8 order-1 lg:order-2 sticky top-24">
-            <h3 className="font-heading text-3xl uppercase italic mb-6 border-b-4 border-foreground pb-4">RINGKASAN ORDER</h3>
+            <h3 className="font-black text-3xl uppercase mb-6 border-b-4 border-foreground pb-4">RINGKASAN ORDER</h3>
             <div className="space-y-4 mb-8">
               {items.map((item) => (
                 <div key={item.id} className="flex gap-4">
@@ -346,7 +346,7 @@ export default function CheckoutPage() {
               </div>
               
               <div className="border-t-4 border-foreground pt-6 flex justify-between items-center bg-zinc-50 p-4">
-                <span className="font-heading text-2xl uppercase italic">TOTAL:</span>
+                <span className="font-black text-2xl uppercase ">TOTAL:</span>
                 <span className="font-heading text-4xl text-accent drop-shadow-[4px_4px_0_#001F3F] [-webkit-text-stroke:1px_#001F3F]">
                   Rp {totalPrice.toLocaleString('id-ID')}
                 </span>

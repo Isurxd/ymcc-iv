@@ -26,7 +26,7 @@ export default function VideotronDisplay() {
   if (examState === 'IDLE') {
     return (
       <div className="min-h-screen bg-[#001F3F] text-white flex flex-col items-center justify-center p-12 text-center absolute inset-0 z-[100]">
-        <h1 className="text-[120px] font-heading italic uppercase tracking-wide drop-shadow-[4px_4px_0_#001F3F] [-webkit-text-stroke:1px_#001F3F] leading-none mb-8">
+        <h1 className="text-[120px] font-black uppercase tracking-wide text-[#001F3F]">
           YMCC VII
         </h1>
         <h2 className="text-5xl font-bold uppercase tracking-[0.5em] text-[#CCFF00] border-4 border-[#CCFF00] px-12 py-6 shadow-[8px_8px_0_0_#CCFF00]">
@@ -44,7 +44,7 @@ export default function VideotronDisplay() {
       {/* Top Bar */}
       <div className="bg-[#001F3F] text-white p-6 px-12 flex justify-between items-center border-b-8 border-[#E63E00] shadow-[0_8px_0_0_#001F3F]">
         <div className="flex items-center gap-6">
-          <div className="bg-[#CCFF00] text-[#001F3F] p-3 font-heading text-3xl italic tracking-widest px-6 border-4 border-[#CCFF00]">
+          <div className="bg-[#CCFF00] text-[#001F3F] p-3 font-black text-3xl tracking-widest px-6 border-4 border-[#CCFF00]">
             YMCC VII
           </div>
           <span className="text-3xl font-bold uppercase tracking-widest">LIVE BROADCAST</span>
@@ -53,11 +53,11 @@ export default function VideotronDisplay() {
         <div className="flex items-center gap-8">
           <div className="flex items-center gap-3">
              <Users className="w-8 h-8 text-[#CCFF00]" />
-             <span className="text-4xl font-heading italic">1,402</span>
+             <span className="text-4xl font-black ">1,402</span>
           </div>
           <div className="flex items-center gap-3">
              <Clock className={`w-8 h-8 ${examState === 'RUNNING' ? 'text-[#CCFF00] animate-spin-slow' : 'text-red-500'}`} />
-             <span className="text-4xl font-heading italic">{examState === 'RUNNING' ? '120:00' : 'PAUSED'}</span>
+             <span className="text-4xl font-black ">{examState === 'RUNNING' ? '120:00' : 'PAUSED'}</span>
           </div>
         </div>
       </div>
@@ -67,7 +67,7 @@ export default function VideotronDisplay() {
         {/* Left Side: Active Question */}
         <div className="w-2/3 bg-white border-8 border-[#001F3F] shadow-[16px_16px_0_0_#001F3F] flex flex-col">
           <div className="bg-[#E63E00] text-white p-6 border-b-8 border-[#001F3F] flex justify-between items-center">
-            <h2 className="text-4xl font-heading italic uppercase">SOAL AKTIF / LIVE QUESTION</h2>
+            <h2 className="text-4xl font-black uppercase">SOAL AKTIF / LIVE QUESTION</h2>
             {activeQuestion && (
               <span className="text-3xl font-black bg-[#001F3F] text-white px-6 py-2 border-4 border-white">
                 {activeQuestion.id}
@@ -92,7 +92,7 @@ export default function VideotronDisplay() {
         <div className="w-1/3 bg-[#CCFF00] border-8 border-[#001F3F] shadow-[16px_16px_0_0_#001F3F] flex flex-col">
           <div className="bg-[#001F3F] text-white p-6 border-b-8 border-[#001F3F] flex items-center gap-4">
             <Trophy className="w-10 h-10 text-[#CCFF00]" />
-            <h2 className="text-3xl font-heading italic uppercase">LIVE LEADERBOARD</h2>
+            <h2 className="text-3xl font-black uppercase">LIVE LEADERBOARD</h2>
           </div>
           
           <div className="flex-grow p-8 flex flex-col gap-6">
@@ -110,7 +110,7 @@ export default function VideotronDisplay() {
                   </div>
                   <span className="font-bold text-2xl uppercase text-[#001F3F]">{team.name}</span>
                 </div>
-                <span className="font-heading italic text-3xl text-[#001F3F]">{team.score}</span>
+                <span className="font-black text-3xl text-[#001F3F]">{team.score}</span>
               </div>
             ))}
           </div>

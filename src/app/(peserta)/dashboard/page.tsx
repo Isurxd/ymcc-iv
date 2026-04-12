@@ -9,7 +9,7 @@ export default function DashboardPage() {
     <div className="space-y-8 animate-in fade-in duration-500">
       <div className="border-l-[12px] border-accent bg-white p-8 shadow-brutal-lg border-4 border-foreground relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-accent opacity-10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4" />
-        <h1 className="text-5xl md:text-6xl font-heading font-black italic uppercase tracking-tight text-foreground relative z-10 drop-shadow-[4px_4px_0_var(--color-accent)] [-webkit-text-stroke:1px_var(--color-foreground)]">
+        <h1 className="text-5xl font-black uppercase tracking-wide text-[#001F3F]">
           PORTAL PESERTA
         </h1>
         <p className="mt-4 font-bold text-zinc-600 uppercase tracking-widest relative z-10 max-w-2xl">
@@ -21,7 +21,7 @@ export default function DashboardPage() {
         {/* Status Registration */}
         <Card className="bg-white border-4 border-foreground shadow-brutal-lg rounded-none hover:-translate-y-2 hover:shadow-[12px_12px_0_0_var(--color-foreground)] transition-all duration-300">
           <CardHeader className="border-b-4 border-foreground bg-cyan-100 p-6">
-            <CardTitle className="font-heading italic uppercase text-2xl flex items-center gap-3">
+            <CardTitle className="font-black uppercase text-2xl flex items-center gap-3">
               <Upload className="w-6 h-6" /> BERKAS
             </CardTitle>
           </CardHeader>
@@ -44,7 +44,7 @@ export default function DashboardPage() {
         {/* E-CBT Status */}
         <Card className="bg-white border-4 border-foreground shadow-brutal-lg rounded-none hover:-translate-y-2 hover:shadow-[12px_12px_0_0_var(--color-foreground)] transition-all duration-300">
           <CardHeader className="border-b-4 border-foreground bg-amber-100 p-6">
-            <CardTitle className="font-heading italic uppercase text-2xl flex items-center gap-3">
+            <CardTitle className="font-black uppercase text-2xl flex items-center gap-3">
               <Search className="w-6 h-6" /> E-CBT TEST
             </CardTitle>
           </CardHeader>
@@ -67,7 +67,7 @@ export default function DashboardPage() {
         {/* Guidebook */}
         <Card className="bg-foreground text-white border-4 border-accent shadow-[8px_8px_0_0_var(--color-accent)] rounded-none hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[12px_12px_0_0_var(--color-accent)] transition-all duration-300">
           <CardHeader className="p-6 border-b-2 border-zinc-800">
-            <CardTitle className="font-heading italic uppercase text-2xl text-accent">PANDUAN</CardTitle>
+            <CardTitle className="font-black uppercase text-2xl text-accent">PANDUAN</CardTitle>
           </CardHeader>
           <CardContent className="p-6 flex flex-col justify-between h-[calc(100%-80px)]">
             <p className="text-zinc-300 font-medium text-sm leading-relaxed mb-6">

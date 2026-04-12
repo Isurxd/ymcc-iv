@@ -65,7 +65,7 @@ export default function ExamPage() {
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       <div className="border-l-[12px] border-amber-400 bg-white p-8 shadow-brutal-lg border-4 border-foreground relative overflow-hidden">
-        <h1 className="text-4xl md:text-5xl font-heading font-black italic uppercase tracking-tight text-foreground relative z-10 drop-shadow-[4px_4px_0_var(--color-accent)] [-webkit-text-stroke:1px_var(--color-foreground)]">
+        <h1 className="text-4xl font-black uppercase tracking-wide text-[#001F3F]">
           PORTAL UJIAN (E-CBT)
         </h1>
         <p className="mt-4 font-bold text-zinc-600 uppercase tracking-widest max-w-2xl text-sm leading-relaxed">
@@ -77,7 +77,7 @@ export default function ExamPage() {
         <Card className="bg-white border-4 border-foreground shadow-[16px_16px_0_0_var(--color-foreground)] rounded-none">
           <CardHeader className="border-b-4 border-foreground bg-[#001F3F] p-8 text-center">
             <ShieldAlert className="w-16 h-16 text-accent mx-auto mb-4" />
-            <CardTitle className="font-heading italic uppercase text-3xl md:text-4xl text-white">
+            <CardTitle className="font-black uppercase text-3xl md:text-4xl text-white">
               SISTEM MASIH TERKUNCI
             </CardTitle>
           </CardHeader>
@@ -85,7 +85,7 @@ export default function ExamPage() {
             
             <div className="bg-zinc-100 border-4 border-zinc-200 p-6 max-w-lg mx-auto">
               <p className="font-bold text-lg text-zinc-500 uppercase tracking-widest mb-2">STATUS TIM ANDA</p>
-              <h2 className="font-heading italic text-3xl text-red-500 uppercase">BELUM TERVERIFIKASI</h2>
+              <h2 className="font-black text-3xl text-red-500 uppercase">BELUM TERVERIFIKASI</h2>
             </div>
             
             <div className="space-y-4 text-left max-w-xl mx-auto border-l-4 border-accent pl-6">

@@ -70,7 +70,7 @@ export default function ScoringCenter() {
   return (
     <div className="space-y-8 max-w-4xl mx-auto">
       <header className="border-b-4 border-foreground pb-6">
-        <h1 className="text-5xl font-heading text-foreground italic uppercase tracking-wide drop-shadow-[4px_4px_0_#001F3F] [-webkit-text-stroke:1px_#001F3F]">
+        <h1 className="text-5xl font-black uppercase tracking-wide text-[#001F3F]">
           SCORING CENTER.
         </h1>
         <p className="text-lg text-zinc-600 font-bold border-l-4 border-accent pl-4 mt-2 uppercase tracking-wide">
@@ -80,7 +80,7 @@ export default function ScoringCenter() {
 
       <Card className="bg-white border-4 border-foreground shadow-brutal-lg rounded-none mt-8">
         <CardHeader className="bg-[#001F3F] border-b-4 border-foreground text-white p-6">
-          <CardTitle className="text-3xl font-heading italic uppercase flex items-center gap-3">
+          <CardTitle className="text-3xl font-black uppercase flex items-center gap-3">
              <Trophy className="w-8 h-8 text-[#CCFF00]" />
              INPUT NILAI MANUAL
           </CardTitle>
@@ -128,12 +128,12 @@ export default function ScoringCenter() {
                   placeholder="0"
                   min="0"
                   max="100"
-                  className="h-16 text-3xl font-heading bg-zinc-50 border-4 border-foreground rounded-none shadow-[inset_4px_4px_0_0_rgba(0,0,0,0.05)] focus-visible:ring-0 focus-visible:border-accent italic"
+                  className="h-16 text-3xl font-black bg-zinc-50 border-4 border-foreground rounded-none shadow-[inset_4px_4px_0_0_rgba(0,0,0,0.05)] focus-visible:ring-0 focus-visible:border-accent "
                 />
               </div>
             </div>
 
-            <Button disabled={loading} type="submit" className="w-full h-16 bg-accent hover:bg-[#E63E00] hover:text-white text-foreground font-heading uppercase italic tracking-widest text-2xl border-4 border-foreground shadow-brutal hover:-translate-y-1 transition-all rounded-none mt-4">
+            <Button disabled={loading} type="submit" className="w-full h-16 bg-accent hover:bg-[#E63E00] hover:text-white text-foreground font-black uppercase tracking-widest text-2xl border-4 border-foreground shadow-brutal hover:-translate-y-1 transition-all rounded-none mt-4">
               <Send className="w-6 h-6 mr-3" /> {loading ? 'MENYIMPAN...' : 'PUSH NILAI KE LEADERBOARD'}
             </Button>
           </form>

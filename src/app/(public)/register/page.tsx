@@ -91,7 +91,7 @@ export default function RegisterPage() {
           className="hidden lg:flex flex-col space-y-8 pr-12"
         >
           <div>
-            <h1 className="text-6xl font-heading text-white italic uppercase tracking-tight mb-4 drop-shadow-[4px_4px_0_#001F3F] [-webkit-text-stroke:1px_#001F3F]">
+            <h1 className="text-6xl font-black uppercase tracking-wide text-[#001F3F]">
               THE GREEN COMPASS <br/> <span className="text-accent underline decoration-4 underline-offset-8">IS ASSEMBLING.</span>
             </h1>
             <p className="text-lg text-white font-bold border-l-4 border-accent pl-4 mt-6">
@@ -106,7 +106,7 @@ export default function RegisterPage() {
                   <Check className="w-5 h-5 font-bold" />
                 </div>
                 <div>
-                  <h4 className="font-heading italic uppercase text-xl text-foreground tracking-wide leading-tight">{feature.title}</h4>
+                  <h4 className="font-black uppercase text-xl text-foreground tracking-wide leading-tight">{feature.title}</h4>
                   <p className="text-sm text-zinc-700 font-bold mt-1">{feature.desc}</p>
                 </div>
               </div>
@@ -123,7 +123,7 @@ export default function RegisterPage() {
         >
           <Card className="w-full bg-white border-4 border-foreground shadow-brutal-lg rounded-none">
             <CardHeader className="space-y-2 pb-6 pt-8 border-b-4 border-foreground bg-amber-200">
-              <CardTitle className="text-4xl font-heading italic uppercase tracking-tight text-foreground text-center">Registrasi Tim</CardTitle>
+              <CardTitle className="text-4xl font-black uppercase tracking-tight text-foreground text-center">Registrasi Tim</CardTitle>
               <CardDescription className="text-foreground text-center font-bold">
                 PROSES PEMBERKASAN DAN KREDENSIAL AWAL
               </CardDescription>
@@ -164,7 +164,7 @@ export default function RegisterPage() {
                   </label>
                 </div>
 
-                <Button type="submit" disabled={loading} className="w-full bg-foreground hover:bg-zinc-800 text-white border-4 border-transparent hover:border-accent hover:shadow-brutal-neon rounded-none h-14 text-xl font-heading italic uppercase shadow-brutal-sm transition-all active:translate-y-1 active:shadow-none mt-6 flex items-center justify-center">
+                <Button type="submit" disabled={loading} className="w-full bg-foreground hover:bg-zinc-800 text-white border-4 border-transparent hover:border-accent hover:shadow-brutal-neon rounded-none h-14 text-xl font-black uppercase shadow-brutal-sm transition-all active:translate-y-1 active:shadow-none mt-6 flex items-center justify-center">
                   <span>{loading ? 'MEMPROSES KREDENSIAL...' : 'BUAT BASIS DATA TIM'}</span>
                 </Button>
               </form>

@@ -87,7 +87,7 @@ export default function AdminDocumentPage() {
     >
       <header className="mb-10 border-b-4 border-foreground pb-6 bg-white p-6 shadow-brutal-sm flex justify-between items-center">
         <div>
-          <h1 className="text-5xl font-heading italic tracking-wide text-foreground uppercase">
+          <h1 className="text-5xl font-black tracking-wide text-foreground uppercase">
             VERIFIKASI BERKAS.
           </h1>
           <p className="text-zinc-600 font-bold uppercase mt-2">Daftar Antrean Berkas Pendaftar Belum Diverifikasi</p>
@@ -109,7 +109,7 @@ export default function AdminDocumentPage() {
             <Card key={item.id} className="bg-white border-4 border-foreground shadow-[6px_6px_0_0_#CCFF00] rounded-none hover:-translate-y-1 transition-transform">
               <CardHeader className="pb-4 flex flex-col md:flex-row md:items-center justify-between border-b-4 border-foreground bg-zinc-50">
                 <div>
-                  <CardTitle className="text-3xl font-heading italic uppercase text-foreground">
+                  <CardTitle className="text-3xl font-black uppercase text-foreground">
                     {item.registration.user.name}
                   </CardTitle>
                   <div className="flex items-center mt-2 space-x-2">

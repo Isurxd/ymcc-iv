@@ -26,7 +26,7 @@ export default function SuperAdminDashboard() {
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       <header className="mb-10 border-b-8 border-black pb-6 bg-white p-8 shadow-[8px_8px_0_0_red]">
-        <h1 className="text-6xl font-heading italic font-black tracking-wide text-black uppercase drop-shadow-[4px_4px_0_red] [-webkit-text-stroke:1px_black]">
+        <h1 className="text-6xl font-black uppercase tracking-wide text-[#001F3F]">
           NETWORK STATS.
         </h1>
         <p className="text-zinc-600 font-bold uppercase mt-4 text-xs tracking-widest border-l-4 border-red-600 pl-4">Menampilkan ringkasan akses entitas pengguna dalam jaringan tertutup.</p>
@@ -39,7 +39,7 @@ export default function SuperAdminDashboard() {
              <Database className="w-5 h-5" />
            </CardHeader>
            <CardContent className="pt-6">
-             <div className="text-5xl font-heading italic font-black text-black">{stats.totalOptions}</div>
+             <div className="text-5xl font-black font-black text-black">{stats.totalOptions}</div>
            </CardContent>
         </Card>
 
@@ -49,7 +49,7 @@ export default function SuperAdminDashboard() {
              <Shield className="w-5 h-5" />
            </CardHeader>
            <CardContent className="pt-6">
-             <div className="text-5xl font-heading italic font-black text-white">{stats.adminCount}</div>
+             <div className="text-5xl font-black font-black text-white">{stats.adminCount}</div>
            </CardContent>
         </Card>
 
@@ -59,7 +59,7 @@ export default function SuperAdminDashboard() {
              <Terminal className="w-5 h-5 text-red-500" />
            </CardHeader>
            <CardContent className="pt-6">
-             <div className="text-5xl font-heading italic font-black text-white drop-shadow-[2px_2px_0_red]">{stats.operatorCount}</div>
+             <div className="text-5xl font-black uppercase tracking-wide text-foreground font-sans">{stats.operatorCount}</div>
            </CardContent>
         </Card>
 
@@ -69,7 +69,7 @@ export default function SuperAdminDashboard() {
              <Users className="w-5 h-5 text-zinc-500" />
            </CardHeader>
            <CardContent className="pt-6">
-             <div className="text-5xl font-heading italic font-black text-zinc-800">{stats.userCount}</div>
+             <div className="text-5xl font-black font-black text-zinc-800">{stats.userCount}</div>
            </CardContent>
         </Card>
       </div>
