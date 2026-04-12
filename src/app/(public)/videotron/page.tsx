@@ -8,6 +8,7 @@ export default function VideotronDisplay() {
   const [examState, setExamState] = useState<'IDLE' | 'RUNNING' | 'PAUSED'>('IDLE');
   const [activeQuestion, setActiveQuestion] = useState<{ id: string, text: string } | null>(null);
   const [activeParticipants, setActiveParticipants] = useState<number>(0);
+  const [leaderboard, setLeaderboard] = useState<any[]>([]);
   
   const socket = getSocket();
 
@@ -16,17 +17,26 @@ export default function VideotronDisplay() {
     socket.on('EXAM_PAUSED', () => setExamState('PAUSED'));
     socket.on('ACTIVE_QUESTION', (q) => setActiveQuestion(q));
     
-    // Fetch initial participant count
+    // Fetch initial data
     fetch('/api/participant-count')
       .then(res => res.json())
       .then(data => setActiveParticipants(data.count))
       .catch(() => {});
+      
+    fetch('/api/leaderboard')
+      .then(res => res.json())
+      .then(data => setLeaderboard(data))
+      .catch(() => {});
 
-    // Optional: Poll every 10 seconds for live updates
     const interval = setInterval(() => {
       fetch('/api/participant-count')
         .then(res => res.json())
         .then(data => setActiveParticipants(data.count))
+        .catch(() => {});
+        
+      fetch('/api/leaderboard')
+        .then(res => res.json())
+        .then(data => setLeaderboard(data))
         .catch(() => {});
     }, 10000);
 
@@ -112,19 +122,19 @@ export default function VideotronDisplay() {
           </div>
           
           <div className="flex-grow p-8 flex flex-col gap-6">
-            {[
-              { rank: 1, name: 'TIM ALPHA', score: 2850 },
-              { rank: 2, name: 'TIM BRAVO', score: 2710 },
-              { rank: 3, name: 'TIM CHARLIE', score: 2600 },
-              { rank: 4, name: 'TIM DELTA', score: 2100 },
-              { rank: 5, name: 'TIM ECHO', score: 1950 },
-            ].map((team) => (
+            {leaderboard.length === 0 ? (
+               <div className="text-center font-bold text-[#001F3F] mt-12 animate-pulse uppercase tracking-widest text-lg border-4 border-[#001F3F] p-4">
+                 SINKRONISASI DATA KLASEMEN...
+               </div>
+            ) : leaderboard.map((team) => (
               <div key={team.rank} className="bg-white border-4 border-[#001F3F] p-4 flex items-center justify-between shadow-[4px_4px_0_0_#001F3F]">
                 <div className="flex items-center gap-4">
                   <div className={`w-12 h-12 flex items-center justify-center font-heading text-2xl border-4 border-[#001F3F] ${team.rank === 1 ? 'bg-[#E63E00] text-white' : 'bg-zinc-100 text-[#001F3F]'}`}>
                     {team.rank}
                   </div>
-                  <span className="font-bold text-2xl uppercase text-[#001F3F]">{team.name}</span>
+                  <div className="flex flex-col">
+                    <span className="font-bold text-lg uppercase text-[#001F3F] truncate w-32">{team.name}</span>
+                  </div>
                 </div>
                 <span className="font-black text-3xl text-[#001F3F]">{team.score}</span>
               </div>

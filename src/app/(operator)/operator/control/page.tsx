@@ -10,12 +10,7 @@ export default function MasterControlPage() {
   const [examState, setExamState] = useState<'IDLE' | 'RUNNING' | 'PAUSED'>('IDLE');
   const [activeQuestionId, setActiveQuestionId] = useState<string | null>(null);
   
-  // Dummy Questions for the UI
-  const questions = [
-    { id: 'Q1', text: 'Apa simbol kimia untuk Emas?' },
-    { id: 'Q2', text: 'Sebutkan kedalaman maksimum Pit XYZ.' },
-    { id: 'Q3', text: 'Siapakah Founding Father YMCC?' },
-  ];
+  const [questions, setQuestions] = useState<{id: string, text: string}[]>([]);
 
   const socket = getSocket();
 
@@ -23,6 +18,11 @@ export default function MasterControlPage() {
     socket.on('EXAM_STARTED', () => setExamState('RUNNING'));
     socket.on('EXAM_PAUSED', () => setExamState('PAUSED'));
     
+    fetch('/api/questions')
+      .then(res => res.json())
+      .then(data => setQuestions(data))
+      .catch(() => {});
+
     return () => {
       socket.off('EXAM_STARTED');
       socket.off('EXAM_PAUSED');
@@ -103,8 +103,10 @@ export default function MasterControlPage() {
             </CardTitle>
           </CardHeader>
           <CardContent className="p-0">
-             <div className="divide-y-4 divide-foreground">
-               {questions.map((q) => (
+              <div className="divide-y-4 divide-foreground">
+                {questions.length === 0 ? (
+                  <div className="p-12 text-center text-zinc-400 font-bold uppercase tracking-widest">TIDAK ADA SOAL DI DATABASE</div>
+                ) : questions.map((q) => (
                  <div key={q.id} className={`p-6 flex justify-between items-center transition-colors ${activeQuestionId === q.id ? 'bg-amber-100' : 'hover:bg-zinc-50'}`}>
                    <div>
                      <span className="bg-foreground text-white font-bold px-3 py-1 text-sm border-2 border-transparent mr-3 uppercase">
@@ -124,8 +126,8 @@ export default function MasterControlPage() {
                      {activeQuestionId === q.id ? 'BROADCASTING' : 'PUSH TO SCREENS'} <ChevronRight className="w-4 h-4 ml-2" />
                    </Button>
                  </div>
-               ))}
-             </div>
+                ))}
+              </div>
           </CardContent>
         </Card>
       </div>
