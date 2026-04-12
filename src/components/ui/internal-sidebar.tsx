@@ -73,11 +73,11 @@ export function InternalSidebar({ portalName, navLinks, children }: InternalSide
       >
         
         <div className="mb-4 px-6 flex justify-between items-start">
-          <div className="w-full">
-            <h2 className="font-heading text-5xl text-white tracking-wide shadow-black drop-shadow-[4px_4px_0_#000] [-webkit-text-stroke:1px_#000]">
+          <div className="w-full text-center md:text-left">
+            <h2 className="font-heading text-6xl text-white tracking-widest drop-shadow-[4px_4px_0_#CCFF00] mb-2 uppercase">
               YMCC
             </h2>
-            <div className="inline-block mt-3 px-2 py-1 bg-[#CCFF00] border-2 border-foreground text-foreground text-xs font-bold uppercase shadow-[2px_2px_0_0_var(--color-foreground)] mb-6">
+            <div className="inline-block px-3 py-1 bg-[#CCFF00] border-2 border-foreground text-foreground text-xs font-black uppercase tracking-widest shadow-[2px_2px_0_0_var(--color-foreground)] mb-6">
               {portalName}
             </div>
             
@@ -101,18 +101,18 @@ export function InternalSidebar({ portalName, navLinks, children }: InternalSide
             const Icon = link.icon;
             const isActive = pathname === link.href || (link.href !== pathname.split('/').slice(0, 3).join('/') && pathname.startsWith(link.href) && link.href !== '/admin' && link.href !== '/operator' && link.href !== '/fundraising' && link.href !== '/superadmin');
             return (
-               <Link 
+                <Link 
                   key={link.href}
                   href={link.href}
                   onClick={() => setIsSidebarOpen(false)}
-                  className={`flex items-center space-x-3 px-4 py-4 border-2 transition-none group mb-2 ${
+                  className={`flex items-center space-x-4 px-5 py-4 border-2 transition-all duration-200 group mb-3 shadow-[4px_4px_0_0_var(--color-foreground)] hover:-translate-y-1 hover:shadow-brutal-sm ${
                     isActive 
-                      ? 'bg-[#CCFF00] border-foreground text-foreground shadow-brutal-sm' 
-                      : 'bg-transparent border-transparent text-zinc-300 hover:border-[#CCFF00] hover:text-[#CCFF00] hover:bg-zinc-900/50'
+                      ? 'bg-[#CCFF00] border-foreground text-foreground font-black' 
+                      : 'bg-white border-foreground text-zinc-600 hover:bg-[#CCFF00] hover:text-[#001F3F] font-bold'
                   }`}
                 >
-                  <Icon className={`w-5 h-5 ${isActive ? 'text-foreground' : 'text-zinc-400 group-hover:text-[#CCFF00]'}`} />
-                  <span className={`font-heading text-base italic tracking-wider ${isActive ? 'font-bold' : ''}`}>{link.label}</span>
+                  <Icon className={`w-5 h-5 ${isActive ? 'text-foreground' : 'text-zinc-600 group-hover:text-[#001F3F]'}`} />
+                  <span className="text-sm tracking-widest uppercase">{link.label}</span>
                 </Link>
             )
           })}
@@ -122,7 +122,7 @@ export function InternalSidebar({ portalName, navLinks, children }: InternalSide
           {/* Go Back To Public Site Button */}
           <Link 
             href="/"
-            className="flex items-center space-x-3 px-4 py-3 mx-2 border-2 border-transparent hover:border-white text-zinc-300 hover:text-white transition-none group mb-2"
+            className="flex items-center justify-center space-x-3 px-4 py-4 mx-2 border-4 border-transparent hover:border-[#CCFF00] text-zinc-400 hover:text-[#CCFF00] transition-none group mb-2"
           >
              <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
              <span className="font-bold text-xs uppercase tracking-widest mt-0.5">Buka Website Publik</span>
@@ -143,7 +143,7 @@ export function InternalSidebar({ portalName, navLinks, children }: InternalSide
       <main className="flex-1 overflow-x-hidden overflow-y-auto bg-zinc-50 relative">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
         
-        <div className="w-full mx-auto relative z-10 min-h-full">
+        <div className="w-full max-w-7xl mx-auto relative z-10 min-h-full p-6 md:p-10 lg:p-14">
           {children}
         </div>
       </main>
