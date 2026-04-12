@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import AppSwal from "@/lib/swal";
 
 interface ProductVariant {
   id: string;
@@ -58,9 +59,9 @@ export default function InventoryPage() {
           )
         }))
       );
-      alert("Stok berhasil diperbarui!");
+      AppSwal.fire({ icon: 'success', title: 'BERHASIL', text: 'Stok berhasil diperbarui!' });
     } catch (err: any) {
-      alert(err.message);
+      AppSwal.fire({ icon: 'error', title: 'ERROR', text: err.message });
     } finally {
       setUpdatingId(null);
     }

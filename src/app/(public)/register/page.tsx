@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { ChevronRight, Check } from 'lucide-react';
+import AppSwal from '@/lib/swal';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -26,7 +27,6 @@ export default function RegisterPage() {
     password: '',
     confirmPassword: ''
   });
-  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,13 +35,12 @@ export default function RegisterPage() {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
     
     if (formData.password !== formData.confirmPassword) {
-      return setError('PASSWORD DAN KONFIRMASI PASSWORD TIDAK SAMA.');
+      return AppSwal.fire({ icon: 'error', title: 'GAGAL', text: 'PASSWORD DAN KONFIRMASI PASSWORD TIDAK SAMA.' });
     }
     if (formData.password.length < 6) {
-      return setError('PASSWORD MINIMAL 6 KARAKTER.');
+      return AppSwal.fire({ icon: 'error', title: 'GAGAL', text: 'PASSWORD MINIMAL 6 KARAKTER.' });
     }
     
     setLoading(true);
@@ -62,10 +61,16 @@ export default function RegisterPage() {
         throw new Error(data.message || 'REGISTRASI GAGAL');
       }
 
-      router.push('/login?registered=true');
+      AppSwal.fire({
+        icon: 'success',
+        title: 'REGISTRASI BERHASIL',
+        text: 'Akun tim Anda telah dibuat. Silakan login.',
+      }).then(() => {
+        router.push('/login');
+      });
       
     } catch (err: any) {
-      setError(err.message.toUpperCase());
+      AppSwal.fire({ icon: 'error', title: 'REGISTRASI GAGAL', text: err.message.toUpperCase() });
     } finally {
       setLoading(false);
     }
@@ -125,7 +130,6 @@ export default function RegisterPage() {
             </CardHeader>
             <CardContent className="pt-8 bg-white">
               <form onSubmit={onSubmit} className="space-y-6">
-                {error && <div className="p-3 bg-red-400 border-4 border-foreground shadow-brutal text-foreground text-sm text-center font-bold">{error}</div>}
               
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">

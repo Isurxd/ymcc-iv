@@ -37,7 +37,7 @@ export default function AdminEventsCMS() {
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !startDate || !endDate) {
-      alert('Nama dan rentang waktu wajib diisi!');
+      AppSwal.fire({ icon: 'error', title: 'PERHATIAN', text: 'Nama dan rentang waktu wajib diisi!' });
       return;
     }
 
@@ -68,17 +68,26 @@ export default function AdminEventsCMS() {
       resetForm();
       fetchEvents();
     } catch (err: any) {
-      alert(err.message);
+      AppSwal.fire({ icon: 'error', title: 'ERROR', text: err.message });
     }
   };
 
   const deleteEvent = async (id: string, eventName: string) => {
-    if (!confirm(`Yakin ingin memusnahkan modul ${eventName}? Tindakan ini akan menghapus semua partisipan yang terdaftar padanya.`)) return;
+    const result = await AppSwal.fire({
+      title: 'HAPUS EVENT?',
+      text: `Yakin ingin memusnahkan modul ${eventName}? Tindakan ini akan menghapus semua partisipan yang terdaftar padanya.`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Ya, Hapus!',
+      cancelButtonText: 'Batal'
+    });
+    if (!result.isConfirmed) return;
+    
     try {
       await fetch(`/api/events/${id}`, { method: 'DELETE' });
       fetchEvents();
     } catch (err) {
-      alert('Gagal menghapus event.');
+      AppSwal.fire({ icon: 'error', title: 'GAGAL', text: 'Gagal menghapus event.' });
     }
   };
 

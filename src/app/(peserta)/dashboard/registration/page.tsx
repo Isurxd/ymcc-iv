@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { UploadCloud, AlertCircle, CheckCircle } from 'lucide-react';
+import AppSwal from '@/lib/swal';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -12,17 +13,15 @@ export default function RegistrationPage() {
   const [paymentFile, setPaymentFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [errorMsg, setErrorMsg] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!documentFile || !paymentFile) {
-      setErrorMsg('Mohon unggah kedua dokumen persyaratan & bukti pembayaran.');
+      AppSwal.fire({ icon: 'error', title: 'GAGAL', text: 'Mohon unggah kedua dokumen persyaratan & bukti pembayaran.' });
       return;
     }
 
     setIsSubmitting(true);
-    setErrorMsg('');
 
     try {
       const formData = new FormData();
@@ -41,7 +40,7 @@ export default function RegistrationPage() {
 
       setSuccess(true);
     } catch (err: any) {
-      setErrorMsg(err.message);
+      AppSwal.fire({ icon: 'error', title: 'GAGAL', text: err.message });
     } finally {
       setIsSubmitting(false);
     }
@@ -68,11 +67,6 @@ export default function RegistrationPage() {
           </CardHeader>
           <CardContent className="p-6">
             <form onSubmit={handleSubmit} className="space-y-6">
-              {errorMsg && (
-                <div className="bg-red-500 text-white font-bold p-4 border-4 border-foreground shadow-brutal-sm uppercase text-sm">
-                  {errorMsg}
-                </div>
-              )}
 
               <div className="space-y-3">
                 <Label className="font-bold uppercase tracking-widest text-xs">Dokumen Tim (KTM & Surat Aktif)</Label>

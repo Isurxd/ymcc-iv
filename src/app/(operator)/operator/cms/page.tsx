@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import AppSwal from "@/lib/swal";
 
 export default function OperatorCMS() {
   const [articles, setArticles] = useState<any[]>([]);
@@ -49,21 +50,30 @@ export default function OperatorCMS() {
         });
       }
       if (!res.ok) throw new Error("Gagal menyimpan");
-      alert("Berhasil disimpan!");
+      AppSwal.fire({ icon: 'success', title: 'BERHASIL', text: 'Artikel disimpan!' });
       resetForm();
       fetchArticles();
     } catch (err: any) {
-      alert(err.message);
+      AppSwal.fire({ icon: 'error', title: 'ERROR', text: err.message });
     }
   };
 
   const deleteArticle = async (id: string) => {
-    if (!confirm("Yakin ingin menghapus?")) return;
+    const result = await AppSwal.fire({
+      title: 'HAPUS ARTIKEL?',
+      text: "Data yang dihapus tidak bisa dikembalikan!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Ya, Hapus!',
+      cancelButtonText: 'Batal'
+    });
+    if (!result.isConfirmed) return;
+    
     try {
       await fetch(`/api/articles/${id}`, { method: "DELETE" });
       fetchArticles();
     } catch (err) {
-      alert("Gagal menghapus");
+      AppSwal.fire({ icon: 'error', title: 'GAGAL', text: 'Gagal menghapus artikel' });
     }
   }
 

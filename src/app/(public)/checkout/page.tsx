@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useCart } from '@/components/merch/cart-context';
 import { ShoppingCart, CloudUpload, ArrowLeft } from 'lucide-react';
+import AppSwal from '@/lib/swal';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -22,7 +23,6 @@ export default function CheckoutPage() {
   const router = useRouter();
   const { items, totalPrice, totalItems, clearCart } = useCart();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   
   const [formData, setFormData] = useState({
@@ -152,7 +152,6 @@ export default function CheckoutPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
     
     setLoading(true);
 
@@ -190,7 +189,11 @@ export default function CheckoutPage() {
       }
       
     } catch (err: any) {
-      setError(err.message.toUpperCase());
+      AppSwal.fire({
+        icon: 'error',
+        title: 'TRANSAKSI GAGAL',
+        text: err.message.toUpperCase()
+      });
     } finally {
       setLoading(false);
     }
@@ -210,14 +213,7 @@ export default function CheckoutPage() {
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Order Summary Form */}
           <form onSubmit={handleSubmit} className="space-y-8 order-2 lg:order-1">
-             {error && (
-              <div className="bg-red-500 border-4 border-foreground shadow-[6px_6px_0_0_var(--color-foreground)] p-6 mb-8 flex justify-between items-center text-white">
-                <div>
-                  <h4 className="font-heading text-3xl uppercase italic">ERROR.</h4>
-                  <p className="font-bold">{error}</p>
-                </div>
-              </div>
-            )}
+
 
             <Card className="bg-white border-4 border-foreground shadow-brutal-lg rounded-none p-8">
               <h3 className="font-heading text-3xl uppercase italic mb-6 border-b-4 border-foreground pb-4 inline-block">DATA PENGIRIMAN</h3>

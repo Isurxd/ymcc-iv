@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { LogIn } from 'lucide-react';
+import AppSwal from '@/lib/swal';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -21,12 +22,10 @@ export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
     setLoading(true);
 
     try {
@@ -49,7 +48,11 @@ export default function LoginPage() {
       else router.push('/dashboard');
       
     } catch (err: any) {
-      setError(err.message);
+      AppSwal.fire({
+        icon: 'error',
+        title: 'LOGIN GAGAL',
+        text: err.message,
+      });
     } finally {
       setLoading(false);
     }
@@ -77,11 +80,6 @@ export default function LoginPage() {
           
           <CardContent className="pt-8">
             <form onSubmit={onSubmit} className="space-y-6">
-              {error && (
-                <div className="p-3 bg-red-400 border-4 border-foreground shadow-brutal text-foreground text-sm text-center font-bold">
-                  {error}
-                </div>
-              )}
               
               <div className="space-y-2">
                 <Label htmlFor="email" className="text-foreground font-bold uppercase tracking-wider text-sm">Alamat Surel</Label>

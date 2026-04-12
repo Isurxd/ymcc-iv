@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Check, X, RefreshCw } from 'lucide-react';
 import Image from 'next/image';
+import AppSwal from '@/lib/swal';
 
 interface Payment {
   id: string;
@@ -41,7 +42,15 @@ export default function AdminPaymentPage() {
   }, []);
 
   const handleVerify = async (id: string, action: 'APPROVE' | 'REJECT') => {
-    if (!confirm(`Are you sure you want to ${action} this payment?`)) return;
+    const result = await AppSwal.fire({
+      title: 'KONFIRMASI',
+      text: `Are you sure you want to ${action} this payment?`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Ya',
+      cancelButtonText: 'Batal'
+    });
+    if (!result.isConfirmed) return;
 
     try {
       const res = await fetch(`/api/admin/payments/${id}/verify`, {
@@ -52,11 +61,12 @@ export default function AdminPaymentPage() {
       if (res.ok) {
         fetchPayments(); // Refresh list
       } else {
-        alert('Verification failed. See console for details.');
+        AppSwal.fire({ icon: 'error', title: 'GAGAL', text: 'Verification failed. See console for details.' });
         console.error(await res.json());
       }
     } catch (error) {
       console.error('API Error', error);
+      AppSwal.fire({ icon: 'error', title: 'ERROR', text: 'Terjadi kesalahan sistem.' });
     }
   };
 

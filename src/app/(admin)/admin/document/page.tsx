@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Check, X, RefreshCw, Eye } from 'lucide-react';
+import AppSwal from '@/lib/swal';
 
 
 interface Document {
@@ -45,11 +46,19 @@ export default function AdminDocumentPage() {
     const notes = rejectNotes[id];
 
     if (action === 'REJECT' && !notes) {
-      alert('Note penolakan wajib diisi untuk memberi tahu peserta kesalahan pada berkas.');
+      AppSwal.fire({ icon: 'warning', title: 'PERHATIAN', text: 'Note penolakan wajib diisi untuk memberi tahu peserta kesalahan pada berkas.' });
       return;
     }
 
-    if (!confirm(`Are you sure you want to ${action} this document?`)) return;
+    const result = await AppSwal.fire({
+      title: 'KONFIRMASI',
+      text: `Are you sure you want to ${action} this document?`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Ya',
+      cancelButtonText: 'Batal'
+    });
+    if (!result.isConfirmed) return;
 
     try {
       const res = await fetch(`/api/admin/documents/${id}/verify`, {
@@ -60,11 +69,12 @@ export default function AdminDocumentPage() {
       if (res.ok) {
         fetchDocuments(); // Refresh list
       } else {
-        alert('Verification failed. See console for details.');
+        AppSwal.fire({ icon: 'error', title: 'GAGAL', text: 'Verification failed. See console for details.' });
         console.error(await res.json());
       }
     } catch (error) {
       console.error('API Error', error);
+      AppSwal.fire({ icon: 'error', title: 'ERROR', text: 'Terjadi kesalahan sistem.' });
     }
   };
 

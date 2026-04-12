@@ -5,6 +5,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ShieldAlert, KeyRound, Search, UserCog } from 'lucide-react';
+import AppSwal from '@/lib/swal';
 
 export default function SuperAdminUsersPage() {
   const [users, setUsers] = useState<any[]>([]);
@@ -33,7 +34,16 @@ export default function SuperAdminUsersPage() {
   };
 
   const handleRoleChange = async (userId: string, newRole: string) => {
-    if (!confirm(`Ubah role pengguna ini menjadi ${newRole}?`)) return;
+    const result = await AppSwal.fire({
+      title: 'KONFIRMASI',
+      text: `Ubah role pengguna ini menjadi ${newRole}?`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Ya',
+      cancelButtonText: 'Batal'
+    });
+    if (!result.isConfirmed) return;
+
     try {
       const res = await fetch(`/api/users/${userId}`, {
         method: 'PUT',
@@ -44,20 +54,28 @@ export default function SuperAdminUsersPage() {
         const error = await res.json();
         throw new Error(error.message || 'Gagal mengubah role');
       }
-      alert('Role berhasil diubah.');
+      AppSwal.fire({ icon: 'success', title: 'BERHASIL', text: 'Role berhasil diubah.' });
       fetchUsers();
     } catch (err: any) {
-      alert(err.message);
+      AppSwal.fire({ icon: 'error', title: 'ERROR', text: err.message });
     }
   };
 
   const handlePasswordReset = async (userId: string) => {
     if (!passwordInput || passwordInput.length < 6) {
-      alert('Kata sandi baru harus minimal 6 karakter');
+      AppSwal.fire({ icon: 'warning', title: 'PERHATIAN', text: 'Kata sandi baru harus minimal 6 karakter' });
       return;
     }
     
-    if (!confirm('Apakah Anda yakin ingin mengatur ulang kata sandi pengguna ini?')) return;
+    const result = await AppSwal.fire({
+      title: 'KONFIRMASI',
+      text: 'Apakah Anda yakin ingin mengatur ulang kata sandi pengguna ini?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Ya',
+      cancelButtonText: 'Batal'
+    });
+    if (!result.isConfirmed) return;
     
     try {
       const res = await fetch(`/api/users/${userId}`, {
@@ -71,11 +89,11 @@ export default function SuperAdminUsersPage() {
         throw new Error(error.message || 'Gagal mengubah password');
       }
       
-      alert('Kata sandi berhasil diatur ulang!');
+      AppSwal.fire({ icon: 'success', title: 'BERHASIL', text: 'Kata sandi berhasil diatur ulang!' });
       setEditingPasswordFor(null);
       setPasswordInput('');
     } catch (err: any) {
-      alert(err.message);
+      AppSwal.fire({ icon: 'error', title: 'ERROR', text: err.message });
     }
   };
 
