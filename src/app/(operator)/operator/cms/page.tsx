@@ -85,41 +85,52 @@ export default function OperatorCMS() {
   };
 
   return (
-    <div className="container mx-auto p-4 md:p-8">
-      <h1 className="text-3xl font-bold mb-8 text-[#001F3F]">Berita & Artikel CMS</h1>
+    <div className="space-y-6">
+      <header className="mb-10 border-b-4 border-foreground pb-6 bg-white p-6 shadow-brutal-sm">
+        <h1 className="text-5xl font-black tracking-wide text-foreground uppercase">
+          CMS PUBLIKASI MEDIA.
+        </h1>
+        <p className="text-zinc-600 font-bold uppercase mt-2">Mesin pendorong artikel dan pembaruan berita publik YMCC VII.</p>
+      </header>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         
         {/* FORM BAGIAN KIRI */}
         <div className="md:col-span-1">
-          <Card>
-             <CardHeader className="bg-gray-50 border-b">
-               <CardTitle className="text-xl text-[#E63E00]">
-                 {isEditing ? "Edit Artikel" : "Tulis Artikel Baru"}
+          <Card className="rounded-none border-4 border-foreground shadow-[6px_6px_0_0_#CCFF00] sticky top-8">
+             <CardHeader className="bg-foreground border-b-4 border-foreground text-white p-6">
+               <CardTitle className="text-2xl font-black uppercase tracking-wide">
+                 {isEditing ? "UPDATE ARTIKEL" : "TULIS BERITA BARU"}
                </CardTitle>
              </CardHeader>
              <CardContent className="p-6">
                <form onSubmit={handleSave} className="space-y-4">
                  <div>
-                   <label className="block text-sm font-medium text-gray-700 mb-1">Judul Artikel</label>
-                   <Input value={title} onChange={e => setTitle(e.target.value)} required placeholder="Contoh: Info Lomba" />
+                   <label className="block text-sm font-bold text-foreground mb-2 uppercase tracking-wide">Judul Artikel</label>
+                   <Input value={title} onChange={e => setTitle(e.target.value)} required placeholder="Contoh: Info Lomba" className="rounded-none border-2 border-foreground h-12 font-semibold" />
                  </div>
                  <div>
-                   <label className="block text-sm font-medium text-gray-700 mb-1">URL Thumbnail (Opsional)</label>
-                   <Input value={thumbnailUrl} onChange={e => setThumbnail(e.target.value)} placeholder="https://..." />
+                   <label className="block text-sm font-bold text-foreground mb-2 uppercase tracking-wide">URL Thumbnail (Opsional)</label>
+                   <Input value={thumbnailUrl} onChange={e => setThumbnail(e.target.value)} placeholder="https://..." className="rounded-none border-2 border-foreground h-12 font-semibold" />
                  </div>
                  <div>
-                   <label className="block text-sm font-medium text-gray-700 mb-1">Konten Berita</label>
+                   <label className="block text-sm font-bold text-foreground mb-2 uppercase tracking-wide">Konten Berita</label>
                    <textarea 
-                     className="w-full h-48 border rounded-md p-3 focus:ring-[#FF4500] focus:border-[#FF4500] outline-none"
+                     className="w-full border-2 border-foreground rounded-none p-3 outline-none focus:border-[#E63E00] min-h-[200px] font-medium"
                      value={content}
                      onChange={e => setContent(e.target.value)}
                      required
                      placeholder="Tulis detail artikel dengan format HTML atau teks biasa..."
                    />
                  </div>
-                 <div className="flex gap-2">
-                   <Button type="submit" className="flex-1 bg-[#001F3F] text-white hover:bg-blue-900 border-none transition-transform active:scale-95">Simpan</Button>
-                   {isEditing && <Button type="button" onClick={resetForm} className="bg-gray-200 text-black hover:bg-gray-300 transition-transform active:scale-95">Batal</Button>}
+                 <div className="flex gap-4 pt-2">
+                   <Button type="submit" className="flex-1 bg-[#E63E00] hover:bg-[#CCFF00] hover:text-[#001F3F] text-white border-2 border-transparent hover:border-[#001F3F] transition-all rounded-none h-14 font-black text-xl uppercase tracking-wider">
+                     {isEditing ? "UPDATE" : "PUBLIKASIKAN"}
+                   </Button>
+                   {isEditing && (
+                     <Button type="button" onClick={resetForm} className="bg-zinc-200 text-foreground hover:bg-zinc-300 border-2 border-transparent transition-all rounded-none h-14 font-black text-xl uppercase tracking-wider">
+                       BATAL
+                     </Button>
+                   )}
                  </div>
                </form>
              </CardContent>
@@ -127,32 +138,51 @@ export default function OperatorCMS() {
         </div>
 
         {/* LIST BAGIAN KANAN */}
-        <div className="md:col-span-2 space-y-4">
-          {loading ? <p className="animate-pulse text-[#E63E00]">Memuat daftar artikel...</p> : 
-           articles.map(art => (
-             <Card key={art.id} className="flex flex-col md:flex-row shadow-sm hover:shadow transition-shadow">
-               {art.thumbnailUrl && <img src={art.thumbnailUrl} alt="Thumbnail" className="w-full md:w-32 h-32 object-cover rounded-t-lg md:rounded-l-lg md:rounded-tr-none" />}
-               <div className="p-4 flex flex-col justify-between w-full">
+        <div className="md:col-span-2 space-y-6">
+          {loading ? (
+            <div className="bg-white border-4 border-foreground p-8 text-center animate-pulse">
+              <p className="font-black text-2xl uppercase tracking-wide text-[#E63E00]">MENGAKSES SERVER PUBLIKASI...</p>
+            </div>
+          ) : articles.map(art => (
+             <Card key={art.id} className="rounded-none border-4 border-foreground bg-white shadow-brutal-sm hover:-translate-y-1 hover:shadow-brutal-lg transition-all overflow-hidden flex flex-col md:flex-row">
+               {art.thumbnailUrl ? (
+                 <img src={art.thumbnailUrl} alt="Thumbnail" className="w-full md:w-48 h-48 md:h-auto object-cover border-b-4 md:border-b-0 md:border-r-4 border-foreground" />
+               ) : (
+                 <div className="w-full md:w-48 h-48 md:h-auto bg-[#CCFF00] border-b-4 md:border-b-0 md:border-r-4 border-foreground flex items-center justify-center font-black text-[#001F3F] opacity-50 uppercase tracking-widest text-center px-4">
+                   NO IMAGE
+                 </div>
+               )}
+               <div className="p-6 flex flex-col justify-between w-full">
                   <div>
-                    <h3 className="font-bold text-lg text-[#001F3F] line-clamp-1">{art.title}</h3>
-                    <p className="text-gray-500 text-xs mb-2 bg-gray-100 w-fit px-2 py-1 rounded">{new Date(art.createdAt).toLocaleDateString()}</p>
-                    <p className="text-gray-700 line-clamp-2 text-sm max-w-xl">{art.content.replace(/<[^>]+>/g, '')}</p>
+                    <h3 className="font-black text-2xl uppercase tracking-wide text-[#001F3F] mb-1 line-clamp-2">{art.title}</h3>
+                    <div className="inline-block bg-[#001F3F] text-white text-[10px] font-bold px-2 py-1 mb-4 uppercase tracking-widest">
+                      {new Date(art.createdAt).toLocaleDateString()}
+                    </div>
+                    <p className="text-zinc-600 font-semibold line-clamp-2 text-sm">{art.content.replace(/<[^>]+>/g, '')}</p>
                   </div>
-                  <div className="flex gap-2 mt-4 justify-end">
+                  <div className="flex gap-3 mt-6 pt-4 border-t-2 border-dashed border-zinc-200">
                     <Button onClick={() => {
                         setIsEditing(art.id);
                         setTitle(art.title);
                         setContent(art.content);
                         setThumbnail(art.thumbnailUrl || "");
                         window.scrollTo(0,0);
-                    }} className="bg-white border border-[#E63E00] text-[#E63E00] hover:bg-[#E63E00] hover:text-white transition-colors px-4 py-1 h-8 rounded-md text-sm">Edit</Button>
-                    <Button onClick={() => deleteArticle(art.id)} className="bg-red-500 text-white hover:bg-red-600 transition-colors px-4 py-1 h-8 rounded-md text-sm">Hapus</Button>
+                    }} className="bg-transparent text-foreground hover:bg-[#CCFF00] border-2 border-foreground transition-colors rounded-none px-4 py-2 font-bold uppercase tracking-widest text-xs h-10">
+                      REVISI
+                    </Button>
+                    <Button onClick={() => deleteArticle(art.id)} className="bg-zinc-100 text-red-600 hover:bg-red-600 hover:text-white border-2 border-red-600 transition-colors rounded-none px-4 py-2 font-bold uppercase tracking-widest text-xs h-10">
+                      TARIK BERITA
+                    </Button>
                   </div>
                </div>
              </Card>
-           ))
+            ))
           }
-          {!loading && articles.length === 0 && <p className="text-gray-500 text-center py-12 border rounded-md bg-gray-50">Belum ada artikel yang diterbitkan.</p>}
+          {!loading && articles.length === 0 && (
+            <div className="bg-zinc-100 border-4 border-dashed border-zinc-400 p-12 text-center rounded-none">
+              <p className="font-black text-3xl text-zinc-400 uppercase tracking-wide">BELUM ADA PUBLIKASI.</p>
+            </div>
+          )}
         </div>
       </div>
     </div>
