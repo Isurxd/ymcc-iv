@@ -1,0 +1,1 @@
+src/app/(public)/checkout/page.tsx(220,80): error TS2304: Cannot find name 'totalItems'.

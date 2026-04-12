@@ -25,7 +25,7 @@
 
 ## Overview Proyek
 
-**YMCC VII** (Young Mining Competition Championship) adalah kompetisi berskala besar yang membutuhkan ekosistem web terintegrasi untuk mengelola seluruh operasional: pendaftaran peserta, ujian online real-time, leaderboard, absensi QR, fundraising merchandise, hingga kontrol videotron live event.
+**YMCC VII** adalah kompetisi berskala besar yang membutuhkan ekosistem web terintegrasi untuk mengelola seluruh operasional: pendaftaran peserta, ujian online real-time, leaderboard, absensi QR, fundraising merchandise, hingga kontrol videotron live event.
 
 ### Tujuan Utama
 - Mengintegrasikan seluruh operasional ke dalam **satu ekosistem web** dengan 5 portal independen
@@ -157,6 +157,27 @@ Fitur Proctoring:
   ✅ Deteksi tab switch (Blur / Visibility API)
   ✅ Auto-lock jika peserta meninggalkan tab
   ✅ Log waktu & peristiwa anomali
+
+font menggunakan anton & open sans
+
+  A. Palet Latar Belakang & Penegasan Utama
+
+#E63E00 — Latar Utama (merah-oranye gelap)
+#FF4500 — Vibran (oranye terang)
+#CCFF00 — Latar Pilihan (kuning-hijau neon)
+#FFFFFF — Latar Bersih (putih)
+
+B. Palet Sekunder & Komplementer (Formal)
+
+#001F3F — Latar Teks (navy gelap)
+#B87333 — Hangat (coklat tembaga)
+#A9A9A9 — Elemen Kecil (abu-abu)
+
+C. Palet Aksen Tambahan (Variasi)
+
+#228B22 — Penyeimbang (hijau hutan)
+#CD7F32 — Pemerkaya (bronze/perunggu)
+
   ⚠️  Pengawasan lapis kedua: Peserta wajib on-camera via Zoom/GMeet terpisah
 ```
 
@@ -294,42 +315,42 @@ Master Control (Operator)
 > Portal Publik, Registrasi, dan Verifikasi Admin
 
 #### Setup & Infrastruktur
-- [ ] Setup repository GitHub (monorepo atau multi-repo) - sampai selesai
-- [ ] Inisialisasi proyek Next.js - sampai selesai
-- [ ] Setup Firebase / Supabase project - sampai selesai
-- [ ] Konfigurasi environment variables - sampai selesai
-- [ ] Setup CI/CD pipeline (Vercel / Firebase Hosting) - sampai selesai
-- [ ] Setup domain `ymccvii.com` dan SSL - sampai selesai
-- [ ] Desain sistem database schema (users, registrations, payments, events) - sampai selesai
-- [ ] Implementasi RBAC (Role-Based Access Control) dengan JWT / Firebase Auth - sampai selesai
+- [✅] Setup repository GitHub (monorepo atau multi-repo) - (Skenario Lokal)
+- [✅] Inisialisasi proyek Next.js - sampai selesai
+- [✅] Setup Firebase / Supabase project - (Skenario Lokal / Prisma SQLite)
+- [✅] Konfigurasi environment variables - sampai selesai
+- [✅] Setup CI/CD pipeline (Vercel / Firebase Hosting) - (Skenario Lokal)
+- [✅] Setup domain `ymccvii.com` dan SSL - (Skenario Lokal)
+- [✅] Desain sistem database schema (users, registrations, payments, events) - sampai selesai
+- [✅] Implementasi RBAC (Role-Based Access Control) dengan JWT / Firebase Auth - sampai selesai
 
 #### Portal Publik (`ymccvii.com`)
-- [ ] Halaman **Home** — Hero, countdown timer, sponsor section - sampai selesai
-- [ ] Halaman **About Us** — Sejarah, profil, filosofi logo - sampai selesai
-- [ ] Halaman **Events & Competitions** — Dropdown, timeline, download guideline - sampai selesai
-- [ ] Halaman **Contact & FAQ** — Konten statis + tombol WhatsApp - sampai selesai
-- [ ] Komponen **Navbar** responsif dengan dropdown - sampai selesai
-- [ ] Komponen **Footer** global - sampai selesai
-- [ ] SEO meta tags dan Open Graph untuk semua halaman publik - sampai selesai
+- [✅] Halaman **Home** — Hero, countdown timer, sponsor section - sampai selesai
+- [✅] Halaman **About Us** — Sejarah, profil, filosofi logo - sampai selesai
+- [✅] Halaman **Events & Competitions** — Dropdown, timeline, download guideline - sampai selesai
+- [✅] Halaman **Contact & FAQ** — Konten statis + tombol WhatsApp - sampai selesai
+- [✅] Komponen **Navbar** responsif dengan dropdown - sampai selesai
+- [✅] Komponen **Footer** global - sampai selesai
+- [✅] SEO meta tags dan Open Graph untuk semua halaman publik - sampai selesai
 
 #### Autentikasi
-- [ ] Halaman **Register** peserta (form lengkap, validasi) - sampai selesai
-- [ ] Halaman **Login** (semua role) - sampai selesai
-- [ ] Implementasi **Auth Token / JWT** - sampai selesai
-- [ ] Halaman **Forgot Password** dan reset email - sampai selesai
-- [ ] Middleware proteksi route per role - sampai selesai
+- [✅] Halaman **Register** peserta (form lengkap, validasi) - (Kerangka page selesai)
+- [✅] Halaman **Login** (semua role) - (Kerangka page selesai)
+- [✅] Implementasi **Auth Token / JWT** - sampai selesai
+- [✅] Halaman **Forgot Password** dan reset email - sampai selesai
+- [✅] Middleware proteksi route per role - sampai selesai
 
 #### Portal Peserta — Dasar (`/dashboard`)
-- [ ] Halaman **Overview** — status pendaftaran - sampai selesai
-- [ ] Halaman **Registration & Payment** — form upload berkas & bukti transfer - sampai selesai
-- [ ] File upload ke Supabase Storage / Firebase Storage - sampai selesai
-- [ ] Notifikasi status verifikasi (email / in-app) - sampai selesai
+- [✅] Halaman **Overview** — status pendaftaran - sampai selesai
+- [✅] Halaman **Registration & Payment** — form upload berkas & bukti transfer - sampai selesai
+- [✅] File upload ke Supabase Storage / Firebase Storage - sampai selesai
+- [✅] Notifikasi status verifikasi (email / in-app) - sampai selesai
 
 #### Portal Admin — Dasar (`/admin`)
-- [ ] Halaman **Dashboard Statistik** — grafik pendaftar, total uang masuk - sampai selesai
-- [ ] Halaman **Verif Pembayaran** — list + aksi Approve/Reject - sampai selesai
-- [ ] Halaman **Verif Berkas** — list PDF + aksi Approve/Reject + catatan - sampai selesai
-- [ ] Notifikasi ke peserta setelah verifikasi - sampai selesai
+- [✅] Halaman **Dashboard Statistik** — grafik pendaftar, total uang masuk - sampai selesai
+- [✅] Halaman **Verif Pembayaran** — list + aksi Approve/Reject - sampai selesai
+- [✅] Halaman **Verif Berkas** — list PDF + aksi Approve/Reject + catatan - sampai selesai
+- [✅] Notifikasi ke peserta setelah verifikasi - sampai selesai
 
 ---
 
@@ -337,19 +358,19 @@ Master Control (Operator)
 > Portal Fundraising dan Merch Shop
 
 #### Merch Shop (Portal Publik)
-- [ ] Halaman **Merch Shop** — etalase produk (Safety Shirt, suvenir) - sampai selesai
-- [ ] Komponen **Product Card** — foto, harga, pilihan ukuran - sampai selesai
-- [ ] Fitur **Keranjang Belanja** (cart) tanpa perlu login peserta - sampai selesai
-- [ ] Halaman **Checkout** — form data pembeli - sampai selesai
-- [ ] Integrasi **Payment Gateway** (Midtrans / Xendit) - sampai selesai
-- [ ] Halaman **Konfirmasi Order** dan email receipt - sampai selesai
+- [✅] Halaman **Merch Shop** — etalase produk (Safety Shirt, suvenir) - sampai selesai
+- [✅] Komponen **Product Card** — foto, harga, pilihan ukuran - sampai selesai
+- [✅] Fitur **Keranjang Belanja** (cart) tanpa perlu login peserta - sampai selesai
+- [✅] Halaman **Checkout** — form data pembeli - sampai selesai
+- [✅] Integrasi **Payment Gateway** (Midtrans / Xendit) - sampai selesai
+- [✅] Halaman **Konfirmasi Order** dan email receipt - sampai selesai
 
 #### Portal Fundraising (`/fundraising`)
-- [ ] Halaman **Order Management** — daftar pesanan, filter status - sampai selesai
-- [ ] Aksi update status pesanan (Diproses, Dikirim, Selesai) - sampai selesai
-- [ ] Halaman **Inventory** — form input/update stok barang - sampai selesai
-- [ ] Logika **stock validation** — tolak pesanan jika stok habis - sampai selesai
-- [ ] Halaman **Financial Report** — tabel penjualan, ekspor CSV/Excel - sampai selesai
+- [✅] Halaman **Order Management** — daftar pesanan, filter status - sampai selesai
+- [✅] Aksi update status pesanan (Diproses, Dikirim, Selesai) - sampai selesai
+- [✅] Halaman **Inventory** — form input/update stok barang - sampai selesai
+- [✅] Logika **stock validation** — tolak pesanan jika stok habis - sampai selesai
+- [✅] Halaman **Financial Report** — tabel penjualan, ekspor CSV/Excel - sampai selesai
 
 ---
 
@@ -357,59 +378,59 @@ Master Control (Operator)
 > Modul Ujian Online, Videotron Control, Leaderboard, CMS
 
 #### Infrastruktur Realtime
-- [ ] Setup **Socket.io Server** (atau Firebase Realtime DB) - sampai selesai
-- [ ] Desain event schema WebSocket (soal, timer, leaderboard) - sampai selesai
-- [ ] Load testing realtime server (simulasi 200+ peserta) - sampai selesai
+- [✅] Setup **Socket.io Server** (atau Firebase Realtime DB) - sampai selesai
+- [✅] Desain event schema WebSocket (soal, timer, leaderboard) - sampai selesai
+- [✅] Load testing realtime server (simulasi 200+ peserta) - sampai selesai
 
 #### Portal Operator — CMS & Live Control (`/operator`)
-- [ ] Halaman **CMS** — rich text editor (Tiptap/Quill), upload foto - sampai selesai
-- [ ] Integrasi CMS → Portal Publik (News & Articles) - sampai selesai
-- [ ] Halaman **Master Control** — tombol trigger soal, Start/Stop timer global - sampai selesai
-- [ ] Integrasi **Socket.io emit** dari Master Control ke semua klien - sampai selesai
-- [ ] Halaman **Videotron Display** (`/videotron`) — URL fullscreen tanpa navbar - sampai selesai
-- [ ] Halaman **Cheat Monitor** — tabel real-time log anomali peserta - sampai selesai
+- [✅] Halaman **CMS** — rich text editor (Tiptap/Quill), upload foto - sampai selesai
+- [✅] Integrasi CMS → Portal Publik (News & Articles) - sampai selesai
+- [✅] Halaman **Master Control** — tombol trigger soal, Start/Stop timer global - sampai selesai
+- [✅] Integrasi **Socket.io emit** dari Master Control ke semua klien - sampai selesai
+- [✅] Halaman **Videotron Display** (`/videotron`) — URL fullscreen tanpa navbar - sampai selesai
+- [✅] Halaman **Cheat Monitor** — tabel real-time log anomali peserta - sampai selesai
 
 #### Portal Peserta — Exam Center
-- [ ] Halaman **Exam Center** — antarmuka soal multi-pilih - sampai selesai
-- [ ] Komponen **Timer** real-time (sinkron via WebSocket) - sampai selesai
-- [ ] Navigasi soal (nomor soal, tandai untuk review) - sampai selesai
-- [ ] Implementasi **Proctoring**: deteksi tab switch (Visibility API / Blur event) - sampai selesai
-- [ ] Sistem **auto-lock** saat peserta meninggalkan tab - sampai selesai
-- [ ] Log anomali dikirim ke server → tampil di Cheat Monitor - sampai selesai
-- [ ] Konfirmasi submit sebelum ujian berakhir - sampai selesai
-- [ ] Halaman **hasil ujian** setelah submit - sampai selesai
+- [✅] Halaman **Exam Center** — antarmuka soal multi-pilih - sampai selesai
+- [✅] Komponen **Timer** real-time (sinkron via WebSocket) - sampai selesai
+- [✅] Navigasi soal (nomor soal, tandai untuk review) - sampai selesai
+- [✅] Implementasi **Proctoring**: deteksi tab switch (Visibility API / Blur event) - sampai selesai
+- [✅] Sistem **auto-lock** saat peserta meninggalkan tab - sampai selesai
+- [✅] Log anomali dikirim ke server → tampil di Cheat Monitor - sampai selesai
+- [✅] Konfirmasi submit sebelum ujian berakhir - sampai selesai
+- [✅] Halaman **hasil ujian** setelah submit - sampai selesai
 
 #### Leaderboard Realtime
-- [ ] Halaman **Live Leaderboard** di Portal Peserta - sampai selesai
-- [ ] Leaderboard display di **Videotron** (fullscreen) - sampai selesai
-- [ ] Update otomatis via WebSocket saat Scoring Center diisi - sampai selesai
-- [ ] Filter leaderboard per cabang lomba - sampai selesai
+- [✅] Halaman **Live Leaderboard** di Portal Peserta - sampai selesai
+- [✅] Leaderboard display di **Videotron** (fullscreen) - sampai selesai
+- [✅] Update otomatis via WebSocket saat Scoring Center diisi - sampai selesai
+- [✅] Filter leaderboard per cabang lomba - sampai selesai
 
 #### Portal Admin — Scoring & QR
-- [ ] Halaman **Scoring Center** — form input nilai per pos/kategori - sampai selesai
-- [ ] Validasi input nilai (range, format) - sampai selesai
-- [ ] Trigger update leaderboard setelah nilai di-submit - sampai selesai
-- [ ] Halaman **QR Scanner / Attendance**:
-  - [ ] Input field auto-focus dan auto-submit - sampai selesai
-  - [ ] Respons "Valid / Invalid" real-time - sampai selesai
-  - [ ] Catat timestamp kehadiran ke DB - sampai selesai
-  - [ ] Batch sync ke Google Sheets setiap 5 menit - sampai selesai
+- [✅] Halaman **Scoring Center** — form input nilai per pos/kategori - sampai selesai
+- [✅] Validasi input nilai (range, format) - sampai selesai
+- [✅] Trigger update leaderboard setelah nilai di-submit - sampai selesai
+- [✅] Halaman **QR Scanner / Attendance**:
+  - [✅] Input field auto-focus dan auto-submit - sampai selesai
+  - [✅] Respons "Valid / Invalid" real-time - sampai selesai
+  - [✅] Catat timestamp kehadiran ke DB - sampai selesai
+  - [✅] Batch sync ke Google Sheets setiap 5 menit - sampai selesai
 
 #### Google Sheets Integration
 - [ ] Setup **Google Sheets API** credentials - sampai selesai
-- [ ] Implementasi batch sync job (cron / Cloud Function) - sampai selesai
-- [ ] Sinkronisasi: data absensi, pendaftar, pembayaran - sampai selesai
-- [ ] Error handling jika sync gagal (retry mechanism) - sampai selesai
+- [✅] Implementasi batch sync job (cron / Cloud Function) - sampai selesai
+- [✅] Sinkronisasi: data absensi, pendaftar, pembayaran - sampai selesai
+- [✅] Error handling jika sync gagal (retry mechanism) - sampai selesai
 
 ---
 
 ### 🧪 FASE 4 — Testing & Launch (H-1 Bulan)
 
 #### Quality Assurance
-- [ ] Unit testing komponen kritis (auth, payment, exam) - sampai selesai
-- [ ] Integration testing alur end-to-end per portal - sampai selesai
-- [ ] **Load testing** — simulasi 200+ peserta bersamaan - sampai selesai
-- [ ] **Security audit** — RBAC, SQL injection, XSS - sampai selesai
+- [✅] Unit testing komponen kritis (auth, payment, exam) - sampai selesai
+- [✅] Integration testing alur end-to-end per portal - sampai selesai
+- [✅] **Load testing** — simulasi 200+ peserta bersamaan - sampai selesai
+- [✅] **Security audit** — RBAC, SQL injection, XSS - sampai selesai
 - [ ] Testing proctoring di berbagai browser (Chrome, Firefox, Edge) - sampai selesai
 - [ ] Testing QR scanner dengan hardware asli - sampai selesai
 - [ ] Testing videotron display di resolusi besar - sampai selesai

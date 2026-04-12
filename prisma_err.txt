@@ -1,0 +1,25 @@
+Loaded Prisma config from prisma.config.ts.
+
+Prisma config detected, skipping environment variable loading.
+Prisma schema loaded from prisma\schema.prisma
+Error: Prisma schema validation - (get-dmmf wasm)
+Error code: P1012
+error: Error validating field `event` in model `Exam`: The relation field `event` on model `Exam` is missing an opposite relation field on the model `Event`. Either run `prisma format` or add it manually.
+  -->  prisma\schema.prisma:95
+   | 
+94 |   
+95 |   event       Event          @relation(fields: [eventId], references: [id], onDelete: Cascade)
+96 |   questions   Question[]
+   | 
+error: Error validating field `registration` in model `ExamAttempt`: The relation field `registration` on model `ExamAttempt` is missing an opposite relation field on the model `Registration`. Either run `prisma format` or add it manually.
+  -->  prisma\schema.prisma:122
+   | 
+121 |   
+122 |   registration    Registration @relation(fields: [registrationId], references: [id], onDelete: Cascade)
+123 |   exam            Exam         @relation(fields: [examId], references: [id], onDelete: Cascade)
+   | 
+
+Validation Error Count: 2
+[Context: getDmmf]
+
+Prisma CLI Version : 6.19.2
