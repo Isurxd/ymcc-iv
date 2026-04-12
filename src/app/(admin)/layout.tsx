@@ -1,3 +1,5 @@
+'use client';
+
 import { LayoutDashboard, CreditCard, FileCheck2, QrCode, Calendar, BarChart3 } from 'lucide-react';
 import { InternalSidebar } from '@/components/ui/internal-sidebar';
 

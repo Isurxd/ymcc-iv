@@ -1,3 +1,5 @@
+'use client';
+
 import { Database, ShieldAlert, Activity } from 'lucide-react';
 import { InternalSidebar } from '@/components/ui/internal-sidebar';
 

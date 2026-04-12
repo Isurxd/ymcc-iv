@@ -1,3 +1,5 @@
+'use client';
+
 import { ShoppingCart, Package } from 'lucide-react';
 import { InternalSidebar } from '@/components/ui/internal-sidebar';
 

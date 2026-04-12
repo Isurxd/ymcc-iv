@@ -1,3 +1,5 @@
+'use client';
+
 import { Shield, Radio, Terminal } from 'lucide-react';
 import { InternalSidebar } from '@/components/ui/internal-sidebar';
 
