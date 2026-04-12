@@ -1,16 +1,19 @@
-import { Navbar } from '@/components/ui/navbar';
-import { Footer } from '@/components/ui/footer';
+import { ShoppingCart, Package } from 'lucide-react';
+import { InternalSidebar } from '@/components/ui/internal-sidebar';
 
-export default function FundraisingLayout({ children }: { children: React.ReactNode }) {
+export default function FundraisingLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const fundraisingLinks = [
+    { href: '/fundraising', label: 'PESANAN MASUK', icon: ShoppingCart },
+    { href: '/fundraising/inventory', label: 'KATALOG STOK', icon: Package },
+  ];
+
   return (
-    <div className="flex flex-col min-h-screen bg-zinc-50">
-      <Navbar />
-      <main className="flex-grow pt-24 pb-20">
-        <div className="container mx-auto px-6 max-w-7xl">
-          {children}
-        </div>
-      </main>
-      <Footer />
-    </div>
+    <InternalSidebar portalName="Divisi Danus" navLinks={fundraisingLinks}>
+      {children}
+    </InternalSidebar>
   );
 }
