@@ -7,6 +7,7 @@ import { Trophy, Clock, Users } from 'lucide-react';
 export default function VideotronDisplay() {
   const [examState, setExamState] = useState<'IDLE' | 'RUNNING' | 'PAUSED'>('IDLE');
   const [activeQuestion, setActiveQuestion] = useState<{ id: string, text: string } | null>(null);
+  const [activeParticipants, setActiveParticipants] = useState<number>(0);
   
   const socket = getSocket();
 
@@ -15,10 +16,25 @@ export default function VideotronDisplay() {
     socket.on('EXAM_PAUSED', () => setExamState('PAUSED'));
     socket.on('ACTIVE_QUESTION', (q) => setActiveQuestion(q));
     
+    // Fetch initial participant count
+    fetch('/api/participant-count')
+      .then(res => res.json())
+      .then(data => setActiveParticipants(data.count))
+      .catch(() => {});
+
+    // Optional: Poll every 10 seconds for live updates
+    const interval = setInterval(() => {
+      fetch('/api/participant-count')
+        .then(res => res.json())
+        .then(data => setActiveParticipants(data.count))
+        .catch(() => {});
+    }, 10000);
+
     return () => {
       socket.off('EXAM_STARTED');
       socket.off('EXAM_PAUSED');
       socket.off('ACTIVE_QUESTION');
+      clearInterval(interval);
     };
   }, [socket]);
 
@@ -53,7 +69,7 @@ export default function VideotronDisplay() {
         <div className="flex items-center gap-8">
           <div className="flex items-center gap-3">
              <Users className="w-8 h-8 text-[#CCFF00]" />
-             <span className="text-4xl font-black ">1,402</span>
+             <span className="text-4xl font-black ">{activeParticipants.toLocaleString('id-ID')}</span>
           </div>
           <div className="flex items-center gap-3">
              <Clock className={`w-8 h-8 ${examState === 'RUNNING' ? 'text-[#CCFF00] animate-spin-slow' : 'text-red-500'}`} />
