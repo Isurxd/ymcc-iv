@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react';
 
 export default function CheatMonitorPage() {
   const [logs, setLogs] = useState<any[]>([]);
+  const [activeParticipants, setActiveParticipants] = useState<number>(0);
 
   const socket = getSocket();
 
@@ -30,13 +31,25 @@ export default function CheatMonitorPage() {
       });
     });
     
+    fetch('/api/participant-count')
+      .then(res => res.json())
+      .then(data => setActiveParticipants(data.count))
+      .catch(() => {});
+
+    const interval = setInterval(() => {
+      fetch('/api/participant-count')
+        .then(res => res.json())
+        .then(data => setActiveParticipants(data.count))
+        .catch(() => {});
+    }, 10000);
+
     return () => {
       socket.off('CHEAT_WARNING');
+      clearInterval(interval);
     };
   }, [socket]);
 
   // Derived Statistics
-  const activeParticipants = 1402; // Keep static or fetch from DB if needed
   const totalViolations = logs.reduce((acc, log) => acc + log.vios, 0);
   const autolockBanned = logs.filter(log => log.vios >= 3).length;
 
