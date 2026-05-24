@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ShoppingBag, Truck, Package, Clock, CheckCircle2 } from 'lucide-react';
@@ -8,7 +8,7 @@ import { ShoppingBag, Truck, Package, Clock, CheckCircle2 } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import AppSwal from '@/lib/swal';
 
-export default function ParticipantOrdersPage() {
+function OrdersContent() {
   const [orders, setOrders] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const searchParams = useSearchParams();
@@ -39,7 +39,7 @@ export default function ParticipantOrdersPage() {
       finally { setLoading(false); }
     };
     fetchOrders();
-  }, []);
+  }, [searchParams]);
 
   const getStatusIcon = (status: string) => {
     switch (status) {
@@ -121,5 +121,13 @@ export default function ParticipantOrdersPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function ParticipantOrdersPage() {
+  return (
+    <Suspense fallback={<div className="p-20 text-center font-bold">MEMUAT...</div>}>
+      <OrdersContent />
+    </Suspense>
   );
 }
