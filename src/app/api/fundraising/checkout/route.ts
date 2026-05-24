@@ -23,11 +23,43 @@ export async function POST(req: Request) {
       return NextResponse.json({ message: 'Keranjang kosong' }, { status: 400 });
     }
 
-    // 1. Calculate total order amount (Items + Shipping)
+    // 1. Calculate total order amount (Items + Shipping) - VALIDATED AGAINST DB
     let totalItemsAmount = 0;
+    const verifiedItems = [];
+
     for (const item of items) {
-      totalItemsAmount += item.quantity * item.priceAtBuy;
+      const variant = await prisma.productVariant.findUnique({
+        where: { id: item.variantId },
+        include: { product: true }
+      });
+
+      if (!variant) {
+        return NextResponse.json({ message: `Varian produk ${item.variantId} tidak ditemukan` }, { status: 404 });
+      }
+
+      if (variant.stock < item.quantity) {
+        return NextResponse.json({ message: `Stok ${variant.product.name} tidak mencukupi` }, { status: 400 });
+      }
+
+      const itemPrice = variant.product.price; // Use price from DB
+      totalItemsAmount += item.quantity * itemPrice;
+      
+      verifiedItems.push({
+        variantId: item.variantId,
+        quantity: item.quantity,
+        priceAtBuy: itemPrice
+      });
     }
+    
+    // Deduct stock in a follow-up transaction or directly
+    await prisma.$transaction(
+      verifiedItems.map(item => 
+        prisma.productVariant.update({
+          where: { id: item.variantId },
+          data: { stock: { decrement: item.quantity } }
+        })
+      )
+    );
     
     // Fallback shipping cost if not provided
     const finalShippingCost = shippingCost || 0;
@@ -45,7 +77,7 @@ export async function POST(req: Request) {
         totalAmount: finalTotalAmount,
         status: 'PENDING_PAYMENT',
         items: {
-          create: items.map((item: any) => ({
+          create: verifiedItems.map((item: any) => ({
             variantId: item.variantId,
             quantity: item.quantity,
             priceAtBuy: item.priceAtBuy,
@@ -69,8 +101,8 @@ export async function POST(req: Request) {
         email: customerEmail,
         mobileNumber: customerPhone,
       },
-      successRedirectUrl: `${origin}/fundraising?status=success`,
-      failureRedirectUrl: `${origin}/fundraising?status=failed`,
+      successRedirectUrl: `${origin}/dashboard/orders?status=success`,
+      failureRedirectUrl: `${origin}/dashboard/orders?status=failed`,
       invoiceDuration: 86400, // 24 hours
     };
 

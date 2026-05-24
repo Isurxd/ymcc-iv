@@ -10,7 +10,7 @@ const PROTECTED_ROUTES = {
   SUPERADMIN: '/superadmin'
 };
 
-const PUBLIC_ROUTES = ['/login', '/register', '/about', '/events', '/contact', '/dashboard', '/merch', '/api/auth/login', '/api/auth/register', '/api/auth/logout'];
+const PUBLIC_ROUTES = ['/login', '/register', '/about', '/events', '/contact', '/merch', '/api/auth/login', '/api/auth/register', '/api/auth/logout'];
 
 export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
@@ -45,20 +45,31 @@ export async function middleware(request: NextRequest) {
   // Terapkan Role-Based Access Control (RBAC)
   const role = payload.role as string;
   
-  if (path.startsWith(PROTECTED_ROUTES.MERCH_CART) && role !== 'USER') {
+  // Proteksi rute (Frontend & API)
+  const isAdminPath = path.startsWith('/admin') || path.startsWith('/api/admin');
+  const isOperatorPath = path.startsWith('/operator') || path.startsWith('/api/operator');
+  const isFundraisingPath = path.startsWith('/fundraising') || path.startsWith('/api/fundraising');
+  const isSuperAdminPath = path.startsWith('/superadmin') || path.startsWith('/api/superadmin');
+  const isCartPath = path.startsWith('/cart');
+
+  if (isSuperAdminPath && role !== 'SUPERADMIN') {
+    return NextResponse.redirect(new URL('/', request.url));
+  }
+
+  if (isAdminPath && role !== 'ADMIN' && role !== 'SUPERADMIN') {
+    return NextResponse.json({ message: 'Forbidden' }, { status: 403 });
+  }
+
+  if (isOperatorPath && role !== 'OPERATOR' && role !== 'SUPERADMIN') {
+    return NextResponse.json({ message: 'Forbidden' }, { status: 403 });
+  }
+
+  if (isFundraisingPath && role !== 'FUNDRAISING' && role !== 'SUPERADMIN') {
+    return NextResponse.json({ message: 'Forbidden' }, { status: 403 });
+  }
+
+  if (isCartPath && role !== 'USER') {
     return NextResponse.redirect(new URL('/login', request.url));
-  }
-  if (path.startsWith(PROTECTED_ROUTES.SUPERADMIN) && role !== 'SUPERADMIN') {
-    return NextResponse.redirect(new URL('/', request.url)); // Hanya superadmin
-  }
-  if (path.startsWith(PROTECTED_ROUTES.ADMIN) && role !== 'ADMIN' && role !== 'SUPERADMIN') {
-    return NextResponse.redirect(new URL('/', request.url)); // Admin panel bisa diakses superadmin jika diperluas, tapi amannya batasi strictly role atau superadmin.
-  }
-  if (path.startsWith(PROTECTED_ROUTES.OPERATOR) && role !== 'OPERATOR' && role !== 'SUPERADMIN') {
-    return NextResponse.redirect(new URL('/', request.url)); // Hanya operator
-  }
-  if (path.startsWith(PROTECTED_ROUTES.FUNDRAISING) && role !== 'FUNDRAISING' && role !== 'SUPERADMIN') {
-    return NextResponse.redirect(new URL('/', request.url)); // Hanya tim fundraising
   }
 
   return NextResponse.next();

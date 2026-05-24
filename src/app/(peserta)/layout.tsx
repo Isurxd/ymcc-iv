@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Home, Upload, LogOut, Search, Menu, X } from 'lucide-react';
+import { Home, Upload, LogOut, Search, Menu, X, ShoppingBag, ExternalLink, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function PesertaLayout({
@@ -25,6 +25,9 @@ export default function PesertaLayout({
     { href: '/dashboard', label: 'THE OVERVIEW', icon: Home },
     { href: '/dashboard/registration', label: 'REQUIREMENTS', icon: Upload },
     { href: '/dashboard/exam', label: 'E-CBT SYSTEM', icon: Search },
+    { href: '/merch', label: 'MERCHANDISE', icon: ShoppingBag },
+    { href: '/dashboard/orders', label: 'MY ORDERS', icon: Clock },
+    { href: '/', label: 'BACK TO WEB', icon: ExternalLink },
   ];
 
   return (

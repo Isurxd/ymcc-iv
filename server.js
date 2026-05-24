@@ -11,9 +11,23 @@ const app = next({ dev, hostname, port });
 const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
+  // Global State for Exam - Moved to top for better scoping
+  let isExamRunning = false;
+  let examStartedAt = null;
+  let durationSeconds = 120 * 60; // Default 2 hours
+
   const server = createServer(async (req, res) => {
     try {
       const parsedUrl = parse(req.url, true);
+      const { pathname } = parsedUrl;
+
+      // Custom API for Global Exam State
+      if (pathname === '/api/exam-live-status') {
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify({ isExamRunning, examStartedAt, durationSeconds }));
+        return;
+      }
+
       await handle(req, res, parsedUrl);
     } catch (err) {
       console.error('Error handling request', err);
@@ -33,15 +47,33 @@ app.prepare().then(() => {
   io.on('connection', (socket) => {
     console.log(`[Socket.io] Client connected: ${socket.id}`);
 
+    // Initial state sync
+    socket.emit('EXAM_STATE_SYNC', { isExamRunning, examStartedAt, durationSeconds });
+
     // EXAM STATE CONTROLS (Operator -> Exam Center)
     socket.on('START_EXAM', (data) => {
       console.log('START_EXAM Triggered', data);
-      io.emit('EXAM_STARTED', data);
+      isExamRunning = true;
+      examStartedAt = data.timestamp || Date.now();
+      durationSeconds = data.durationSeconds || durationSeconds;
+      io.emit('EXAM_STARTED', { examStartedAt, durationSeconds });
+      io.emit('EXAM_STATE_SYNC', { isExamRunning, examStartedAt, durationSeconds });
     });
 
-    socket.on('PAUSE_EXAM', () => {
+    socket.on('PAUSE_EXAM', (data) => {
       console.log('PAUSE_EXAM Triggered');
-      io.emit('EXAM_PAUSED');
+      isExamRunning = false;
+      // Optionally adjust durationSeconds based on how much time was used
+      if (data && data.durationSeconds !== undefined) {
+        durationSeconds = data.durationSeconds;
+      }
+      examStartedAt = null;
+      io.emit('EXAM_PAUSED', { durationSeconds });
+      io.emit('EXAM_STATE_SYNC', { isExamRunning, examStartedAt, durationSeconds });
+    });
+
+    socket.on('GET_EXAM_STATE', () => {
+      socket.emit('EXAM_STATE_SYNC', { isExamRunning, examStartedAt, durationSeconds });
     });
 
     socket.on('SHOW_QUESTION', (questionData) => {

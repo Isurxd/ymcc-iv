@@ -33,11 +33,18 @@ export async function POST(req: Request) {
           status: 'PAID',
           updatedAt: new Date(status_transitions?.paid_at || new Date())
         },
-        include: { items: true } // Need items context for shipping
+        include: { 
+          items: {
+            include: {
+              variant: {
+                include: { product: true }
+              }
+            }
+          } 
+        }
       });
 
       // 3. Create Biteship Order (Logistics) automatically if needed
-      // Note: Full Biteship API requires origin address, exact postal codes, etc.
       if (process.env.BITESHIP_API_KEY && order.shippingCourier) {
         try {
           const biteshipResponse = await fetch('https://api.biteship.com/v1/orders', {
@@ -47,26 +54,26 @@ export async function POST(req: Request) {
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-              shipper_contact_name: "Admin YMCC VII",
-              shipper_contact_phone: "081234567890", // Ganti dengan nomor asli
+              shipper_contact_name: "YMCC VII OFFICIAL",
+              shipper_contact_phone: "081234567890", 
               shipper_organization: "YMCC VII",
-              origin_contact_name: "Admin YMCC Logistics",
+              origin_contact_name: "Logistics Team",
               origin_contact_phone: "081234567890",
-              origin_address: "Alamat asal pengiriman (Ganti sesuai panitia)", 
+              origin_address: "YMCC Headquarters, Indonesia", 
               destination_contact_name: order.customerName,
               destination_contact_phone: order.customerPhone,
               destination_contact_email: order.customerEmail,
               destination_address: order.shippingAddress,
-              // Note: For Biteship to work robustly, frontend should ideally send postal_code and area_id
-              destination_postal_code: 12345, // Dummy default
+              destination_postal_code: 10110, // Example fallback
               courier_company: order.shippingCourier, 
-              courier_type: "reg", // Tipe layanan pengiriman (reguler, dll)
+              courier_type: "reg",
               delivery_type: "now",
-              items: order.items.map((item) => ({
-                name: `Barang Variant ${item.variantId}`,
+              items: order.items.map((item: any) => ({
+                name: item.variant.product.name,
+                description: `Size: ${item.variant.size}`,
                 value: item.priceAtBuy,
                 quantity: item.quantity,
-                weight: 200 // Berat estimasi (gram)
+                weight: 500 // Assuming 500g per item
               }))
             })
           });

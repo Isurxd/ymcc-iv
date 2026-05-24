@@ -2,21 +2,21 @@
 
 import Link from 'next/link';
 import { Navbar } from '@/components/ui/navbar';
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import { useLanguage } from '@/lib/LanguageContext';
 
 // Animasi bergaya Gojek (Smooth Fade Up & Staggered)
-const fadeUpVar: any = {
+const fadeUpVar: Variants = {
   hidden: { opacity: 0, y: 60 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8 } }
 };
 
-const staggerVar: any = {
+const staggerVar: Variants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
 };
 
-const scaleUpVar: any = {
+const scaleUpVar: Variants = {
   hidden: { opacity: 0, scale: 0.9 },
   visible: { opacity: 1, scale: 1, transition: { duration: 0.6 } }
 };

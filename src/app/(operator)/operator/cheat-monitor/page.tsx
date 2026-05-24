@@ -4,50 +4,77 @@ import { motion } from 'framer-motion';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Activity, Ban, AlertCircle, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { getSocket } from '@/lib/socket-client';
+import { supabase } from '@/lib/supabase';
 import { useState, useEffect } from 'react';
+import Swal from 'sweetalert2';
 
 export default function CheatMonitorPage() {
   const [logs, setLogs] = useState<any[]>([]);
   const [activeParticipants, setActiveParticipants] = useState<number>(0);
 
-  const socket = getSocket();
-
   useEffect(() => {
-    socket.on('CHEAT_WARNING', (data) => {
-      setLogs((prev) => {
-        const existingIdx = prev.findIndex(log => log.id === data.id);
-        const newLogEntry = { ...data, lastSeen: new Date().toLocaleTimeString() };
-        
-        if (existingIdx !== -1) {
-          // Update existing
-          const newArray = [...prev];
-          newArray[existingIdx] = newLogEntry;
-          return newArray.sort((a, b) => new Date(b.lastSeen).getTime() - new Date(a.lastSeen).getTime() || -1);
-        } else {
-          // Add new at the top
-          return [newLogEntry, ...prev];
-        }
-      });
-    });
-    
-    fetch('/api/participant-count')
-      .then(res => res.json())
-      .then(data => setActiveParticipants(data.count))
-      .catch(() => {});
-
-    const interval = setInterval(() => {
+    const fetchCount = () => {
       fetch('/api/participant-count')
         .then(res => res.json())
         .then(data => setActiveParticipants(data.count))
         .catch(() => {});
-    }, 10000);
+    };
+    
+    fetchCount();
+    const interval = setInterval(fetchCount, 10000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const channel = supabase
+      .channel('cheat_monitor_global')
+      .on('broadcast', { event: 'TAB_SWITCH_DETECTED' }, (payload) => {
+        const data = payload.payload;
+        console.log("Broadcast received cheat event:", data);
+        
+        if (data.vios >= 3) {
+          Swal.fire({
+            title: 'DETEKSI DISKUALIFIKASI!',
+            html: `Peserta: <b>${data.name}</b> (${data.id})<br/>Telah melakukan pelanggaran ke-3!`,
+            icon: 'error',
+            confirmButtonColor: '#001F3F',
+            toast: true,
+            position: 'top-end',
+            timer: 10000,
+            showConfirmButton: false,
+            timerProgressBar: true
+          });
+        }
+
+        setLogs((prev) => {
+          const existingIdx = prev.findIndex(log => log.id === data.id);
+          const newLogEntry = { 
+            ...data, 
+            lastSeen: new Date().toLocaleTimeString(),
+            timestamp: Date.now() 
+          };
+          
+          let newArray;
+          if (existingIdx !== -1) {
+            newArray = [...prev];
+            newArray[existingIdx] = newLogEntry;
+          } else {
+            newArray = [newLogEntry, ...prev];
+          }
+          
+          return newArray.sort((a, b) => b.timestamp - a.timestamp);
+        });
+
+        const originalTitle = document.title;
+        document.title = "⚠️ CHEAT DETECTED!";
+        setTimeout(() => { document.title = originalTitle; }, 2000);
+      })
+      .subscribe();
 
     return () => {
-      socket.off('CHEAT_WARNING');
-      clearInterval(interval);
+      supabase.removeChannel(channel);
     };
-  }, [socket]);
+  }, []);
 
   // Derived Statistics
   const totalViolations = logs.reduce((acc, log) => acc + log.vios, 0);
@@ -107,7 +134,7 @@ export default function CheatMonitorPage() {
             <Ban className="w-6 h-6 text-red-500" />
           </CardHeader>
           <CardContent className="pt-4">
-            <div className="text-6xl font-black uppercase tracking-wide text-[#001F3F]">{autolockBanned}</div>
+            <div className="text-6xl font-black uppercase tracking-wide text-red-500">{autolockBanned}</div>
           </CardContent>
         </Card>
       </div>

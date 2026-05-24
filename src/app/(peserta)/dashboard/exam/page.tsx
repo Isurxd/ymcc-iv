@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Search, Lock, ShieldAlert } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -8,59 +9,64 @@ import { getSocket } from '@/lib/socket-client';
 
 export default function ExamPage() {
   const [user, setUser] = useState<any>(null);
+  const [status, setStatus] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [isExamRunning, setIsExamRunning] = useState(false);
   const violationCountRef = useRef(0);
+  const router = useRouter();
 
   useEffect(() => {
-    fetch('/api/auth/me')
-      .then(res => res.json())
-      .then(data => {
-        if (data.user) setUser(data.user);
-      })
-      .catch(err => console.error(err));
-  }, []);
-
-  useEffect(() => {
-    if (!user) return;
-
-    let timeout: NodeJS.Timeout | null = null;
+    const socket = getSocket();
     
-    const handleViolation = () => {
-      if (timeout) return; // Prevent double trigger (blur + visibilitychange)
-      
-      violationCountRef.current += 1;
-      const socket = getSocket();
-      
-      // Emit to server (which broadcasts to cheat-monitor)
-      socket.emit('TAB_SWITCH_DETECTED', {
-        id: user.email || user.id, // Fallback identity
-        name: user.name,
-        vios: violationCountRef.current,
-      });
+    // Listen for global exam state
+    socket.on('EXAM_STATE_SYNC', (data: { isExamRunning: boolean }) => {
+      setIsExamRunning(data.isExamRunning);
+    });
 
-      alert(`[SYSTEM WARNING]\n\nPelanggaran terdeteksi: Anda keluar dari layar ujian CBT!\nTeguran ke-${violationCountRef.current}. Aktivitas ini telah direkam oleh Master Control Panel.`);
+    const init = async () => {
+      try {
+        const [meRes, statusRes] = await Promise.all([
+          fetch('/api/auth/me'),
+          fetch('/api/participant/exam-status')
+        ]);
+        
+        const meData = await meRes.json();
+        const statusData = await statusRes.json();
+        
+        if (meData.user) setUser(meData.user);
+        setStatus(statusData);
 
-      timeout = setTimeout(() => {
-        timeout = null;
-      }, 3000);
+        // Initial check for live status
+        const liveRes = await fetch('/api/exam-live-status');
+        const liveData = await liveRes.json();
+        setIsExamRunning(liveData.isExamRunning);
+
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
     };
-
-    const handleVisibilityChange = () => {
-      if (document.hidden) handleViolation();
-    };
-
-    const handleBlur = () => {
-      handleViolation();
-    };
-
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-    window.addEventListener("blur", handleBlur);
+    init();
 
     return () => {
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-      window.removeEventListener("blur", handleBlur);
-      if (timeout) clearTimeout(timeout);
+      socket.off('EXAM_STATE_SYNC');
     };
-  }, [user]);
+  }, []);
+
+  const handleStartExam = () => {
+    if (status?.canTakeExam && isExamRunning) {
+      router.push(`/dashboard/exam/live?id=${status.examId}`);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-accent"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
@@ -69,37 +75,62 @@ export default function ExamPage() {
           PORTAL UJIAN (E-CBT)
         </h1>
         <p className="mt-4 font-bold text-zinc-600 uppercase tracking-widest max-w-2xl text-sm leading-relaxed">
-          Sistem Ujian Berbasis Komputer. Hanya dapat diakses ketika registrasi disetujui dan jadwal ujian resmi telah dimulai oleh Operator Pusat.
+          Sistem Ujian Berbasis Komputer. Pastikan koneksi stabil sebelum memulai. Pelanggaran (pindah tab) akan terekam otomatis.
         </p>
       </div>
 
       <div className="grid grid-cols-1 gap-8 max-w-4xl mx-auto">
-        <Card className="bg-white border-4 border-foreground shadow-[16px_16px_0_0_var(--color-foreground)] rounded-none">
-          <CardHeader className="border-b-4 border-foreground bg-[#001F3F] p-8 text-center">
-            <ShieldAlert className="w-16 h-16 text-accent mx-auto mb-4" />
+        <Card className={`bg-white border-4 border-foreground shadow-[16px_16px_0_1px_var(--color-foreground)] rounded-none ${status?.canTakeExam ? 'ring-8 ring-accent/20' : ''}`}>
+          <CardHeader className={`border-b-4 border-foreground p-8 text-center ${status?.canTakeExam ? 'bg-green-500' : 'bg-[#001F3F]'}`}>
+            {status?.canTakeExam ? (
+              <ShieldAlert className="w-16 h-16 text-white mx-auto mb-4 animate-bounce" />
+            ) : (
+              <Lock className="w-16 h-16 text-accent mx-auto mb-4" />
+            )}
             <CardTitle className="font-black uppercase text-3xl md:text-4xl text-white">
-              SISTEM MASIH TERKUNCI
+              {status?.canTakeExam ? 'UJIAN TERSEDIA!' : 'SISTEM MASIH TERKUNCI'}
             </CardTitle>
           </CardHeader>
           <CardContent className="p-8 md:p-12 text-center space-y-8">
             
-            <div className="bg-zinc-100 border-4 border-zinc-200 p-6 max-w-lg mx-auto">
+            <div className={`border-4 p-6 max-w-lg mx-auto ${status?.canTakeExam ? 'bg-green-50 border-green-200' : 'bg-zinc-100 border-zinc-200'}`}>
               <p className="font-bold text-lg text-zinc-500 uppercase tracking-widest mb-2">STATUS TIM ANDA</p>
-              <h2 className="font-black text-3xl text-red-500 uppercase">BELUM TERVERIFIKASI</h2>
+              <h2 className={`font-black text-3xl uppercase ${status?.canTakeExam ? 'text-green-600' : 'text-red-500'}`}>
+                {status?.canTakeExam ? 'TERVERIFIKASI' : (status?.registrationStatus || 'BELUM TERDAFTAR')}
+              </h2>
             </div>
             
-            <div className="space-y-4 text-left max-w-xl mx-auto border-l-4 border-accent pl-6">
-              <p className="font-bold text-zinc-600 uppercase text-sm leading-relaxed">
-                Anda tidak bisa mengakses sistem ujian pada saat ini karena:
-              </p>
-              <ul className="list-disc pl-5 font-bold text-zinc-500 text-sm uppercase space-y-2">
-                <li>Berkas tim belum dikumpulkan atau masih dalam peninjauan.</li>
-                <li>Waktu ujian belum diinisisasi oleh Master Control Panel.</li>
-              </ul>
-            </div>
+            {status?.canTakeExam ? (
+              <div className="space-y-4 text-left max-w-xl mx-auto border-l-4 border-green-500 pl-6">
+                <h3 className="font-black text-2xl uppercase text-foreground">{status.examTitle}</h3>
+                <p className="font-bold text-zinc-600 uppercase text-sm">Durasi: {status.durationMin} Menit</p>
+                <div className="bg-amber-50 border-2 border-amber-200 p-4 font-bold text-amber-800 text-xs">
+                  ⚠️ PERINGATAN: Membuka tab lain atau meminimalkan browser akan dianggap sebagai pelanggaran dan dilaporkan ke panitia.
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-4 text-left max-w-xl mx-auto border-l-4 border-accent pl-6">
+                <p className="font-bold text-zinc-600 uppercase text-sm leading-relaxed">
+                  Akses terkunci karena:
+                </p>
+                <p className="font-black text-red-600 uppercase text-sm">{status?.reason}</p>
+              </div>
+            )}
 
-            <Button disabled className="w-full max-w-md mx-auto h-16 bg-zinc-300 text-zinc-500 border-4 border-transparent shadow-none uppercase font-bold tracking-widest text-lg rounded-none mt-8 flex items-center justify-center gap-3">
-              <Lock className="w-5 h-5" /> EXAM ENGINE LOCKED
+            <Button 
+              onClick={handleStartExam}
+              disabled={!status?.canTakeExam || !isExamRunning} 
+              className={`w-full max-w-md mx-auto h-16 border-4 shadow-none uppercase font-bold tracking-widest text-lg rounded-none mt-8 flex items-center justify-center gap-3 transition-all ${
+                (status?.canTakeExam && isExamRunning)
+                ? 'bg-accent text-foreground border-foreground hover:bg-foreground hover:text-white hover:scale-105 shadow-brutal-sm' 
+                : 'bg-zinc-200 text-zinc-400 border-zinc-300 cursor-not-allowed'
+              }`}
+            >
+              {!status?.canTakeExam 
+                ? 'AKSES TERKUNCI' 
+                : !isExamRunning 
+                  ? 'MENUNGGU OPERATOR...' 
+                  : 'MULAI UJIAN SEKARANG'}
             </Button>
           </CardContent>
         </Card>
@@ -107,3 +138,4 @@ export default function ExamPage() {
     </div>
   );
 }
+

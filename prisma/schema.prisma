@@ -79,6 +79,9 @@ model Exam {
   title       String
   description String?
   durationMin Int            @default(120) 
+  isLive      Boolean        @default(false)
+  liveStartedAt DateTime?
+  activeQuestionId String?
   createdAt   DateTime       @default(now())
   
   event       Event          @relation(fields: [eventId], references: [id], onDelete: Cascade)

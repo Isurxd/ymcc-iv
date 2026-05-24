@@ -16,9 +16,11 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [lang, setLangState] = useState<Lang>('ID');
 
   useEffect(() => {
-    const savedLang = localStorage.getItem('ymcc_lang') as Lang;
-    if (savedLang) {
-      setLangState(savedLang);
+    if (typeof window !== 'undefined') {
+      const savedLang = localStorage.getItem('ymcc_lang') as Lang;
+      if (savedLang && (savedLang === 'ID' || savedLang === 'EN')) {
+        setLangState(savedLang);
+      }
     }
   }, []);
 

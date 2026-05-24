@@ -130,13 +130,19 @@ export function InternalSidebar({ portalName, navLinks, children }: InternalSide
 
         </nav>
 
-        <div className="w-full mt-auto px-4 pt-6">
+          <div className="mx-4 p-4 bg-amber-100 border-4 border-foreground shadow-[4px_4px_0_0_#000] mb-6">
+            <p className="font-black text-[10px] uppercase tracking-tighter text-zinc-500 mb-1">Butuh Bantuan?</p>
+            <p className="text-xs font-bold leading-tight text-foreground uppercase">Mengalami kendala teknis atau bingung alur? Hubungi Command Center:</p>
+            <a href="https://wa.me/something" className="mt-2 inline-flex items-center text-[10px] font-black bg-foreground text-white px-2 py-1 gap-1 hover:bg-accent hover:text-foreground transition-colors uppercase">
+              Support Center 📡
+            </a>
+          </div>
+
           <Button onClick={handleLogout} variant="ghost" className="w-full justify-start rounded-none border-2 border-transparent hover:border-red-500 bg-red-600 md:bg-transparent md:hover:bg-red-500 text-white md:text-red-400 hover:text-white font-bold tracking-widest uppercase transition-none h-12 relative overflow-hidden group">
             <span className="absolute inset-0 w-full h-full bg-red-500 origin-left scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100 -z-10" />
             <LogOut className="w-5 h-5 mr-3 group-hover:text-white transition-colors" />
             <span className="group-hover:text-white transition-colors text-sm">KELUAR (LOGOUT)</span>
           </Button>
-        </div>
       </aside>
 
       {/* Main Content Area */}
