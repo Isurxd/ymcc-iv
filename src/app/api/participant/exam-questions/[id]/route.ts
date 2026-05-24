@@ -20,7 +20,7 @@ export async function GET(
 
     const randomized = questions.map(q => ({
       ...q,
-      options: JSON.parse(q.options || "[]")
+      options: q.options || []
     }));
 
     return NextResponse.json(randomized);

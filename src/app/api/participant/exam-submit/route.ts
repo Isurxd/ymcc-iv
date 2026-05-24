@@ -49,7 +49,7 @@ export async function POST(req: Request) {
         endTime: new Date(),
         score,
         cheatCount,
-        answers: JSON.stringify(answers),
+        answers,
         status: 'COMPLETED'
       }
     });

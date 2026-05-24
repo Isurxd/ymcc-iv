@@ -93,7 +93,7 @@ model Question {
   id          String   @id @default(uuid())
   examId      String
   content     String   
-  options     String?  // SQLite tidak dukung JSON default (menggunakan String representation)
+  options     Json?    
   answerKey   String   
   points      Int      @default(1)
   
@@ -108,7 +108,7 @@ model ExamAttempt {
   endTime         DateTime?    
   score           Int?         
   cheatCount      Int          @default(0) 
-  answers         String?      // SQLite fallback for JSON
+  answers         Json?        
   status          String       @default("IN_PROGRESS") 
   
   registration    Registration @relation(fields: [registrationId], references: [id], onDelete: Cascade)

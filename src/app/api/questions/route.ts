@@ -56,7 +56,7 @@ export async function POST(req: Request) {
       data: {
         examId: exam.id,
         content,
-        options: "[]",
+        options: [],
         answerKey: "A",
         points: 10
       }

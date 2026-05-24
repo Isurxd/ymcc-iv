@@ -69,7 +69,7 @@ export async function GET() {
       registrationId: registration.id,
       existingAttempt: existingAttempt ? {
         id: existingAttempt.id,
-        answers: existingAttempt.answers ? JSON.parse(existingAttempt.answers) : {},
+        answers: existingAttempt.answers || {},
         cheatCount: existingAttempt.cheatCount,
         startTime: existingAttempt.startTime
       } : null

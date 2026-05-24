@@ -35,7 +35,7 @@ export async function POST(req: Request) {
         status: 'IN_PROGRESS'
       },
       data: {
-        answers: JSON.stringify(answers),
+        answers,
       }
     });
 
