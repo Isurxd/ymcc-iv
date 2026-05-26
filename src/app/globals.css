@@ -15,12 +15,21 @@
   --color-background: #ffffff;
 }
 
-@theme inline {
-  --shadow-brutal: 4px 4px 0px 0px var(--color-foreground);
-  --shadow-brutal-sm: 2px 2px 0px 0px var(--color-foreground);
-  --shadow-brutal-lg: 8px 8px 0px 0px var(--color-foreground);
-  --shadow-brutal-neon: 4px 4px 0px 0px var(--color-accent);
-  --radius: 0rem;
+  --shadow-soft: 0 10px 40px -10px rgba(0, 31, 63, 0.1);
+  --shadow-premium: 0 20px 80px -15px rgba(0, 31, 63, 0.15);
+  --radius: 3rem;
+}
+
+.bg-grid-dots {
+  background-image: radial-gradient(#001f3f10 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.glass-morphism {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 31, 63, 0.05);
 }
 
 @layer base {

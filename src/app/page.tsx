@@ -7,10 +7,10 @@ import { useLanguage } from '@/lib/LanguageContext';
 import { useState, useEffect } from 'react';
 import { Shield, Lock, Settings, Download, UserPlus, Zap, CheckCircle2, Globe, ArrowRight, X } from 'lucide-react';
 
-// Animasi bergaya Gojek (Smooth Fade Up & Staggered)
+// Grass.io Style Animations
 const fadeUpVar: Variants = {
-  hidden: { opacity: 0, y: 60 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8 } }
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
 };
 
 const staggerVar: Variants = {
@@ -19,803 +19,276 @@ const staggerVar: Variants = {
 };
 
 const scaleUpVar: Variants = {
-  hidden: { opacity: 0, scale: 0.9 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.6 } }
+  hidden: { opacity: 0, scale: 0.95 },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
 };
 
-function WelcomeModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) {
-  if (!isOpen) return null;
-
-  return (
-    <motion.div 
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-[#001F3F]/80 backdrop-blur-sm"
-    >
-      <motion.div 
-        initial={{ scale: 0.9, y: 20 }}
-        animate={{ scale: 1, y: 0 }}
-        className="bg-white border-4 border-[#001F3F] p-8 md:p-12 max-w-lg w-full relative shadow-[16px_16px_0_0_#CCFF00]"
-      >
-        <button 
-          onClick={onClose}
-          className="absolute top-4 right-4 text-[#001F3F] hover:text-[#E63E00] transition-colors"
-        >
-          <X className="w-6 h-6" />
-        </button>
-
-        <div className="flex flex-col items-center text-center">
-          <div className="w-full aspect-video bg-[#001F3F] mb-8 relative overflow-hidden flex items-center justify-center border-4 border-[#001F3F]">
-             <img 
-               src="/assets/logo-ymcc.png" 
-               alt="Welcome YMCC" 
-               className="w-32 h-32 animate-pulse object-contain scale-150"
-             />
-             <div className="absolute inset-0 bg-gradient-to-t from-[#CCFF00]/20 to-transparent" />
-          </div>
-
-          <h2 className="font-black text-3xl text-[#001F3F] mb-4 uppercase tracking-tighter">
-            Welcome to the <br/> <span className="text-[#E63E00]">YMCC VII Tour</span>
-          </h2>
-          <p className="text-zinc-600 font-medium mb-8">
-            Siap untuk menjelajahi ekosistem kompetisi pertambangan terbesar tahun ini? Ikuti panduan singkat kami untuk memulai langkah Anda.
-          </p>
-
-          <div className="flex flex-col w-full gap-3">
-            <button 
-              onClick={onClose}
-              className="w-full bg-[#CCFF00] border-2 border-[#001F3F] py-3 font-black text-sm uppercase tracking-widest text-[#001F3F] hover:bg-[#001F3F] hover:text-[#CCFF00] transition-all shadow-[4px_4px_0_0_#001F3F]"
-            >
-              START YOUR TOUR
-            </button>
-            <button 
-              onClick={onClose}
-              className="w-full py-3 font-black text-sm uppercase tracking-widest text-[#001F3F]/40 hover:text-[#001F3F] transition-all"
-            >
-              SKIP TOUR
-            </button>
-          </div>
-          
-          <div className="mt-6 flex items-center gap-2">
-            <input type="checkbox" id="no-show" className="w-4 h-4 accent-[#E63E00]" />
-            <label htmlFor="no-show" className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">Don't show this tutorial again</label>
-          </div>
-        </div>
-      </motion.div>
-    </motion.div>
-  );
-}
-
-export default function RecruitmentPage() {
+export default function LandingPage() {
   const { lang } = useLanguage();
-  const [isWelcomeOpen, setIsWelcomeOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  // Show welcome modal after a small delay for premium feel
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsWelcomeOpen(true);
-    }, 1500);
-    return () => clearTimeout(timer);
+    setMounted(true);
   }, []);
 
+  if (!mounted) return <div className="min-h-screen bg-white" />;
+
   return (
-    <div className="min-h-screen bg-white text-foreground font-sans overflow-hidden bg-grid-pattern">
+    <div className="min-h-screen bg-white text-[#001F3F] font-sans overflow-hidden bg-grid-dots">
       <Navbar />
 
-      <main className="w-full pt-16">
+      <main className="w-full">
         
-        {/* Marquee Banner Top */}
-        <div className="overflow-hidden bg-[#001F3F] py-3 border-b-4 border-[#001F3F] relative z-20">
-          <div className="animate-marquee flex gap-12 text-sm font-anton text-[#CCFF00] italic whitespace-nowrap tracking-wider">
-            {/* Repeat content for smooth marquee */}
-            {[...Array(6)].map((_, i) => (
-              <div key={i} className="flex gap-12 shrink-0">
-                <span>YMCC VII</span>
-                <span>THE GREEN COMPASS</span>
-                <span>YOUTH MINING CAMP COMPETITION</span>
-                <span>2026 SELECTION GUIDE</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-
-        {/* Header Title / Hero Section - Grass.io Style Side-by-Side */}
-        <motion.section 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={staggerVar}
-          className="pt-32 pb-48 px-6 md:px-12 max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16 relative"
-        >
-          {/* Background Decorative Elements */}
-          <div className="absolute -top-20 -left-20 w-[40rem] h-[40rem] bg-[#CCFF00]/5 rounded-full blur-3xl -z-10" />
-          <div className="absolute top-40 right-0 w-[30rem] h-[30rem] bg-[#E63E00]/5 rounded-full blur-3xl -z-10" />
-
-          {/* Left Column: Text Content */}
-          <div className="flex-1 text-left z-10">
-            <motion.div variants={fadeUpVar} className="bg-[#001F3F] text-[#CCFF00] px-4 py-2 text-[10px] font-black uppercase tracking-[0.4em] mb-8 border-2 border-[#001F3F] w-fit shadow-[4px_4px_0_0_#E63E00]">
-              {lang === 'ID' ? 'PANDUAN SELEKSI RESMI 2026' : 'OFFICIAL 2026 SELECTION GUIDE'}
-            </motion.div>
-            
-            <motion.h1 variants={fadeUpVar} className="font-black text-6xl md:text-8xl lg:text-9xl text-[#001F3F] uppercase leading-[0.85] mb-10 tracking-tighter drop-shadow-sm">
-              THE GREEN <br/> 
-              <span className="text-[#CCFF00] drop-shadow-[8px_8px_0_#001F3F] [-webkit-text-stroke:2px_#001F3F]">COMPASS</span>
-            </motion.h1>
-
-            <motion.p variants={fadeUpVar} className="text-xl md:text-2xl font-medium text-zinc-500 mb-12 max-w-xl leading-relaxed">
-              {lang === 'ID' 
-                ? 'Bergabunglah dalam ekosistem kompetisi pertambangan terbesar. Tingkatkan kompetensi, bangun jaringan, dan raih masa depan teknologi hijau.'
-                : 'Join the largest mining competition ecosystem. Enhance your competence, build networks, and seize the future of green technology.'}
-            </motion.p>
-
-            <motion.div variants={fadeUpVar} className="flex flex-col sm:flex-row gap-6">
-               <Link href="/register" className="bg-[#CCFF00] text-[#001F3F] border-4 border-[#001F3F] px-12 py-5 rounded-full font-black text-lg uppercase tracking-widest hover:bg-[#001F3F] hover:text-[#CCFF00] transition-all shadow-[10px_10px_0_0_#001F3F] hover:shadow-none translate-x-[-5px] translate-y-[-5px] hover:translate-x-0 hover:translate-y-0">
-                  {lang === 'ID' ? 'JOIN NOW' : 'JOIN NOW'}
-               </Link>
-               <Link href="#about" className="bg-white/50 backdrop-blur-sm text-[#001F3F] border-4 border-[#001F3F]/10 px-12 py-5 rounded-full font-black text-lg uppercase tracking-widest hover:border-[#001F3F] transition-all shadow-sm">
-                  {lang === 'ID' ? 'EXPLORE' : 'EXPLORE'}
-               </Link>
-            </motion.div>
-          </div>
-
-          {/* Right Column: Visual Mockup */}
-          <motion.div 
-            variants={scaleUpVar} 
-            className="flex-1 relative"
-          >
-             <div className="absolute inset-0 bg-[#CCFF00] blur-[100px] opacity-20 -z-10 animate-pulse" />
-             <div className="relative border-[12px] border-[#001F3F] rounded-[3rem] overflow-hidden shadow-[32px_32px_0_0_rgba(0,31,63,0.05)] rotate-2 hover:rotate-0 transition-transform duration-700 bg-white">
-               <img 
-                 src="/assets/hero-mockup.png" 
-                 alt="YMCC VII Dashboard Mockup" 
-                 className="w-full h-auto"
-               />
-               {/* Floating elements inside mockup area */}
-               <div className="absolute top-10 -right-10 w-24 h-24 bg-[#E63E00] border-4 border-[#001F3F] rounded-2xl rotate-12 flex items-center justify-center shadow-lg">
-                  <Zap className="text-white w-10 h-10" />
-               </div>
-             </div>
-             
-             {/* Secondary floating cards */}
-             <motion.div 
-               animate={{ y: [0, -20, 0] }}
-               transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-               className="absolute -bottom-10 -left-10 bg-white border-4 border-[#001F3F] p-6 rounded-2xl shadow-xl z-20 hidden md:block"
-             >
-                <div className="flex items-center gap-4">
-                   <div className="w-12 h-12 bg-[#CCFF00] border-2 border-[#001F3F] rounded-full flex items-center justify-center">
-                      <Shield className="w-6 h-6 text-[#001F3F]" />
-                   </div>
-                   <div>
-                      <div className="font-black text-xs text-[#001F3F] uppercase tracking-widest">Verified System</div>
-                      <div className="text-[10px] font-bold text-zinc-400 capitalize">Real-time validation active</div>
-                   </div>
-                </div>
-             </motion.div>
-          </motion.div>
-        </motion.section>
-
-        {/* Protokol & Validasi */}
-        <motion.section 
-          id="structure" 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={staggerVar}
-          className="py-24 px-6 md:px-12 border-b-4 border-[#001F3F] bg-[#CCFF00]"
-        >
-          <motion.h2 variants={fadeUpVar} className="font-black text-6xl md:text-7xl text-[#001F3F] mb-10 uppercase tracking-tight">
-            {lang === 'ID' ? 'Protokol & Validasi' : 'Protocol & Validation'}
-          </motion.h2>
-          <motion.div variants={scaleUpVar} className="bg-white border-4 border-[#001F3F] p-8 md:p-12 shadow-[12px_12px_0_0_#E63E00] max-w-5xl hover:shadow-[16px_16px_0_0_#E63E00] transition-shadow duration-300">
-            <p className="font-black text-[#E63E00] mb-6 text-2xl uppercase tracking-wider">{lang === 'ID' ? 'BACA DENGAN TELITI SEBELUM MELANJUTKAN!' : 'READ CAREFULLY BEFORE PROCEEDING!'}</p>
-            <p className="mb-8 font-medium text-zinc-900 text-lg leading-relaxed max-w-4xl">
-              {lang === 'ID' 
-                ? 'YMCC VII mengadopsi sistem pengolahan data otomatis. Kesalahan kecil dalam penulisan akan berdampak fatal pada validitas Sertifikat, ID Card, dan Database resmi.'
-                : 'YMCC VII adopts an automated data processing system. Minor writing errors will fatally impact the validity of Certificates, ID Cards, and official Databases.'}
-            </p>
-            <ul className="space-y-6 font-medium text-base tracking-wide text-[#001F3F]">
-              <motion.li variants={fadeUpVar} className="flex items-start"><span className="text-[#E63E00] mr-4 text-2xl leading-none">►</span> <span className="pt-1">{lang === 'ID' ? 'Standardisasi Nama: Wajib menggunakan HURUF KAPITAL sesuai identitas resmi.' : 'Name Standardization: MUST use CAPITAL LETTERS matching official identity.'}</span></motion.li>
-              <motion.li variants={fadeUpVar} className="flex items-start"><span className="text-[#E63E00] mr-4 text-2xl leading-none">►</span> <span className="pt-1">{lang === 'ID' ? 'Standardisasi Email: Wajib lowercase.' : 'Email Standardization: MUST be lowercase.'}</span></motion.li>
-              <motion.li variants={fadeUpVar} className="flex items-start"><span className="text-[#E63E00] mr-4 text-2xl leading-none">►</span> <span className="pt-1">{lang === 'ID' ? 'Pilihan Divisi: Maksimal memilih 2 divisi. Dokumen ditujukan untuk Pilihan 1.' : 'Division Selection: Can choose max 2 divisions. Documents are directed to 1st Choice.'}</span></motion.li>
-              <motion.li variants={fadeUpVar} className="flex items-start"><span className="text-[#E63E00] mr-4 text-2xl leading-none">►</span> <span className="pt-1">{lang === 'ID' ? 'File PDF (Maks. 5MB) format: [PILIHAN 1] _ [NAMA] _ [NIM].' : 'PDF File (Max. 5MB) Format: [1ST CHOICE] _ [NAME] _ [STUDENT ID].'}</span></motion.li>
-            </ul>
-          </motion.div>
-        </motion.section>
-
-        {/* What is YMCC */}
-        <motion.section 
-          id="about" 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.15 }}
-          variants={staggerVar}
-          className="py-32 px-6 md:px-12 border-b-4 border-[#001F3F] overflow-hidden"
-        >
-          <motion.h2 variants={fadeUpVar} className="font-black text-6xl md:text-8xl text-[#001F3F] mb-8 uppercase">What is YMCC?</motion.h2>
-          <motion.p variants={fadeUpVar} className="text-2xl font-medium max-w-4xl mb-20 text-zinc-700 leading-snug">
-            {lang === 'ID' 
-              ? 'Kompetisi pertambangan berskala nasional dan internasional yang bertujuan mengembangkan kompetensi teknis, pemikiran strategis, serta kesadaran keberlanjutan generasi muda.'
-              : 'A national and international scale mining competition aiming to develop technical competencies, strategic thinking, and sustainability awareness for the young generation.'}
-          </motion.p>
-          
-          <motion.div variants={staggerVar} className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-24">
-            <FeatureCard num="01" title="Strategic Networking" desc="Terhubung dengan mahasiswa, profesional, media, dan mitra internasional." />
-            <FeatureCard num="02" title="International Exposure" desc="Sertifikat keterlibatan panitia skala event internasional resmi." />
-            <FeatureCard num="03" title="Large-Scale Experience" desc="Pengalaman mengelola event selama 1,5 tahun dengan sistem profesional." />
-            <FeatureCard num="04" title="Leadership Growth" desc="Pengembangan skill manajemen tingkat tinggi, komunikasi, dan problem solving." />
-          </motion.div>
-
-          {/* Testimonial Quote Gojek Style */}
-          <motion.div variants={scaleUpVar} className="bg-[#001F3F] text-white p-12 md:p-16 border-l-[16px] border-[#E63E00] shadow-[8px_8px_0_0_#CCFF00] relative">
-            <div className="text-8xl text-[#CCFF00] font-heading absolute -top-8 -left-8 opacity-50">"</div>
-            <p className="text-2xl md:text-4xl font-medium italic mb-10 relative z-10 leading-tight">
-              Standar yang kita bangun harus mencerminkan nilai inovatif, komprehensif, dan berintegritas. Dinamika pasti ada, namun YMCC VII membawa semangat baru dan wajah baru.
-            </p>
-            <div className="font-heading text-2xl text-[#E63E00] tracking-wide uppercase">Aghniyo & Faiz Marvel</div>
-            <div className="text-lg font-black tracking-widest text-[#CCFF00]">ED & VED YMCC VII</div>
-          </motion.div>
-        </motion.section>
-
-        {/* Strategic Pillars */}
+        {/* HERO SECTION: TEXT LEFT, IMAGE RIGHT */}
         <motion.section 
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
           variants={staggerVar}
-          className="py-32 px-4 md:px-8 border-b-4 border-[#001F3F] bg-[#001F3F] text-white"
+          className="pt-40 md:pt-60 pb-32 md:pb-56 px-6 md:px-12 max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-20 relative"
         >
-          <div className="max-w-7xl mx-auto flex flex-col">
-            <div className="mb-12">
-              <motion.div variants={fadeUpVar} className="bg-[#E63E00] text-white px-3 py-1 font-medium text-[10px] uppercase tracking-widest inline-block mb-4 border border-white">
-                STRUCTURE DIRECTORY
-              </motion.div>
-              <motion.h2 variants={fadeUpVar} className="font-black text-5xl md:text-7xl leading-tight uppercase">
-                <span className="text-white">THE STRATEGIC</span><br/>
-                <span className="text-[#CCFF00]">PILLARS</span>
-              </motion.h2>
-            </div>
+          {/* Decorative Ambient Orbs */}
+          <div className="absolute top-0 left-0 w-[50rem] h-[50rem] bg-[#CCFF00]/10 rounded-full blur-[140px] -z-10" />
+          <div className="absolute bottom-[-10rem] right-[-10rem] w-[40rem] h-[40rem] bg-[#E63E00]/5 rounded-full blur-[140px] -z-10" />
 
-            {/* Executive Layer */}
-            <motion.div variants={scaleUpVar} className="border-4 border-[#CCFF00] p-6 lg:p-10 mb-12 relative w-full">
-              <div className="absolute -top-3 left-6 bg-[#CCFF00] text-[#001F3F] px-2 py-0.5 font-medium text-[9px] uppercase tracking-widest">
-                EXECUTIVE LAYER
-              </div>
-              <h3 className="font-black text-4xl text-white uppercase mb-10">BOARD OF DIRECTORS</h3>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div className="bg-white border-4 border-[#CCFF00] p-6 hover:-translate-y-2 hover:shadow-[8px_8px_0_0_#CCFF00] transition-all flex flex-col justify-center gap-2 group">
-                  <span className="text-[#001F3F] font-bold text-[10px] tracking-widest uppercase pb-2 border-b-2 border-zinc-200">EXECUTIVE DIRECTOR</span>
-                  <span className="font-black text-xl text-[#E63E00] leading-tight uppercase">Aghniyo H. P. Hermawan</span>
-                </div>
-                <div className="bg-white border-4 border-[#CCFF00] p-6 hover:-translate-y-2 hover:shadow-[8px_8px_0_0_#CCFF00] transition-all flex flex-col justify-center gap-2 group">
-                  <span className="text-[#001F3F] font-bold text-[10px] tracking-widest uppercase pb-2 border-b-2 border-zinc-200">VICE EXECUTIVE DIRECTOR</span>
-                  <span className="font-black text-xl text-[#E63E00] leading-tight uppercase">Faiz Marvel A. Ridwan</span>
-                </div>
-                <div className="bg-white border-4 border-[#CCFF00] p-6 hover:-translate-y-2 hover:shadow-[8px_8px_0_0_#CCFF00] transition-all flex flex-col justify-center gap-2 group">
-                  <span className="text-[#001F3F] font-bold text-[10px] tracking-widest uppercase pb-2 border-b-2 border-zinc-200">SECRETARY I</span>
-                  <span className="font-black text-xl text-[#E63E00] leading-tight uppercase">Kartika Rahmadani</span>
-                </div>
-                <div className="bg-white border-4 border-[#CCFF00] p-6 hover:-translate-y-2 hover:shadow-[8px_8px_0_0_#CCFF00] transition-all flex flex-col justify-center gap-2 group">
-                  <span className="text-[#001F3F] font-bold text-[10px] tracking-widest uppercase pb-2 border-b-2 border-zinc-200">SECRETARY II</span>
-                  <span className="font-black text-xl text-[#E63E00] leading-tight uppercase opacity-50">[TBA]</span>
-                </div>
-                <div className="bg-white border-4 border-[#CCFF00] p-6 hover:-translate-y-2 hover:shadow-[8px_8px_0_0_#CCFF00] transition-all flex flex-col justify-center gap-2 group">
-                  <span className="text-[#001F3F] font-bold text-[10px] tracking-widest uppercase pb-2 border-b-2 border-zinc-200">FINANCE DIRECTOR I</span>
-                  <span className="font-black text-xl text-[#E63E00] leading-tight uppercase">Rizky Maylandra</span>
-                </div>
-                <div className="bg-white border-4 border-[#CCFF00] p-6 hover:-translate-y-2 hover:shadow-[8px_8px_0_0_#CCFF00] transition-all flex flex-col justify-center gap-2 group">
-                  <span className="text-[#001F3F] font-bold text-[10px] tracking-widest uppercase pb-2 border-b-2 border-zinc-200">FINANCE DIRECTOR II</span>
-                  <span className="font-black text-xl text-[#E63E00] leading-tight uppercase">Naila Farikiya</span>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Department Layer Grid */}
-            <motion.div variants={staggerVar} className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              
-              <DeptCard 
-                title="COMPETITION" 
-                head="KEVIN ANANDA DAUD"
-                subs={[
-                  { name: "MINING GAMES", lead: "muhammad ashri ananfa hasbi" },
-                  { name: "MINING STRATEGY & INNOVATION COMPETITION", lead: "elora naomi yoaasari" },
-                  { name: "INTELLECTUAL CHALLENGES", lead: "samoneca yusri zaediawan" },
-                  { name: "PAPER COMPETITION", lead: "dizky cardio nur ramadhan" }
-                ]}
-              />
-
-              <DeptCard 
-                title="FUNDRAISING" 
-                head="DANI ABDULLAH AL FIKRI"
-                subs={[
-                  { name: "ENTREPRENEURSHIP", lead: "yusni maula sunarjo" },
-                  { name: "SPONSORSHIP", lead: "muhammad aimaz ramadhan" }
-                ]}
-              />
-
-              <DeptCard 
-                title="EVENT" 
-                head="STIEVEN VALENTINO SIMANUNGKALIT"
-                subs={[
-                  { name: "MINING CAMP", lead: "muhammad fariq azzahanif" },
-                  { name: "OPENING & CLOSING", lead: "chalisa artanti" },
-                  { name: "STUDIUM GENERALE", lead: "rahadian effendhy asdhamara" },
-                  { name: "SOCIETY PROJECT", lead: "aldrinniaz sandhio aricho" },
-                  { name: "SEMINAR NASIONAL", lead: "adam murzaky kusumandou suhud" },
-                  { name: "MINEXPLO", lead: "pilar yudisano sutanto" }
-                ]}
-              />
-
-              <DeptCard 
-                title="OPERATIONAL" 
-                head="MARCELLO KAREL ABISENA"
-                subs={[
-                  { name: "GENERAL AFFAIR", lead: "anmas rifqi hasan" },
-                  { name: "LOGISTIC", lead: "ardhiansyah zilha apriyanto" },
-                  { name: "CONSUMPTION", lead: "muhammad nail nabil" },
-                  { name: "SAFETY, SECURITY, HEALTH, AND CARE", lead: "atama rasiya azari" },
-                  { name: "LIAISON OFFICER", lead: "sina rahay soaloon" }
-                ]}
-              />
-
-              <DeptCard 
-                title="MEDIA" 
-                head="MUHAMMAD FAIRUZ ADHIMUL ARIFIN"
-                subs={[
-                  { name: "BRANDING & PUBLIC RELATION", lead: "revina maharani samy" },
-                  { name: "CREATIVE PRODUCTION", lead: "arvelyo dzakyawu wandyo" },
-                  { name: "SECRETARIAT", lead: "annisa aulia juci" }
-                ]}
-              />
-
-            </motion.div>
-          </div>
-        </motion.section>
-
-        {/* Institutional Support - Refined */}
-        <motion.section 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
-          variants={staggerVar}
-          className="border-y-4 border-[#001F3F]/5 bg-zinc-50/30 overflow-hidden py-20"
-        >
-          <div className="max-w-7xl mx-auto flex flex-col items-center px-6">
-            <motion.div variants={fadeUpVar} className="text-[#001F3F]/40 font-black text-[10px] uppercase tracking-[0.5em] mb-12">
-              Official Institutional Partners
+          {/* LEFT: CONTENT */}
+          <div className="flex-[1.2] text-left z-10">
+            <motion.div variants={fadeUpVar} className="inline-flex items-center gap-3 bg-[#001F3F]/5 border border-[#001F3F]/10 px-5 py-2 rounded-full mb-10">
+               <span className="w-2 h-2 bg-[#CCFF00] rounded-full animate-pulse shadow-[0_0_12px_#CCFF00]" />
+               <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#001F3F]/60">
+                 {lang === 'ID' ? 'REGISTRASI YMCC VII DIBUKA' : 'YMCC VII REGISTRATION OPEN'}
+               </span>
             </motion.div>
             
-            <motion.div variants={staggerVar} className="flex flex-wrap items-center justify-center gap-16 md:gap-32">
-              <motion.div variants={fadeUpVar} className="flex flex-col items-center group">
-                <div className="w-24 h-24 bg-white border-2 border-[#001F3F]/10 rounded-full flex items-center justify-center mb-4 transition-all group-hover:border-[#001F3F] group-hover:shadow-xl grayscale hover:grayscale-0 p-4">
-                  <span className="font-black text-[10px] text-[#001F3F]/20 text-center uppercase tracking-tighter">UPN YK</span>
-                </div>
-                <p className="font-black text-[8px] text-[#001F3F]/30 uppercase tracking-widest text-center">UPN "V" YOGYAKARTA</p>
-              </motion.div>
+            <motion.h1 variants={fadeUpVar} className="font-black text-6xl md:text-8xl lg:text-[7.5rem] xl:text-[9rem] tracking-[-0.04em] leading-[0.82] mb-12 uppercase">
+              THE DATA <br/> LAYER <br/>
+              <span className="text-[#CCFF00] drop-shadow-[0_15px_40px_rgba(204,255,0,0.35)]">FOR AI.</span>
+            </motion.h1>
 
-              <motion.div variants={fadeUpVar} className="flex flex-col items-center group">
-                <div className="w-24 h-24 bg-white border-2 border-[#001F3F]/10 rounded-full flex items-center justify-center mb-4 transition-all group-hover:border-[#E63E00] group-hover:shadow-xl grayscale hover:grayscale-0 p-4">
-                  <img 
-                    src="/assets/logo-hmta.png" 
-                    alt="HMTA Logo" 
-                    className="w-full h-full object-contain"
-                  />
-                </div>
-                <p className="font-black text-[8px] text-[#001F3F]/30 uppercase tracking-widest text-center">HMTA UPNYK</p>
-              </motion.div>
-
-              <motion.div variants={fadeUpVar} className="flex flex-col items-center group">
-                <div className="w-24 h-24 bg-white border-2 border-[#001F3F]/10 rounded-full flex items-center justify-center mb-4 transition-all group-hover:border-[#CCFF00] group-hover:shadow-xl grayscale hover:grayscale-0 p-4">
-                   <div className="bg-[#001F3F] w-full h-full rounded-full flex items-center justify-center">
-                      <Globe className="w-6 h-6 text-white" />
-                   </div>
-                </div>
-                <p className="font-black text-[8px] text-[#001F3F]/30 uppercase tracking-widest text-center">Global Partner</p>
-              </motion.div>
-            </motion.div>
-          </div>
-        </motion.section>
-
-        {/* Event Core Values  */}
-        <motion.section 
-          id="vision" 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={staggerVar}
-          className="py-32 px-6 md:px-12 border-b-4 border-[#001F3F] bg-zinc-100"
-        >
-          <motion.h2 variants={fadeUpVar} className="font-black text-6xl md:text-8xl text-[#001F3F] mb-20 text-center uppercase">Event Core Values</motion.h2>
-          <motion.div variants={staggerVar} className="grid md:grid-cols-3 gap-10">
-            <ValueCard title="Academic Excellence" desc="Menjunjung tinggi kualitas dan standar akademik untuk menguji kemampuan teknis dan pola pikir." />
-            <ValueCard title="Sustainability by Design" desc="Keberlanjutan menjadi dasar dalam setiap ide, solusi, dan pengambilan keputusan operasional." />
-            <ValueCard title="Global Collaboration" desc="Membangun kolaborasi lintas negara dan budaya untuk saling bertukar perspektif global." />
-          </motion.div>
-        </motion.section>
-
-        {/* General Requirements */}
-        <motion.section 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.15 }}
-          variants={staggerVar}
-          className="bg-[#E63E00] py-32 px-6 md:px-12 border-b-4 border-[#001F3F]"
-        >
-          <div className="max-w-6xl mx-auto flex flex-col items-center">
-            <motion.h2 variants={fadeUpVar} className="font-black text-5xl md:text-8xl text-white uppercase drop-shadow-[4px_4px_0_#001F3F] text-center mb-8 leading-tight">
-              REQUIREMENTS
-            </motion.h2>
-            <motion.p variants={fadeUpVar} className="text-[#001F3F] bg-[#CCFF00] px-6 py-2 border-4 border-[#001F3F] font-black tracking-widest uppercase mb-20 text-center text-lg md:text-xl shadow-[6px_6px_0_0_#001F3F] hover:-translate-y-2 transition-transform duration-300">
-              KRITERIA WAJIB CALON PILAR STRATEGIS
+            <motion.p variants={fadeUpVar} className="text-xl md:text-2xl font-medium text-zinc-400 mb-14 max-w-2xl leading-relaxed">
+              {lang === 'ID' 
+                ? 'Bergabunglah dalam revolusi sistem pertambangan masa depan. Kelola tim, verifikasi data, dan bangun masa depan teknologi hijau bersama YMCC VII.'
+                : 'Join the revolution of future mining systems. Manage teams, verify data, and build the future of green technology with YMCC VII.'}
             </motion.p>
 
-            <motion.div variants={staggerVar} className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
-              <ReqCard num="01" title="ACADEMIC STATUS" desc="Mahasiswa aktif angkatan 2024 & 2025 dibuktikan dengan KTA/KRS." />
-              <ReqCard num="02" title="TIME COMMITMENT" desc="Konsisten hingga seluruh rangkaian agenda berakhir (±1,5 tahun)." />
-              <ReqCard num="03" title="GROWTH MINDSET" desc="Ketertarikan pada inovasi, keberlanjutan, dan terbuka pada belajar." />
-              <ReqCard num="04" title="ADAPTABILITY" desc="Mampu bekerja dengan dinamika, tahan tekanan, & berorientasi solusi." />
-              <ReqCard num="05" title="DIGITAL SKILLS" desc="Mahir platform Google Workspace, Discord, tools manajemen." />
-              <ReqCard num="06" title="COMMUNICATION" desc="Berbahasa Indonesia profesional, Bahasa Inggris sebagai nilai plus." />
+            <motion.div variants={fadeUpVar} className="flex flex-col sm:flex-row gap-6">
+               <Link href="/register" className="bg-[#CCFF00] text-[#001F3F] px-14 py-6 rounded-full font-black text-xl uppercase tracking-widest hover:scale-105 transition-all shadow-2xl shadow-[#CCFF00]/30 flex items-center justify-center gap-3">
+                  {lang === 'ID' ? 'DAFTAR SEKARANG' : 'GET STARTED'} <ArrowRight className="w-5 h-5" />
+               </Link>
+               <Link href="#about" className="bg-white/50 backdrop-blur-sm border border-[#001F3F]/10 text-[#001F3F] px-14 py-6 rounded-full font-black text-xl uppercase tracking-widest hover:bg-[#001F3F]/10 transition-all flex items-center justify-center">
+                  {lang === 'ID' ? 'PELAJARI' : 'LEARN MORE'}
+               </Link>
             </motion.div>
           </div>
-        </motion.section>
 
-        {/* Why People Trust It - Grass.io Style */}
-        <TrustSection lang={lang} />
-
-        {/* How It Works / Points - Grass.io Style */}
-        <PointsSection lang={lang} />
-
-        {/* How To Get Started - Grass.io Style */}
-        <GetStartedSection lang={lang} />
-
-        {/* C-T-A Area */}
-        <motion.section 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
-          variants={staggerVar}
-          className="py-32 bg-white text-center flex flex-col items-center px-6"
-        >
-          <motion.h2 variants={fadeUpVar} className="font-black text-5xl md:text-7xl text-[#001F3F] uppercase mb-10">
-            {lang === 'ID' ? 'SIAP MEMBANGUN ' : 'READY TO BUILD '} <span className="text-[#E63E00]">{lang === 'ID' ? 'MASA DEPAN?' : 'THE FUTURE?'}</span>
-          </motion.h2>
-          <motion.div variants={scaleUpVar}>
-            <Link href="/register" className="inline-block bg-[#CCFF00] border-4 border-[#001F3F] text-[#001F3F] font-black text-2xl md:text-4xl px-12 py-6 uppercase tracking-widest hover:bg-[#001F3F] hover:text-[#CCFF00] hover:shadow-[12px_12px_0_0_#E63E00] transition-all duration-300 shadow-[8px_8px_0_0_#E63E00]">
-              {lang === 'ID' ? 'MULAI REGISTRASI SEKARANG →' : 'START REGISTRATION NOW →'}
-            </Link>
+          {/* RIGHT: IMAGE */}
+          <motion.div 
+            variants={scaleUpVar} 
+            className="flex-1 relative w-full"
+          >
+             <div className="relative rounded-[5rem] p-6 bg-white/20 backdrop-blur-3xl border border-white/50 shadow-premium overflow-hidden group">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#CCFF00]/15 to-transparent pointer-events-none" />
+                <img 
+                  src="/assets/hero-mockup.png" 
+                  alt="Dashboard View" 
+                  className="w-full h-auto rounded-[4rem] shadow-2xl transition-all duration-1000 group-hover:scale-105 group-hover:rotate-1"
+                />
+             </div>
+             
+             {/* Floating UI Elements */}
+             <motion.div 
+               animate={{ y: [0, -20, 0] }}
+               transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
+               className="absolute -top-10 -right-10 bg-white p-6 rounded-[3rem] shadow-premium flex flex-col items-center gap-2 border border-[#001F3F]/5 z-20"
+             >
+                <div className="w-16 h-16 bg-[#CCFF00] rounded-full flex items-center justify-center shadow-lg">
+                   <Zap className="w-8 h-8 text-[#001F3F]" />
+                </div>
+                <span className="font-black text-[10px] text-[#001F3F] uppercase tracking-widest">Active Node</span>
+             </motion.div>
           </motion.div>
         </motion.section>
+
+        {/* MARQUEE LOGOS SECTION */}
+        <div className="py-24 border-y border-[#001F3F]/5 bg-white/50 backdrop-blur-sm">
+           <div className="max-w-7xl mx-auto px-6 mb-16 flex items-center gap-10">
+              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-300 shrink-0">Official Partners</span>
+              <div className="h-[1px] w-full bg-[#001F3F]/5" />
+           </div>
+           
+           <div className="relative flex overflow-hidden">
+             <div className="animate-marquee flex gap-24 items-center whitespace-nowrap grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-1000">
+               {[...Array(12)].map((_, i) => (
+                 <div key={i} className="flex gap-24 items-center shrink-0">
+                    <img src="/assets/logo-hmta.png" alt="HMTA" className="h-12 w-auto object-contain" />
+                    <span className="font-black text-4xl text-zinc-300 italic tracking-tighter">UPN VETERAN YK</span>
+                    <Globe className="text-zinc-300 w-8 h-8" />
+                    <span className="font-black text-4xl text-zinc-300 italic tracking-tighter">ARC STUDIO</span>
+                 </div>
+               ))}
+             </div>
+           </div>
+        </div>
+
+        {/* FEATURE SECTION */}
+        <section id="about" className="py-40 md:py-60 px-6 max-w-7xl mx-auto">
+           <div className="grid lg:grid-cols-2 gap-20 items-end mb-32">
+              <div>
+                 <h2 className="font-black text-5xl md:text-8xl tracking-tight leading-[0.9] mb-10">
+                    BUILT FOR THE <br/> <span className="text-[#CCFF00]">COMMUNITY.</span>
+                 </h2>
+                 <p className="text-xl md:text-2xl font-medium text-zinc-400 leading-relaxed max-w-xl">
+                   Platform terintegrasi yang dirancang khusus untuk mengelola kompetisi pertambangan dengan presisi data tingkat tinggi dan transparansi total.
+                 </p>
+              </div>
+           </div>
+
+           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+              <FeatureCard num="01" title="Node Monitoring" desc="Pantau performa dan pendaftaran tim secara real-time melalui dashboard interaktif." />
+              <FeatureCard num="02" title="Secure Bridge" desc="Integrasi pembayaran otomatis yang terverifikasi secara instan oleh sistem cerdas." />
+              <FeatureCard num="03" title="Validator Engine" desc="Sistem penilaian (CBT) yang adil dengan deteksi anomali perilaku otomatis." />
+              <FeatureCard num="04" title="Digital Asset" desc="Setiap pencapaian tim didokumentasikan dalam sertifikat digital terverifikasi." />
+           </div>
+        </section>
+
+        {/* REPLICATING THE 'INFRASTRUCTURE' DARK SECTION */}
+        <section className="mx-4 md:mx-10 py-32 md:py-56 px-6 bg-[#001F3F] rounded-[5rem] md:rounded-[10rem] relative overflow-hidden mb-40">
+           <div className="absolute inset-0 bg-grid-dots opacity-5" />
+           
+           <div className="max-w-7xl mx-auto relative z-10">
+              <div className="flex flex-col items-center text-center mb-32">
+                 <div className="bg-[#CCFF00] text-[#001F3F] px-5 py-2 rounded-full font-black text-[10px] uppercase tracking-widest mb-10">
+                    Infrastructure Layer
+                 </div>
+                 <h2 className="font-black text-6xl md:text-8xl lg:text-[9rem] text-white tracking-tighter leading-[0.8] mb-12 uppercase">
+                    THE STRATEGIC <br/> <span className="text-[#CCFF00]">PILLARS.</span>
+                 </h2>
+              </div>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+                 <DeptCard 
+                    title="COMPETITION" 
+                    head="KEVIN ANANDA DAUD"
+                    subs={[
+                      { name: "MINING GAMES", lead: "M. ASHRI ANANFA H." },
+                      { name: "STRATEGY & INNOVATION", lead: "ELORA NAOMI Y." },
+                      { name: "PAPER COMPETITION", lead: "DIZKY CARDIO N." }
+                    ]}
+                 />
+                 <DeptCard 
+                    title="EVENT" 
+                    head="STIEVEN VALENTINO S."
+                    subs={[
+                      { name: "MINING CAMP", lead: "M. FARIQ AZZAHANIF" },
+                      { name: "OPENING & CLOSING", lead: "CHALISA ARTANTI" },
+                      { name: "SEMINAR NASIONAL", lead: "ADAM MURZAKY K." }
+                    ]}
+                 />
+                 <DeptCard 
+                    title="OPERATIONAL" 
+                    head="MARCELLO KAREL A."
+                    subs={[
+                      { name: "GENERAL AFFAIR", lead: "ANMAS RIFQI HASAN" },
+                      { name: "LOGISTIC", lead: "ARDHIANSYAH Z. A." },
+                      { name: "SAFETY & CARE", lead: "ATAMA RASIYA AZARI" }
+                    ]}
+                 />
+              </div>
+           </div>
+        </section>
+
+        {/* FINAL CTA SECTION */}
+        <section className="py-60 px-6 text-center relative">
+           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60rem] h-[60rem] bg-[#CCFF00]/5 rounded-full blur-[150px] -z-10" />
+           <motion.div 
+             initial={{ opacity: 0, scale: 0.9 }}
+             whileInView={{ opacity: 1, scale: 1 }}
+             className="max-w-5xl mx-auto flex flex-col items-center"
+           >
+              <h2 className="font-black text-6xl md:text-[10rem] tracking-[-0.05em] leading-[0.8] mb-20 uppercase">
+                 READY TO <br />
+                 <span className="text-[#E63E00]">ASCEND?</span>
+              </h2>
+              <Link href="/register" className="bg-[#001F3F] text-[#CCFF00] px-20 py-10 rounded-[4rem] font-black text-3xl uppercase tracking-[0.2em] shadow-premium hover:scale-105 transition-all">
+                 INITIALIZE NODE →
+              </Link>
+           </motion.div>
+        </section>
 
       </main>
 
-      {/* Footer Minimalist */}
-      <footer className="bg-[#001F3F] text-white py-16 text-center">
-        <div className="font-black text-5xl mb-8 tracking-wide">Y7 <span className="text-[#E63E00]">STRATEGIC</span></div>
-        <div className="text-sm font-medium tracking-[0.2em] text-zinc-400 uppercase">
-          {lang === 'ID' ? 'Direkayasa dari Kertas Menjadi Kekuatan oleh ARC Studio' : 'Engineered from Paper to Power by ARC Studio'}<br/><br/>
-          © 2026 {lang === 'ID' ? 'Departemen Media' : 'Media Department'} YMCC VII
-        </div>
+      {/* REPLICATED FOOTER */}
+      <footer className="bg-white py-32 px-6 border-t border-[#001F3F]/5">
+         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-20">
+            <div className="flex flex-col gap-6">
+                <div className="flex items-center gap-4">
+                  <div className="w-14 h-14 bg-[#001F3F] rounded-full flex items-center justify-center">
+                      <span className="font-black text-white italic text-xl">Y7</span>
+                  </div>
+                  <span className="font-black text-4xl tracking-tighter uppercase">YMCC VII</span>
+                </div>
+                <p className="text-zinc-400 font-medium max-w-sm">The Official Youth Mining Camp Competition Ecosystem 2026. Join theStake.</p>
+            </div>
+
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-20">
+               <div className="flex flex-col gap-6">
+                  <span className="font-black text-[10px] uppercase tracking-widest text-[#001F3F]">Explore</span>
+                  <Link href="/register" className="text-zinc-400 hover:text-[#001F3F] transition-colors text-sm font-medium">Register</Link>
+                  <Link href="/about" className="text-zinc-400 hover:text-[#001F3F] transition-colors text-sm font-medium">About</Link>
+                  <Link href="/merch" className="text-zinc-400 hover:text-[#001F3F] transition-colors text-sm font-medium">Store</Link>
+               </div>
+               <div className="flex flex-col gap-6">
+                  <span className="font-black text-[10px] uppercase tracking-widest text-[#001F3F]">System</span>
+                  <Link href="/docs" className="text-zinc-400 hover:text-[#001F3F] transition-colors text-sm font-medium">Docs</Link>
+                  <Link href="/status" className="text-zinc-400 hover:text-[#001F3F] transition-colors text-sm font-medium">Status</Link>
+                  <Link href="/contact" className="text-zinc-400 hover:text-[#001F3F] transition-colors text-sm font-medium">Support</Link>
+               </div>
+            </div>
+         </div>
+         <div className="max-w-7xl mx-auto mt-32 pt-10 border-t border-[#001F3F]/5 flex flex-col md:flex-row justify-between gap-10">
+            <div className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-300">
+               © 2026 MEDIA DEPT • ENGINEERED BY ARC STUDIO
+            </div>
+            <div className="flex gap-10 text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400">
+               <Link href="/privacy">Privacy Policy</Link>
+               <Link href="/terms">Terms of Service</Link>
+            </div>
+         </div>
       </footer>
     </div>
   );
 }
 
-// ---------------- Komponen Kecil Beranimasi ---------------- //
+// ---------------- Grass.io Custom Components ---------------- //
 
 function FeatureCard({ num, title, desc }: { num: string, title: string, desc: string }) {
   return (
-    <motion.div variants={fadeUpVar} className="bg-white border-2 border-[#001F3F]/5 p-10 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,31,63,0.03)] hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group relative overflow-hidden">
-      <div className="absolute -right-4 -top-4 w-24 h-24 bg-[#CCFF00]/10 rounded-full blur-2xl group-hover:bg-[#CCFF00]/20 transition-colors" />
-      <div className="w-12 h-12 bg-[#001F3F] text-[#CCFF00] rounded-full flex items-center justify-center font-black text-xs mb-8 shadow-[4px_4px_0_0_#CCFF00]">
-        {num}
-      </div>
-      <h3 className="font-black text-2xl text-[#001F3F] leading-tight mb-4 uppercase tracking-tighter">{title}</h3>
-      <p className="text-sm font-medium text-zinc-500 leading-relaxed">{desc}</p>
+    <motion.div variants={fadeUpVar} className="bg-white p-14 rounded-[5rem] shadow-soft hover:shadow-premium transition-all duration-1000 group border border-[#001F3F]/5">
+      <div className="w-16 h-16 bg-zinc-100 rounded-full flex items-center justify-center font-black text-xl text-[#001F3F] mb-12 group-hover:bg-[#CCFF00] transition-colors duration-500">{num}</div>
+      <h3 className="font-black text-4xl mb-6 tracking-tighter uppercase leading-[0.9]">{title}</h3>
+      <p className="text-md font-medium text-zinc-400 leading-relaxed uppercase italic opacity-60">{desc}</p>
     </motion.div>
   )
 }
-
-function ValueCard({ title, desc }: { title: string, desc: string }) {
-  return (
-    <motion.div variants={scaleUpVar} className="bg-[#001F3F] p-10 rounded-[2.5rem] shadow-2xl hover:-translate-y-3 transition-all duration-500 group border-2 border-white/5">
-      <h3 className="font-black text-3xl text-[#CCFF00] mb-6 uppercase tracking-tighter group-hover:translate-x-2 transition-transform">{title}</h3>
-      <p className="font-medium text-sm text-white/60 leading-relaxed">{desc}</p>
-    </motion.div>
-  )
-}
-
-function ReqCard({ num, title, desc }: { num: string, title: string, desc: string }) {
-  return (
-    <motion.div variants={fadeUpVar} className="bg-[#001F3F] border-4 border-[#CCFF00] shadow-[8px_8px_0_0_#CCFF00] p-8 text-left hover:-translate-x-2 hover:-translate-y-2 hover:shadow-[16px_16px_0_0_#CCFF00] transition-all duration-300 group">
-      <h3 className="font-black text-3xl text-[#CCFF00] mb-4 uppercase group-hover:text-white transition-colors">{num}. {title}</h3>
-      <p className="text-white text-base font-semibold leading-relaxed">{desc}</p>
-    </motion.div>
-  )
-}
-
-function LogoBox({ className = "" }: { className?: string }) {
-  return (
-    <div className={`bg-white border-4 border-[#001F3F] p-4 flex flex-col items-center justify-center shadow-[12px_12px_0_0_#E63E00] ${className}`}>
-      <div className="relative w-24 h-24 md:w-32 md:h-32">
-        <img 
-          src="/assets/logo-ymcc.png" 
-          alt="YMCC Logo Kotak" 
-          className="w-full h-full object-contain scale-[1.5]"
-        />
-      </div>
-    </div>
-  );
-}
-
-function TrustSection({ lang }: { lang: string }) {
-  const [activeTab, setActiveTab] = useState('privacy');
-
-  const tabs = [
-    { id: 'privacy', label: lang === 'ID' ? 'Privasi' : 'Privacy', color: 'primary', icon: <Shield className="w-5 h-5" /> },
-    { id: 'security', label: lang === 'ID' ? 'Keamanan' : 'Security', color: 'accent', icon: <Lock className="w-5 h-5" /> },
-    { id: 'control', label: lang === 'ID' ? 'Kontrol' : 'Control', color: 'purple', icon: <Settings className="w-5 h-5" /> },
-  ];
-
-  const content = {
-    privacy: {
-      title: lang === 'ID' ? 'Anda Memegang Kendali' : 'You are in control',
-      desc: lang === 'ID' 
-        ? 'YMCC VII menjamin kerahasiaan data pribadi Anda. Tidak ada data yang dibagikan tanpa persetujuan eksplisit. Kami hanya mengumpulkan informasi yang diperlukan untuk verifikasi kompetisi.'
-        : 'YMCC VII guarantees the confidentiality of your personal data. No data is shared without explicit consent. We only collect information necessary for competition verification.',
-      img: '/privacy-ill.png'
-    },
-    security: {
-      title: lang === 'ID' ? 'Keamanan Berlapis' : 'Layered Security',
-      desc: lang === 'ID'
-        ? 'Sistem ujian kami menggunakan enkripsi tingkat tinggi dan protokol anti-kecurangan real-time untuk memastikan integritas setiap jawaban yang Anda kirimkan.'
-        : 'Our exam system uses high-level encryption and real-time anti-cheat protocols to ensure the integrity of every answer you submit.',
-      img: '/security-ill.png'
-    },
-    control: {
-      title: lang === 'ID' ? 'Akses Transparan' : 'Transparent Access',
-      desc: lang === 'ID'
-        ? 'Lihat riwayat pembayaran, status verifikasi berkas, dan log aktivitas akun Anda kapan saja melalui dashboard yang intuitif dan transparan.'
-        : 'View your payment history, document verification status, and account activity logs anytime through our intuitive and transparent dashboard.',
-      img: '/control-ill.png'
-    }
-  };
-
-  return (
-    <motion.section 
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
-      variants={staggerVar}
-      className="py-32 px-6 md:px-12 bg-white border-b-4 border-[#001F3F]"
-    >
-      <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
-        <div>
-          <motion.h2 variants={fadeUpVar} className="font-black text-5xl md:text-6xl text-[#001F3F] mb-8 uppercase leading-tight">
-            {lang === 'ID' ? 'Kenapa Orang ' : 'Why People '} <br/> 
-            <span className="text-[#E63E00]">{lang === 'ID' ? 'Mempercayainya' : 'Trust It'}</span>
-          </motion.h2>
-
-          <motion.div variants={fadeUpVar} className="flex gap-4 mb-10">
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-3 px-8 py-3 font-black text-xs uppercase tracking-[0.2em] border-4 transition-all duration-300
-                  ${activeTab === tab.id 
-                    ? `bg-[var(--color-${tab.color}-pale)] border-[#001F3F] text-[#001F3F] shadow-[6px_6px_0_0_#001F3F] -translate-y-1` 
-                    : 'bg-white border-[#001F3F]/10 text-zinc-400 hover:border-[#001F3F] hover:text-[#001F3F] shadow-[4px_4px_0_0_rgba(0,31,63,0.05)]'}`}
-              >
-                {tab.icon}
-                {tab.label}
-              </button>
-            ))}
-          </motion.div>
-
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeTab}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 20 }}
-              transition={{ duration: 0.3 }}
-              className="max-w-lg"
-            >
-              <h3 className="text-2xl font-black text-[#001F3F] mb-4 uppercase">{(content as any)[activeTab].title}</h3>
-              <p className="text-lg font-medium text-zinc-600 leading-relaxed mb-10">
-                {(content as any)[activeTab].desc}
-              </p>
-              <Link href="/about" className="inline-block bg-[#001F3F] text-white px-8 py-3 font-black text-sm uppercase tracking-widest border-2 border-[#001F3F] hover:bg-white hover:text-[#001F3F] transition-all shadow-[6px_6px_0_0_#E63E00]">
-                {lang === 'ID' ? 'PELAJARI LEBIH LANJUT' : 'LEARN MORE'}
-              </Link>
-            </motion.div>
-          </AnimatePresence>
-        </div>
-
-        <motion.div variants={scaleUpVar} className="relative aspect-square bg-zinc-50 border-4 border-[#001F3F] flex items-center justify-center p-12 overflow-hidden shadow-[12px_12px_0_0_#CCFF00]">
-          <div className="absolute inset-0 bg-grid-zinc-200/50 [mask-image:radial-gradient(white,transparent)]" />
-          <div className="relative z-10 w-full h-full flex items-center justify-center">
-            {/* Placeholder for Dynamic Illustration */}
-            <div className="w-full h-full border-4 border-dashed border-[#001F3F]/20 flex flex-col items-center justify-center text-center">
-               <Zap className="w-24 h-24 text-[#CCFF00] drop-shadow-[4px_4px_0_#001F3F] mb-4" />
-               <p className="font-heading text-[#001F3F] text-2xl uppercase tracking-tighter italic">Dynamic <br/> Illustration</p>
-            </div>
-          </div>
-        </motion.div>
-      </div>
-    </motion.section>
-  );
-}
-
-function PointsSection({ lang }: { lang: string }) {
-  return (
-    <motion.section 
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
-      variants={staggerVar}
-      className="py-32 px-6 md:px-12 bg-white flex flex-col items-center text-center overflow-hidden border-b-4 border-[#001F3F]"
-    >
-      <motion.p variants={fadeUpVar} className="text-[#001F3F] font-bold text-sm uppercase tracking-[0.3em] mb-4">
-        Keep your progress active and earn recognition
-      </motion.p>
-      
-      <div className="relative w-full max-w-6xl mt-12 grid grid-cols-1 md:grid-cols-3 items-center gap-8 lg:gap-0">
-        
-        {/* Left Side Cards */}
-        <div className="flex flex-col gap-8 items-center lg:items-end z-10">
-          <motion.div variants={fadeUpVar} className="bg-[#CCFF00] border-4 border-[#001F3F] p-8 w-full max-w-sm text-left shadow-[8px_8px_0_0_#001F3F] hover:-rotate-1 transition-transform">
-             <div className="bg-white p-2 border-2 border-[#001F3F] w-fit mb-4">
-               <Zap className="w-6 h-6 text-[#CCFF00] stroke-[3]" />
-             </div>
-             <h4 className="font-black text-2xl text-[#001F3F] mb-2 uppercase">Uptime</h4>
-             <p className="text-sm font-medium text-[#001F3F]/70">Pastikan akun Anda aktif selama periode lomba untuk mendapatkan akumulasi poin keunggulan.</p>
-          </motion.div>
-          <motion.div variants={fadeUpVar} className="bg-white border-4 border-[#001F3F] p-8 w-full max-w-sm text-left shadow-[8px_8px_0_0_#001F3F] hover:rotate-1 transition-transform">
-             <div className="bg-[#001F3F] p-2 border-2 border-[#001F3F] w-fit mb-4">
-               <Globe className="w-6 h-6 text-white" />
-             </div>
-             <h4 className="font-black text-2xl text-[#001F3F] mb-2 uppercase">Global Reach</h4>
-             <p className="text-sm font-medium text-zinc-500">Terhubung dengan peserta dari berbagai universitas nasional dan internasional.</p>
-          </motion.div>
-        </div>
-
-        {/* Center Logo */}
-        <div className="flex justify-center z-20">
-           <motion.div 
-             animate={{ rotate: [0, 5, 0, -5, 0] }}
-             transition={{ repeat: Infinity, duration: 10, ease: "easeInOut" }}
-           >
-             <LogoBox className="scale-110 lg:scale-150 rotate-3" />
-           </motion.div>
-        </div>
-
-        {/* Right Side Cards */}
-        <div className="flex flex-col gap-8 items-center lg:items-start z-10">
-          <motion.div variants={fadeUpVar} className="bg-[#9333EA] border-4 border-[#001F3F] p-8 w-full max-w-sm text-left shadow-[8px_8px_0_0_#001F3F] hover:rotate-1 transition-transform">
-             <div className="bg-white p-2 border-2 border-[#001F3F] w-fit mb-4">
-               <Lock className="w-6 h-6 text-[#9333EA] stroke-[3]" />
-             </div>
-             <h4 className="font-black text-2xl text-white mb-2 uppercase">Network</h4>
-             <p className="text-sm font-medium text-white/80">Keamanan jaringan yang menjamin setiap transaksi data nilai Anda aman dan tidak terbantahkan.</p>
-          </motion.div>
-          <motion.div variants={fadeUpVar} className="bg-[#primary-pale] border-4 border-[#001F3F] p-8 w-full max-w-sm text-left shadow-[8px_8px_0_0_#001F3F] bg-[rgba(230,62,0,0.15)] hover:-rotate-1 transition-transform">
-             <div className="bg-[#E63E00] p-2 border-2 border-[#001F3F] w-fit mb-4">
-               <ArrowRight className="w-6 h-6 text-white" />
-             </div>
-             <h4 className="font-black text-2xl text-[#001F3F] mb-2 uppercase">Referrals</h4>
-             <p className="text-sm font-medium text-[#001F3F]/70">Dapatkan keuntungan tambahan dengan mengajak rekan mahasiswa lain bergabung dalam kompetisi.</p>
-          </motion.div>
-        </div>
-
-      </div>
-    </motion.section>
-  );
-}
-
-function GetStartedSection({ lang }: { lang: string }) {
-  const steps = [
-    {
-      num: "01",
-      title: lang === 'ID' ? 'Unduh Ketentuan' : 'Download Guide',
-      desc: lang === 'ID' ? 'Pelajari buku panduan teknis tiap kategori lomba secara seksama.' : 'Read the technical guide for each competition category carefully.',
-      icon: <Download className="w-6 h-6" />,
-      color: "var(--color-primary-pale)",
-      borderColor: "var(--color-primary)"
-    },
-    {
-      num: "02",
-      title: lang === 'ID' ? 'Buat Akun' : 'Create An Account',
-      desc: lang === 'ID' ? 'Daftarkan tim Anda dan lengkapi profil kepesertaan resmi YMCC VII.' : 'Register your team and complete the official YMCC VII participation profile.',
-      icon: <UserPlus className="w-6 h-6" />,
-      color: "white",
-      borderColor: "var(--color-secondary)"
-    },
-    {
-      num: "03",
-      title: lang === 'ID' ? 'Dapatkan Manfaat' : 'Earn Rewards',
-      desc: lang === 'ID' ? 'Lalui tiap tahap seleksi dan raih hadiah total senilai puluhan juta rupiah.' : 'Pass each selection stage and win total prizes worth tens of millions of rupiah.',
-      icon: <CheckCircle2 className="w-6 h-6" />,
-      color: "white",
-      borderColor: "var(--color-secondary)"
-    }
-  ];
-
-  return (
-    <motion.section 
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
-      variants={staggerVar}
-      className="py-32 px-6 md:px-12 bg-zinc-50 border-b-4 border-[#001F3F]"
-    >
-      <div className="max-w-7xl mx-auto">
-        <motion.h2 variants={fadeUpVar} className="font-black text-6xl text-[#001F3F] mb-16 uppercase text-center md:text-left tracking-tighter">
-          {lang === 'ID' ? 'Bagaimana Cara ' : 'How To '} <br className="md:hidden" />
-          <span className="text-[#CCFF00] drop-shadow-[4px_4px_0_#001F3F] [-webkit-text-stroke:1px_#001F3F]">{lang === 'ID' ? 'Memulai?' : 'Get Started'}</span>
-        </motion.h2>
-
-        <div className="grid lg:grid-cols-3 gap-8">
-          {steps.map((step, i) => (
-            <motion.div 
-              key={i}
-              variants={fadeUpVar}
-              style={{ backgroundColor: step.color, borderColor: step.borderColor }}
-              className={`border-4 p-10 flex flex-col h-full relative group transition-all duration-300 shadow-[8px_8px_0_0_#001F3F] hover:-translate-y-2`}
-            >
-              <div className="absolute top-4 right-4 flex items-center justify-center w-10 h-10 bg-[#CCFF00] border-2 border-[#001F3F] font-black text-xs text-[#001F3F] shadow-[2px_2px_0_0_#001F3F]">
-                {step.num}
-              </div>
-              <div className="bg-[#001F3F] text-white p-3 w-fit mb-8 shadow-[4px_4px_0_0_#CCFF00]">
-                {step.icon}
-              </div>
-              <h3 className="font-black text-3xl text-[#001F3F] mb-4 uppercase leading-none">{step.title}</h3>
-              <p className="text-zinc-600 font-medium text-lg leading-relaxed flex-grow">
-                {step.desc}
-              </p>
-              
-              {i === 0 && (
-                <div className="mt-8">
-                  <button className="bg-[#CCFF00] border-4 border-[#001F3F] px-6 py-3 font-black text-xs uppercase tracking-widest text-[#001F3F] hover:bg-[#001F3F] hover:text-[#CCFF00] transition-all shadow-[4px_4px_0_0_#E63E00]">
-                    DOWNLOAD GUIDE
-                  </button>
-                </div>
-              )}
-            </motion.div>
-          ))}
-        </div>
-        
-        <motion.div variants={fadeUpVar} className="mt-20 text-center">
-           <p className="font-bold text-zinc-400 uppercase tracking-widest text-sm mb-4">Now You're Getting</p>
-           <div className="font-black text-4xl md:text-6xl text-[#001F3F] uppercase italic">Real Value.</div>
-        </motion.div>
-      </div>
-    </motion.section>
-  );
-}
-
 
 function DeptCard({ title, head, subs }: { title: string, head: string, subs: {name: string, lead: string}[] }) {
   return (
-    <motion.div variants={fadeUpVar} className="bg-white p-6 md:p-8 border-4 border-[#001F3F] flex flex-col hover:-translate-y-2 hover:shadow-[12px_12px_0_0_#E63E00] transition-all group">
-      <div className="bg-[#E63E00] text-white px-2 py-0.5 text-[10px] font-black uppercase w-fit tracking-widest mb-3 border-2 border-[#001F3F]">
-        DEPARTMENT
+    <motion.div variants={fadeUpVar} className="glass-morphism p-14 rounded-[6rem] flex flex-col border border-white/10 group transition-all duration-700 hover:bg-white/10">
+      <div className="bg-[#CCFF00] text-[#001F3F] px-4 py-1.5 rounded-full text-[9px] font-black uppercase w-fit tracking-widest mb-10">
+        STRUCTURAL LAYER
       </div>
-      <h3 className="font-black text-4xl text-[#001F3F] uppercase mb-4 leading-none group-hover:text-[#E63E00] transition-colors">{title}</h3>
+      <h3 className="font-black text-5xl text-white uppercase mb-6 tracking-[-0.05em] leading-none group-hover:text-[#CCFF00] transition-colors">{title}</h3>
       
-      <div className="bg-[#001F3F] p-4 mb-6 relative border-l-4 border-[#CCFF00] hover:translate-x-2 transition-transform">
-        <span className="block text-[#CCFF00] font-medium text-[10px] tracking-widest uppercase mb-1">HEAD OF DEPARTMENT</span>
-        <span className="block font-black text-2xl text-white uppercase leading-none">{head}</span>
+      <div className="mb-14">
+        <span className="block text-white/30 font-black text-[9px] tracking-[0.4em] uppercase mb-3 text-left">CHIEF OF PILLAR</span>
+        <span className="block font-black text-3xl text-white uppercase leading-none">{head}</span>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-10">
         {subs.map((sub, i) => (
-          <div key={i} className="border-b-2 border-zinc-100 pb-3 hover:border-[#001F3F] transition-colors group/item">
-            <span className="block text-zinc-500 font-medium text-[10px] uppercase tracking-widest mb-1 leading-tight">{sub.name}</span>
-            <span className="block font-black text-lg text-black uppercase">{sub.lead}</span>
+          <div key={i} className="border-t border-white/5 pt-6 group/item">
+            <span className="block text-white/20 font-black text-[10px] uppercase tracking-[0.2em] mb-2">{sub.name}</span>
+            <span className="block font-black text-xl text-white/90 uppercase group-hover/item:text-[#CCFF00] transition-colors">{sub.lead}</span>
           </div>
         ))}
       </div>

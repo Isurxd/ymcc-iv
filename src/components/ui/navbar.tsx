@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useLanguage } from '@/lib/LanguageContext';
 import { Globe, ChevronDown, User, LogOut, LayoutDashboard, Menu, X } from 'lucide-react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 export function Navbar() {
@@ -12,8 +13,13 @@ export function Navbar() {
   const router = useRouter();
   
   const [user, setUser] = useState<any>(null);
-  const [isLangOpen, setIsLangOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  
+  // High-end Scroll Animation
+  const { scrollY } = useScroll();
+  const opacity = useTransform(scrollY, [0, 100], [0, 1]);
+  const y = useTransform(scrollY, [0, 100], [-20, 0]);
+  const scale = useTransform(scrollY, [0, 100], [0.95, 1]);
 
   useEffect(() => {
     fetch('/api/auth/me')
@@ -45,20 +51,12 @@ export function Navbar() {
 
   const isActive = (path: string) => pathname === path;
 
-  // Shrink padding agar muat lebih banyak form menu di md-lg screens
-  const NavLink = ({ href, children, active, extraClass = '' }: { href: string, children: React.ReactNode, active: boolean, extraClass?: string }) => (
-    <Link 
-      href={href} 
-      className={`px-3 py-2 border-2 transition-all duration-300 ${active ? 'border-[#CCFF00] bg-[#CCFF00] text-[#001F3F] shadow-[3px_3px_0_0_#E63E00] -translate-y-0.5' : 'border-transparent text-zinc-300 hover:text-white hover:border-white/20'} ${extraClass}`}
+  return (
+    <motion.div 
+      style={{ opacity, y, scale }}
+      className="fixed top-6 left-0 right-0 z-[100] px-4 md:px-0"
     >
-      {children}
-    </Link>
-  );
-
-  return (
-  return (
-    <div className="fixed top-6 left-0 right-0 z-[100] px-4 md:px-0">
-      <nav className="max-w-6xl mx-auto bg-white/70 backdrop-blur-md border-2 border-[#001F3F]/10 px-4 md:px-8 py-3 rounded-full flex items-center justify-between shadow-[0_12px_40px_rgba(0,31,63,0.1)]">
+      <nav className="max-w-6xl mx-auto glass-morphism px-4 md:px-8 py-3 rounded-full flex items-center justify-between shadow-premium border-white/20">
         
         <Link href="/" className="flex items-center gap-2 group">
           <div className="w-10 h-10 bg-[#001F3F] rounded-full flex items-center justify-center border-2 border-[#CCFF00] shadow-[2px_2px_0_0_#001F3F] group-hover:rotate-12 transition-transform">
