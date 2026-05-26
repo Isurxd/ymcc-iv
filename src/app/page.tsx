@@ -121,50 +121,80 @@ export default function RecruitmentPage() {
         </div>
 
 
-        {/* Header Title / Hero Section - Grass.io Style */}
+        {/* Header Title / Hero Section - Grass.io Style Side-by-Side */}
         <motion.section 
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
           variants={staggerVar}
-          className="pt-24 pb-48 px-6 md:px-12 text-center flex flex-col items-center relative overflow-hidden"
+          className="pt-32 pb-48 px-6 md:px-12 max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16 relative"
         >
-          {/* Floating Accents */}
-          <div className="absolute top-40 left-10 md:left-20 w-32 h-32 border-4 border-[#E63E00]/10 rounded-full animate-pulse" />
-          <div className="absolute top-20 right-10 md:right-40 w-48 h-48 border-[12px] border-[#CCFF00]/10 rounded-full" />
+          {/* Background Decorative Elements */}
+          <div className="absolute -top-20 -left-20 w-[40rem] h-[40rem] bg-[#CCFF00]/5 rounded-full blur-3xl -z-10" />
+          <div className="absolute top-40 right-0 w-[30rem] h-[30rem] bg-[#E63E00]/5 rounded-full blur-3xl -z-10" />
 
-          <motion.div variants={fadeUpVar} className="bg-[#001F3F] text-[#CCFF00] px-4 py-2 text-xs font-black uppercase tracking-[0.4em] mb-12 border-2 border-[#001F3F] z-10 shadow-[6px_6px_0_0_#E63E00]">
-            {lang === 'ID' ? 'PANDUAN SELEKSI RESMI 2026' : 'OFFICIAL 2026 SELECTION GUIDE'}
-          </motion.div>
-          
-          <motion.h1 variants={fadeUpVar} className="font-black text-6xl md:text-8xl lg:text-[10rem] text-[#001F3F] uppercase leading-[0.85] z-10 mb-16 tracking-tighter">
-            THE GREEN <br/> 
-            <span className="text-[#CCFF00] drop-shadow-[8px_8px_0_#001F3F] [-webkit-text-stroke:2px_#001F3F]">COMPASS</span>
-          </motion.h1>
+          {/* Left Column: Text Content */}
+          <div className="flex-1 text-left z-10">
+            <motion.div variants={fadeUpVar} className="bg-[#001F3F] text-[#CCFF00] px-4 py-2 text-[10px] font-black uppercase tracking-[0.4em] mb-8 border-2 border-[#001F3F] w-fit shadow-[4px_4px_0_0_#E63E00]">
+              {lang === 'ID' ? 'PANDUAN SELEKSI RESMI 2026' : 'OFFICIAL 2026 SELECTION GUIDE'}
+            </motion.div>
+            
+            <motion.h1 variants={fadeUpVar} className="font-black text-6xl md:text-8xl lg:text-9xl text-[#001F3F] uppercase leading-[0.85] mb-10 tracking-tighter drop-shadow-sm">
+              THE GREEN <br/> 
+              <span className="text-[#CCFF00] drop-shadow-[8px_8px_0_#001F3F] [-webkit-text-stroke:2px_#001F3F]">COMPASS</span>
+            </motion.h1>
 
-          <motion.div variants={fadeUpVar} className="flex flex-col sm:flex-row gap-6 z-10 mb-24">
-             <Link href="/register" className="bg-[#CCFF00] text-[#001F3F] border-4 border-[#001F3F] px-12 py-5 font-black text-xl uppercase tracking-widest hover:bg-[#001F3F] hover:text-[#CCFF00] transition-all shadow-[10px_10px_0_0_#E63E00] hover:shadow-none translate-x-[-5px] translate-y-[-5px] hover:translate-x-0 hover:translate-y-0">
-                {lang === 'ID' ? 'DAFTAR SEKARANG' : 'JOIN THE CAMP'}
-             </Link>
-             <Link href="#about" className="bg-white text-[#001F3F] border-4 border-[#001F3F] px-12 py-5 font-black text-xl uppercase tracking-widest hover:bg-zinc-100 transition-all shadow-[10px_10px_0_0_#001F3F]">
-                {lang === 'ID' ? 'PELAJARI' : 'LEARN MORE'}
-             </Link>
-          </motion.div>
+            <motion.p variants={fadeUpVar} className="text-xl md:text-2xl font-medium text-zinc-500 mb-12 max-w-xl leading-relaxed">
+              {lang === 'ID' 
+                ? 'Bergabunglah dalam ekosistem kompetisi pertambangan terbesar. Tingkatkan kompetensi, bangun jaringan, dan raih masa depan teknologi hijau.'
+                : 'Join the largest mining competition ecosystem. Enhance your competence, build networks, and seize the future of green technology.'}
+            </motion.p>
 
+            <motion.div variants={fadeUpVar} className="flex flex-col sm:flex-row gap-6">
+               <Link href="/register" className="bg-[#CCFF00] text-[#001F3F] border-4 border-[#001F3F] px-12 py-5 rounded-full font-black text-lg uppercase tracking-widest hover:bg-[#001F3F] hover:text-[#CCFF00] transition-all shadow-[10px_10px_0_0_#001F3F] hover:shadow-none translate-x-[-5px] translate-y-[-5px] hover:translate-x-0 hover:translate-y-0">
+                  {lang === 'ID' ? 'JOIN NOW' : 'JOIN NOW'}
+               </Link>
+               <Link href="#about" className="bg-white/50 backdrop-blur-sm text-[#001F3F] border-4 border-[#001F3F]/10 px-12 py-5 rounded-full font-black text-lg uppercase tracking-widest hover:border-[#001F3F] transition-all shadow-sm">
+                  {lang === 'ID' ? 'EXPLORE' : 'EXPLORE'}
+               </Link>
+            </motion.div>
+          </div>
+
+          {/* Right Column: Visual Mockup */}
           <motion.div 
             variants={scaleUpVar} 
-            className="w-full max-w-4xl relative"
+            className="flex-1 relative"
           >
-             <div className="absolute inset-0 bg-[#CCFF00] blur-[120px] opacity-20 -z-10" />
-             <img 
-               src="/assets/hero-mockup.png" 
-               alt="YMCC VII Dashboard Mockup" 
-               className="w-full h-auto drop-shadow-[24px_24px_0_rgba(0,31,63,0.1)] relative z-10 border-x-8 border-t-8 border-[#001F3F] rounded-t-[3rem]"
-             />
+             <div className="absolute inset-0 bg-[#CCFF00] blur-[100px] opacity-20 -z-10 animate-pulse" />
+             <div className="relative border-[12px] border-[#001F3F] rounded-[3rem] overflow-hidden shadow-[32px_32px_0_0_rgba(0,31,63,0.05)] rotate-2 hover:rotate-0 transition-transform duration-700 bg-white">
+               <img 
+                 src="/assets/hero-mockup.png" 
+                 alt="YMCC VII Dashboard Mockup" 
+                 className="w-full h-auto"
+               />
+               {/* Floating elements inside mockup area */}
+               <div className="absolute top-10 -right-10 w-24 h-24 bg-[#E63E00] border-4 border-[#001F3F] rounded-2xl rotate-12 flex items-center justify-center shadow-lg">
+                  <Zap className="text-white w-10 h-10" />
+               </div>
+             </div>
+             
+             {/* Secondary floating cards */}
+             <motion.div 
+               animate={{ y: [0, -20, 0] }}
+               transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+               className="absolute -bottom-10 -left-10 bg-white border-4 border-[#001F3F] p-6 rounded-2xl shadow-xl z-20 hidden md:block"
+             >
+                <div className="flex items-center gap-4">
+                   <div className="w-12 h-12 bg-[#CCFF00] border-2 border-[#001F3F] rounded-full flex items-center justify-center">
+                      <Shield className="w-6 h-6 text-[#001F3F]" />
+                   </div>
+                   <div>
+                      <div className="font-black text-xs text-[#001F3F] uppercase tracking-widest">Verified System</div>
+                      <div className="text-[10px] font-bold text-zinc-400 capitalize">Real-time validation active</div>
+                   </div>
+                </div>
+             </motion.div>
           </motion.div>
-
-          <motion.div variants={scaleUpVar} className="absolute -right-20 -top-20 w-96 h-96 bg-[#CCFF00] rounded-full blur-3xl opacity-30 z-0"></motion.div>
-          <motion.div variants={scaleUpVar} className="absolute -left-20 bottom-10 w-72 h-72 bg-[#E63E00] rounded-full blur-3xl opacity-20 z-0"></motion.div>
         </motion.section>
 
         {/* Protokol & Validasi */}
@@ -345,40 +375,45 @@ export default function RecruitmentPage() {
           </div>
         </motion.section>
 
-        {/* Institutional Support */}
+        {/* Institutional Support - Refined */}
         <motion.section 
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}
           variants={staggerVar}
-          className="border-b-4 border-[#001F3F] bg-white overflow-hidden py-16"
+          className="border-y-4 border-[#001F3F]/5 bg-zinc-50/30 overflow-hidden py-20"
         >
-          <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center justify-between px-6">
-            <motion.h2 variants={fadeUpVar} className="font-black text-4xl lg:text-6xl text-[#001F3F] uppercase lg:w-1/3 mb-10 lg:mb-0 text-center lg:text-left leading-tight">
-              Institutional<br/>Support.
-            </motion.h2>
-            <motion.div variants={staggerVar} className="flex flex-wrap items-center justify-center lg:justify-end gap-12 lg:w-2/3">
-              <motion.div variants={fadeUpVar} className="flex flex-col items-center">
-                <div className="w-32 h-32 bg-zinc-100 border-4 border-[#001F3F] rounded-full flex items-center justify-center mb-4 overflow-hidden p-2 shadow-[4px_4px_0_0_#CCFF00] hover:-translate-y-1 transition-transform">
-                  <span className="font-medium text-xs uppercase text-center text-[#001F3F]">UPN Logo</span>
+          <div className="max-w-7xl mx-auto flex flex-col items-center px-6">
+            <motion.div variants={fadeUpVar} className="text-[#001F3F]/40 font-black text-[10px] uppercase tracking-[0.5em] mb-12">
+              Official Institutional Partners
+            </motion.div>
+            
+            <motion.div variants={staggerVar} className="flex flex-wrap items-center justify-center gap-16 md:gap-32">
+              <motion.div variants={fadeUpVar} className="flex flex-col items-center group">
+                <div className="w-24 h-24 bg-white border-2 border-[#001F3F]/10 rounded-full flex items-center justify-center mb-4 transition-all group-hover:border-[#001F3F] group-hover:shadow-xl grayscale hover:grayscale-0 p-4">
+                  <span className="font-black text-[10px] text-[#001F3F]/20 text-center uppercase tracking-tighter">UPN YK</span>
                 </div>
-                <p className="font-medium text-sm text-[#001F3F] uppercase">UPN "Veteran" YK</p>
+                <p className="font-black text-[8px] text-[#001F3F]/30 uppercase tracking-widest text-center">UPN "V" YOGYAKARTA</p>
               </motion.div>
-              <motion.div variants={fadeUpVar} className="flex flex-col items-center">
-                <div className="w-32 h-32 bg-white border-4 border-[#001F3F] flex items-center justify-center mb-4 overflow-hidden p-2 shadow-[8px_8px_0_0_#E63E00] hover:-translate-y-1 transition-transform">
+
+              <motion.div variants={fadeUpVar} className="flex flex-col items-center group">
+                <div className="w-24 h-24 bg-white border-2 border-[#001F3F]/10 rounded-full flex items-center justify-center mb-4 transition-all group-hover:border-[#E63E00] group-hover:shadow-xl grayscale hover:grayscale-0 p-4">
                   <img 
                     src="/assets/logo-hmta.png" 
                     alt="HMTA Logo" 
                     className="w-full h-full object-contain"
                   />
                 </div>
-                <p className="font-black text-sm text-[#001F3F] uppercase tracking-widest">HMTA UPNYK</p>
+                <p className="font-black text-[8px] text-[#001F3F]/30 uppercase tracking-widest text-center">HMTA UPNYK</p>
               </motion.div>
-              <motion.div variants={fadeUpVar} className="flex flex-col items-center">
-                <div className="w-32 h-32 bg-[#001F3F] border-4 border-[#E63E00] flex items-center justify-center mb-4 shadow-[4px_4px_0_0_#E63E00] hover:-translate-y-1 transition-transform">
-                  <span className="font-medium text-xs uppercase text-center text-white p-2">Visual Partner Logo</span>
+
+              <motion.div variants={fadeUpVar} className="flex flex-col items-center group">
+                <div className="w-24 h-24 bg-white border-2 border-[#001F3F]/10 rounded-full flex items-center justify-center mb-4 transition-all group-hover:border-[#CCFF00] group-hover:shadow-xl grayscale hover:grayscale-0 p-4">
+                   <div className="bg-[#001F3F] w-full h-full rounded-full flex items-center justify-center">
+                      <Globe className="w-6 h-6 text-white" />
+                   </div>
                 </div>
-                <p className="font-medium text-sm text-[#001F3F] uppercase">Technical Partner</p>
+                <p className="font-black text-[8px] text-[#001F3F]/30 uppercase tracking-widest text-center">Global Partner</p>
               </motion.div>
             </motion.div>
           </div>
@@ -473,19 +508,22 @@ export default function RecruitmentPage() {
 
 function FeatureCard({ num, title, desc }: { num: string, title: string, desc: string }) {
   return (
-    <motion.div variants={fadeUpVar} className="border-4 border-[#001F3F] p-8 shadow-[8px_8px_0_0_#001F3F] bg-white hover:-translate-y-2 hover:shadow-[12px_12px_0_0_#E63E00] transition-all duration-300">
-      <div className="font-black text-7xl text-zinc-200 mb-4 font-black">{num}</div>
-      <h3 className="font-black text-2xl text-[#001F3F] leading-none mb-4 uppercase">{title}</h3>
-      <p className="text-base font-medium text-zinc-600 leading-relaxed">{desc}</p>
+    <motion.div variants={fadeUpVar} className="bg-white border-2 border-[#001F3F]/5 p-10 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,31,63,0.03)] hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group relative overflow-hidden">
+      <div className="absolute -right-4 -top-4 w-24 h-24 bg-[#CCFF00]/10 rounded-full blur-2xl group-hover:bg-[#CCFF00]/20 transition-colors" />
+      <div className="w-12 h-12 bg-[#001F3F] text-[#CCFF00] rounded-full flex items-center justify-center font-black text-xs mb-8 shadow-[4px_4px_0_0_#CCFF00]">
+        {num}
+      </div>
+      <h3 className="font-black text-2xl text-[#001F3F] leading-tight mb-4 uppercase tracking-tighter">{title}</h3>
+      <p className="text-sm font-medium text-zinc-500 leading-relaxed">{desc}</p>
     </motion.div>
   )
 }
 
 function ValueCard({ title, desc }: { title: string, desc: string }) {
   return (
-    <motion.div variants={scaleUpVar} className="border-4 border-[#001F3F] bg-white p-8 shadow-brutal-lg hover:-translate-y-3 transition-transform duration-300 group">
-      <h3 className="font-black text-3xl text-[#E63E00] mb-4 group-hover:text-[#001F3F] transition-colors">{title}</h3>
-      <p className="font-medium text-base text-zinc-700 leading-relaxed">{desc}</p>
+    <motion.div variants={scaleUpVar} className="bg-[#001F3F] p-10 rounded-[2.5rem] shadow-2xl hover:-translate-y-3 transition-all duration-500 group border-2 border-white/5">
+      <h3 className="font-black text-3xl text-[#CCFF00] mb-6 uppercase tracking-tighter group-hover:translate-x-2 transition-transform">{title}</h3>
+      <p className="font-medium text-sm text-white/60 leading-relaxed">{desc}</p>
     </motion.div>
   )
 }
