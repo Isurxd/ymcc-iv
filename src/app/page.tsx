@@ -48,9 +48,9 @@ function WelcomeModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => voi
         <div className="flex flex-col items-center text-center">
           <div className="w-full aspect-video bg-[#001F3F] mb-8 relative overflow-hidden flex items-center justify-center border-4 border-[#001F3F]">
              <img 
-               src="/brain/67982619-78e1-44e8-9854-667a93ff95c0/logo_ymcc_1779808429124.png" 
+               src="/brain/67982619-78e1-44e8-9854-667a93ff95c0/salinan_ymcc_logo_1779809133458.png" 
                alt="Welcome YMCC" 
-               className="w-32 h-32 animate-pulse"
+               className="w-32 h-32 animate-pulse object-contain scale-150"
              />
              <div className="absolute inset-0 bg-gradient-to-t from-[#CCFF00]/20 to-transparent" />
           </div>
@@ -360,10 +360,14 @@ export default function RecruitmentPage() {
                 <p className="font-medium text-sm text-[#001F3F] uppercase">UPN "Veteran" YK</p>
               </motion.div>
               <motion.div variants={fadeUpVar} className="flex flex-col items-center">
-                <div className="w-32 h-32 bg-zinc-100 border-4 border-[#001F3F] rounded-full flex items-center justify-center mb-4 overflow-hidden p-2 shadow-[4px_4px_0_0_#CCFF00] hover:-translate-y-1 transition-transform">
-                  <span className="font-medium text-xs uppercase text-center text-[#001F3F]">HMTA Logo</span>
+                <div className="w-32 h-32 bg-white border-4 border-[#001F3F] flex items-center justify-center mb-4 overflow-hidden p-2 shadow-[8px_8px_0_0_#E63E00] hover:-translate-y-1 transition-transform">
+                  <img 
+                    src="/brain/67982619-78e1-44e8-9854-667a93ff95c0/media__1779808704904.png" 
+                    alt="HMTA Logo" 
+                    className="w-full h-full object-contain"
+                  />
                 </div>
-                <p className="font-medium text-sm text-[#001F3F] uppercase">HMTA UPNYK</p>
+                <p className="font-black text-sm text-[#001F3F] uppercase tracking-widest">HMTA UPNYK</p>
               </motion.div>
               <motion.div variants={fadeUpVar} className="flex flex-col items-center">
                 <div className="w-32 h-32 bg-[#001F3F] border-4 border-[#E63E00] flex items-center justify-center mb-4 shadow-[4px_4px_0_0_#E63E00] hover:-translate-y-1 transition-transform">
@@ -492,12 +496,14 @@ function ReqCard({ num, title, desc }: { num: string, title: string, desc: strin
 
 function LogoBox({ className = "" }: { className?: string }) {
   return (
-    <div className={`bg-white border-4 border-[#001F3F] p-4 flex flex-col items-center justify-center shadow-[8px_8px_0_0_#001F3F] ${className}`}>
-      <img 
-        src="/brain/67982619-78e1-44e8-9854-667a93ff95c0/logo_ymcc_1779808429124.png" 
-        alt="YMCC Logo" 
-        className="w-16 h-16 object-contain"
-      />
+    <div className={`bg-white border-4 border-[#001F3F] p-4 flex flex-col items-center justify-center shadow-[12px_12px_0_0_#E63E00] ${className}`}>
+      <div className="relative w-24 h-24 md:w-32 md:h-32">
+        <img 
+          src="/brain/67982619-78e1-44e8-9854-667a93ff95c0/salinan_ymcc_logo_1779809133458.png" 
+          alt="YMCC Logo Kotak" 
+          className="w-full h-full object-contain scale-[1.5]"
+        />
+      </div>
     </div>
   );
 }
