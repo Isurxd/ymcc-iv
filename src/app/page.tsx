@@ -48,7 +48,7 @@ function WelcomeModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => voi
         <div className="flex flex-col items-center text-center">
           <div className="w-full aspect-video bg-[#001F3F] mb-8 relative overflow-hidden flex items-center justify-center border-4 border-[#001F3F]">
              <img 
-               src="/brain/67982619-78e1-44e8-9854-667a93ff95c0/salinan_ymcc_logo_1779809133458.png" 
+               src="/assets/logo-ymcc.png" 
                alt="Welcome YMCC" 
                className="w-32 h-32 animate-pulse object-contain scale-150"
              />
@@ -362,7 +362,7 @@ export default function RecruitmentPage() {
               <motion.div variants={fadeUpVar} className="flex flex-col items-center">
                 <div className="w-32 h-32 bg-white border-4 border-[#001F3F] flex items-center justify-center mb-4 overflow-hidden p-2 shadow-[8px_8px_0_0_#E63E00] hover:-translate-y-1 transition-transform">
                   <img 
-                    src="/brain/67982619-78e1-44e8-9854-667a93ff95c0/media__1779808704904.png" 
+                    src="/assets/logo-hmta.png" 
                     alt="HMTA Logo" 
                     className="w-full h-full object-contain"
                   />
@@ -499,7 +499,7 @@ function LogoBox({ className = "" }: { className?: string }) {
     <div className={`bg-white border-4 border-[#001F3F] p-4 flex flex-col items-center justify-center shadow-[12px_12px_0_0_#E63E00] ${className}`}>
       <div className="relative w-24 h-24 md:w-32 md:h-32">
         <img 
-          src="/brain/67982619-78e1-44e8-9854-667a93ff95c0/salinan_ymcc_logo_1779809133458.png" 
+          src="/assets/logo-ymcc.png" 
           alt="YMCC Logo Kotak" 
           className="w-full h-full object-contain scale-[1.5]"
         />
