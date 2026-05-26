@@ -100,21 +100,21 @@ export default function RecruitmentPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-zinc-50 text-foreground font-sans overflow-hidden">
+    <div className="min-h-screen bg-white text-foreground font-sans overflow-hidden bg-grid-pattern">
       <Navbar />
 
-      <main className="w-full bg-white pt-16">
+      <main className="w-full pt-16">
         
         {/* Marquee Banner Top */}
-        <div className="overflow-hidden bg-[#001F3F] py-2 border-b-2 border-white relative z-20">
-          <div className="animate-marquee flex gap-12 text-sm font-anton text-white italic whitespace-nowrap tracking-wider">
+        <div className="overflow-hidden bg-[#001F3F] py-3 border-b-4 border-[#001F3F] relative z-20">
+          <div className="animate-marquee flex gap-12 text-sm font-anton text-[#CCFF00] italic whitespace-nowrap tracking-wider">
             {/* Repeat content for smooth marquee */}
             {[...Array(6)].map((_, i) => (
               <div key={i} className="flex gap-12 shrink-0">
                 <span>YMCC VII</span>
                 <span>THE GREEN COMPASS</span>
                 <span>YOUTH MINING CAMP COMPETITION</span>
-                <span>SELECTION GUIDE</span>
+                <span>2026 SELECTION GUIDE</span>
               </div>
             ))}
           </div>
@@ -127,21 +127,26 @@ export default function RecruitmentPage() {
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
           variants={staggerVar}
-          className="pt-24 pb-32 px-6 md:px-12 text-center border-b-4 border-[#001F3F] flex flex-col items-center relative overflow-hidden bg-white"
+          className="pt-24 pb-48 px-6 md:px-12 text-center flex flex-col items-center relative overflow-hidden"
         >
-          <motion.div variants={fadeUpVar} className="bg-[#E63E00] text-white px-4 py-1.5 text-xs font-black uppercase tracking-[0.3em] mb-10 border-2 border-[#001F3F] z-10 shadow-[4px_4px_0_0_#001F3F]">
-            {lang === 'ID' ? 'PANDUAN SELEKSI 2026' : '2026 SELECTION GUIDE'}
+          {/* Floating Accents */}
+          <div className="absolute top-40 left-10 md:left-20 w-32 h-32 border-4 border-[#E63E00]/10 rounded-full animate-pulse" />
+          <div className="absolute top-20 right-10 md:right-40 w-48 h-48 border-[12px] border-[#CCFF00]/10 rounded-full" />
+
+          <motion.div variants={fadeUpVar} className="bg-[#001F3F] text-[#CCFF00] px-4 py-2 text-xs font-black uppercase tracking-[0.4em] mb-12 border-2 border-[#001F3F] z-10 shadow-[6px_6px_0_0_#E63E00]">
+            {lang === 'ID' ? 'PANDUAN SELEKSI RESMI 2026' : 'OFFICIAL 2026 SELECTION GUIDE'}
           </motion.div>
-          <motion.h1 variants={fadeUpVar} className="font-black text-6xl md:text-8xl lg:text-9xl text-[#001F3F] uppercase leading-[0.9] z-10 mb-12 tracking-tighter">
+          
+          <motion.h1 variants={fadeUpVar} className="font-black text-6xl md:text-8xl lg:text-[10rem] text-[#001F3F] uppercase leading-[0.85] z-10 mb-16 tracking-tighter">
             THE GREEN <br/> 
-            <span className="text-[#CCFF00] drop-shadow-[4px_4px_0_#001F3F] [-webkit-text-stroke:2px_#001F3F]">COMPASS</span>
+            <span className="text-[#CCFF00] drop-shadow-[8px_8px_0_#001F3F] [-webkit-text-stroke:2px_#001F3F]">COMPASS</span>
           </motion.h1>
 
-          <motion.div variants={fadeUpVar} className="flex flex-col sm:flex-row gap-4 z-10 mb-16">
-             <Link href="/register" className="bg-[#CCFF00] text-[#001F3F] border-4 border-[#001F3F] px-10 py-4 font-black text-lg uppercase tracking-widest hover:bg-[#001F3F] hover:text-[#CCFF00] transition-all shadow-[6px_6px_0_0_#E63E00] hover:shadow-none translate-x-[-4px] translate-y-[-4px] hover:translate-x-0 hover:translate-y-0">
+          <motion.div variants={fadeUpVar} className="flex flex-col sm:flex-row gap-6 z-10 mb-24">
+             <Link href="/register" className="bg-[#CCFF00] text-[#001F3F] border-4 border-[#001F3F] px-12 py-5 font-black text-xl uppercase tracking-widest hover:bg-[#001F3F] hover:text-[#CCFF00] transition-all shadow-[10px_10px_0_0_#E63E00] hover:shadow-none translate-x-[-5px] translate-y-[-5px] hover:translate-x-0 hover:translate-y-0">
                 {lang === 'ID' ? 'DAFTAR SEKARANG' : 'JOIN THE CAMP'}
              </Link>
-             <Link href="#about" className="bg-white text-[#001F3F] border-4 border-[#001F3F] px-10 py-4 font-black text-lg uppercase tracking-widest hover:bg-zinc-100 transition-all shadow-[6px_6px_0_0_#001F3F]">
+             <Link href="#about" className="bg-white text-[#001F3F] border-4 border-[#001F3F] px-12 py-5 font-black text-xl uppercase tracking-widest hover:bg-zinc-100 transition-all shadow-[10px_10px_0_0_#001F3F]">
                 {lang === 'ID' ? 'PELAJARI' : 'LEARN MORE'}
              </Link>
           </motion.div>
@@ -561,11 +566,12 @@ function TrustSection({ lang }: { lang: string }) {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-6 py-2 font-black text-sm uppercase tracking-widest border-2 border-[#001F3F] transition-all duration-300
+                className={`flex items-center gap-3 px-8 py-3 font-black text-xs uppercase tracking-[0.2em] border-4 transition-all duration-300
                   ${activeTab === tab.id 
-                    ? `bg-[var(--color-${tab.color}-pale)] text-[#001F3F] shadow-[4px_4px_0_0_#001F3F] -translate-y-1` 
-                    : 'bg-white text-zinc-400 border-zinc-200 hover:border-[#001F3F] hover:text-[#001F3F]'}`}
+                    ? `bg-[var(--color-${tab.color}-pale)] border-[#001F3F] text-[#001F3F] shadow-[6px_6px_0_0_#001F3F] -translate-y-1` 
+                    : 'bg-white border-[#001F3F]/10 text-zinc-400 hover:border-[#001F3F] hover:text-[#001F3F] shadow-[4px_4px_0_0_rgba(0,31,63,0.05)]'}`}
               >
+                {tab.icon}
                 {tab.label}
               </button>
             ))}
