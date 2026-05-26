@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Anton, Open_Sans } from 'next/font/google';
+import { Anton, Poppins } from 'next/font/google';
 import './globals.css';
 import { LanguageProvider } from '@/lib/LanguageContext';
 
@@ -9,9 +9,10 @@ const anton = Anton({
   variable: '--font-anton'
 });
 
-const openSans = Open_Sans({ 
+const poppins = Poppins({ 
+  weight: ['300', '400', '500', '600', '700', '800'],
   subsets: ['latin'],
-  variable: '--font-open-sans'
+  variable: '--font-poppins'
 });
 
 export const metadata: Metadata = {
@@ -25,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="id" className={`${anton.variable} ${openSans.variable}`}>
+    <html lang="id" className={`${anton.variable} ${poppins.variable}`}>
       <body className="antialiased min-h-screen flex flex-col font-sans">
         <LanguageProvider>
           {children}

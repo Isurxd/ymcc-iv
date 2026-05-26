@@ -1,12 +1,16 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-open-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
   --font-heading: var(--font-anton), ui-sans-serif, system-ui, sans-serif;
   
   --color-primary: #E63E00;     /* Merah-Oranye */
+  --color-primary-pale: rgba(230, 62, 0, 0.15);
   --color-secondary: #001F3F;   /* Biru Navy */
   --color-accent: #CCFF00;      /* Kuning Neon */
+  --color-accent-pale: rgba(204, 255, 0, 0.15);
+  --color-purple: #9333EA;      /* Ungu Kita placeholder */
+  --color-purple-pale: rgba(147, 51, 234, 0.15);
   --color-foreground: #001F3F;
   --color-background: #ffffff;
 }
