@@ -157,7 +157,7 @@ export default function RecruitmentPage() {
           >
              <div className="absolute inset-0 bg-[#CCFF00] blur-[120px] opacity-20 -z-10" />
              <img 
-               src="/brain/67982619-78e1-44e8-9854-667a93ff95c0/hero_mockup_1779808329376.png" 
+               src="/assets/hero-mockup.png" 
                alt="YMCC VII Dashboard Mockup" 
                className="w-full h-auto drop-shadow-[24px_24px_0_rgba(0,31,63,0.1)] relative z-10 border-x-8 border-t-8 border-[#001F3F] rounded-t-[3rem]"
              />
