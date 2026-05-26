@@ -753,35 +753,6 @@ function GetStartedSection({ lang }: { lang: string }) {
   );
 }
 
-// ---------------- Komponen Kecil Beranimasi ---------------- //
-
-function FeatureCard({ num, title, desc }: { num: string, title: string, desc: string }) {
-  return (
-    <motion.div variants={fadeUpVar} className="border-4 border-[#001F3F] p-8 shadow-[8px_8px_0_0_#001F3F] bg-white hover:-translate-y-2 hover:shadow-[12px_12px_0_0_#E63E00] transition-all duration-300">
-      <div className="font-black text-7xl text-zinc-200 mb-4 font-black">{num}</div>
-      <h3 className="font-black text-2xl text-[#001F3F] leading-none mb-4 uppercase">{title}</h3>
-      <p className="text-base font-medium text-zinc-600 leading-relaxed">{desc}</p>
-    </motion.div>
-  )
-}
-
-function ValueCard({ title, desc }: { title: string, desc: string }) {
-  return (
-    <motion.div variants={scaleUpVar} className="border-4 border-[#001F3F] bg-white p-8 shadow-brutal-lg hover:-translate-y-3 transition-transform duration-300 group">
-      <h3 className="font-black text-3xl text-[#E63E00] mb-4 group-hover:text-[#001F3F] transition-colors">{title}</h3>
-      <p className="font-medium text-base text-zinc-700 leading-relaxed">{desc}</p>
-    </motion.div>
-  )
-}
-
-function ReqCard({ num, title, desc }: { num: string, title: string, desc: string }) {
-  return (
-    <motion.div variants={fadeUpVar} className="bg-[#001F3F] border-4 border-[#CCFF00] shadow-[8px_8px_0_0_#CCFF00] p-8 text-left hover:-translate-x-2 hover:-translate-y-2 hover:shadow-[16px_16px_0_0_#CCFF00] transition-all duration-300 group">
-      <h3 className="font-black text-3xl text-[#CCFF00] mb-4 uppercase group-hover:text-white transition-colors">{num}. {title}</h3>
-      <p className="text-white text-base font-semibold leading-relaxed">{desc}</p>
-    </motion.div>
-  )
-}
 
 function DeptCard({ title, head, subs }: { title: string, head: string, subs: {name: string, lead: string}[] }) {
   return (
