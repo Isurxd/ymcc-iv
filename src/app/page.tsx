@@ -679,8 +679,8 @@ function GetStartedSection({ lang }: { lang: string }) {
       title: lang === 'ID' ? 'Unduh Ketentuan' : 'Download Guide',
       desc: lang === 'ID' ? 'Pelajari buku panduan teknis tiap kategori lomba secara seksama.' : 'Read the technical guide for each competition category carefully.',
       icon: <Download className="w-6 h-6" />,
-      color: "rgba(230, 62, 0, 0.15)", // Primary pale
-      borderColor: "#E63E00"
+      color: "var(--color-primary-pale)",
+      borderColor: "var(--color-primary)"
     },
     {
       num: "02",
@@ -688,7 +688,7 @@ function GetStartedSection({ lang }: { lang: string }) {
       desc: lang === 'ID' ? 'Daftarkan tim Anda dan lengkapi profil kepesertaan resmi YMCC VII.' : 'Register your team and complete the official YMCC VII participation profile.',
       icon: <UserPlus className="w-6 h-6" />,
       color: "white",
-      borderColor: "#001F3F"
+      borderColor: "var(--color-secondary)"
     },
     {
       num: "03",
@@ -696,7 +696,7 @@ function GetStartedSection({ lang }: { lang: string }) {
       desc: lang === 'ID' ? 'Lalui tiap tahap seleksi dan raih hadiah total senilai puluhan juta rupiah.' : 'Pass each selection stage and win total prizes worth tens of millions of rupiah.',
       icon: <CheckCircle2 className="w-6 h-6" />,
       color: "white",
-      borderColor: "#001F3F"
+      borderColor: "var(--color-secondary)"
     }
   ];
 
@@ -709,9 +709,9 @@ function GetStartedSection({ lang }: { lang: string }) {
       className="py-32 px-6 md:px-12 bg-zinc-50 border-b-4 border-[#001F3F]"
     >
       <div className="max-w-7xl mx-auto">
-        <motion.h2 variants={fadeUpVar} className="font-black text-5xl text-[#001F3F] mb-16 uppercase text-center md:text-left">
+        <motion.h2 variants={fadeUpVar} className="font-black text-6xl text-[#001F3F] mb-16 uppercase text-center md:text-left tracking-tighter">
           {lang === 'ID' ? 'Bagaimana Cara ' : 'How To '} <br className="md:hidden" />
-          <span className="text-[#CCFF00] drop-shadow-[2px_2px_0_#001F3F]">{lang === 'ID' ? 'Memulai?' : 'Get Started'}</span>
+          <span className="text-[#CCFF00] drop-shadow-[4px_4px_0_#001F3F] [-webkit-text-stroke:1px_#001F3F]">{lang === 'ID' ? 'Memulai?' : 'Get Started'}</span>
         </motion.h2>
 
         <div className="grid lg:grid-cols-3 gap-8">
@@ -719,10 +719,10 @@ function GetStartedSection({ lang }: { lang: string }) {
             <motion.div 
               key={i}
               variants={fadeUpVar}
-              style={{ backgroundColor: step.color, borderColor: i === 0 ? step.borderColor : '#001F3F' }}
+              style={{ backgroundColor: step.color, borderColor: step.borderColor }}
               className={`border-4 p-10 flex flex-col h-full relative group transition-all duration-300 shadow-[8px_8px_0_0_#001F3F] hover:-translate-y-2`}
             >
-              <div className="absolute top-4 right-4 flex items-center justify-center w-8 h-8 bg-[#CCFF00] border-2 border-[#001F3F] font-black text-xs text-[#001F3F]">
+              <div className="absolute top-4 right-4 flex items-center justify-center w-10 h-10 bg-[#CCFF00] border-2 border-[#001F3F] font-black text-xs text-[#001F3F] shadow-[2px_2px_0_0_#001F3F]">
                 {step.num}
               </div>
               <div className="bg-[#001F3F] text-white p-3 w-fit mb-8 shadow-[4px_4px_0_0_#CCFF00]">
@@ -735,7 +735,7 @@ function GetStartedSection({ lang }: { lang: string }) {
               
               {i === 0 && (
                 <div className="mt-8">
-                  <button className="bg-[#CCFF00] border-2 border-[#001F3F] px-4 py-2 font-black text-[10px] uppercase tracking-widest text-[#001F3F] hover:bg-[#001F3F] hover:text-white transition-colors">
+                  <button className="bg-[#CCFF00] border-4 border-[#001F3F] px-6 py-3 font-black text-xs uppercase tracking-widest text-[#001F3F] hover:bg-[#001F3F] hover:text-[#CCFF00] transition-all shadow-[4px_4px_0_0_#E63E00]">
                     DOWNLOAD GUIDE
                   </button>
                 </div>
