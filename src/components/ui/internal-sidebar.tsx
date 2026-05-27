@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { LogOut, Menu, X, ArrowLeft, Loader2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { LogOut, Menu, X, ArrowLeft, Loader2, ShieldCheck, Zap, Activity } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export interface SidebarLink {
   href: string;
@@ -25,7 +25,6 @@ export function InternalSidebar({ portalName, navLinks, children }: InternalSide
   const [userName, setUserName] = useState<string | null>(null);
   
   useEffect(() => {
-    // Fetch user details for the top banner
     fetch("/api/auth/me")
       .then(res => res.json())
       .then(data => {
@@ -45,58 +44,77 @@ export function InternalSidebar({ portalName, navLinks, children }: InternalSide
   };
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row bg-zinc-100 text-foreground font-sans selection:bg-accent selection:text-foreground">
+    <div className="min-h-screen flex flex-col md:flex-row bg-[#F4F4F5] text-black font-poppins selection:bg-[#CCFF00] selection:text-black">
       
       {/* Mobile Top Header */}
-      <div className="md:hidden bg-[#001F3F] text-white p-4 flex items-center justify-between border-b-4 border-foreground z-30 shadow-brutal-sm">
-        <h2 className="font-heading text-xl md:text-2xl tracking-wide shadow-black drop-shadow-[2px_2px_0_#000]">
-          YMCC VII
-        </h2>
-        <button onClick={() => setIsSidebarOpen(true)} className="p-2 border-2 border-transparent hover:border-[#CCFF00] text-white">
-          <Menu className="w-7 h-7" />
+      <div className="md:hidden bg-white text-black p-4 flex items-center justify-between border-b-2 border-black z-30 shadow-[2px_2px_0_0_#000]">
+        <div className="flex items-center gap-2">
+           <img src="/assets/ymcc logo kotak.png" alt="YMCC" className="w-8 h-8 object-contain" />
+           <h2 className="font-black text-xl tracking-tighter uppercase italic">YMCC VII</h2>
+        </div>
+        <button onClick={() => setIsSidebarOpen(true)} className="p-2 border-2 border-black rounded-xl bg-[#CCFF00] shadow-[2px_2px_0_0_#000]">
+          <Menu className="w-6 h-6" />
         </button>
       </div>
 
       {/* Mobile Sidebar Overlay */}
-      {isSidebarOpen && (
-        <div 
-          className="fixed inset-0 bg-black/60 z-40 md:hidden backdrop-blur-sm" 
-          onClick={() => setIsSidebarOpen(false)}
-        />
-      )}
+      <AnimatePresence>
+        {isSidebarOpen && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/40 z-40 md:hidden backdrop-blur-sm" 
+            onClick={() => setIsSidebarOpen(false)}
+          />
+        )}
+      </AnimatePresence>
 
-      {/* Sidebar - Neo Brutalist */}
+      {/* Sidebar - Executive Command Style */}
       <aside 
-        className={`fixed md:relative inset-y-0 left-0 w-72 bg-[#001F3F] border-r-4 border-foreground flex flex-col py-8 px-0 z-50 shadow-[6px_0_0_0_#000] md:shadow-none transition-transform duration-300 ease-in-out ${
+        className={`fixed md:sticky md:top-0 inset-y-0 left-0 w-80 bg-white border-r-2 border-black flex flex-col py-8 px-6 z-50 transition-transform duration-300 ease-in-out md:h-screen ${
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
         }`}
       >
         
-        <div className="mb-4 px-6 flex justify-between items-start">
-          <div className="w-full text-center md:text-left">
-            <h2 className="font-heading text-6xl text-white tracking-widest drop-shadow-[4px_4px_0_#CCFF00] mb-2 uppercase">
-              YMCC
-            </h2>
-            <div className="inline-block px-3 py-1 bg-[#CCFF00] border-2 border-foreground text-foreground text-xs font-black uppercase tracking-widest shadow-[2px_2px_0_0_var(--color-foreground)] mb-6">
-              {portalName}
-            </div>
-            
-            {/* User Profile Banner */}
-            <div className="bg-[#E63E00] border-2 border-foreground p-3 shadow-brutal-sm w-full relative mb-4 flex flex-col justify-center">
-              <p className="text-white text-[10px] uppercase font-bold tracking-widest opacity-80">LOGIN SEBAGAI</p>
-              <p className="font-bold text-white tracking-wide truncate mt-0.5">
-                {userName ? userName : <Loader2 className="w-4 h-4 animate-spin text-white" />}
-              </p>
-            </div>
+        {/* Branding Node */}
+        <div className="mb-10 flex flex-col items-center md:items-start">
+          <div className="flex items-center gap-3 mb-6 group cursor-pointer" onClick={() => router.push('/')}>
+             <div className="w-12 h-12 bg-[#CCFF00] border-2 border-black rounded-2xl flex items-center justify-center shadow-[3px_3px_0_0_#000] group-hover:bg-black group-hover:text-[#CCFF00] transition-all">
+                <ShieldCheck size={28} />
+             </div>
+             <div>
+                <h2 className="font-black text-3xl text-black tracking-tighter uppercase italic leading-none">YMCC.</h2>
+                <div className="text-[10px] font-black uppercase text-zinc-400 tracking-widest mt-1">Global Command</div>
+             </div>
+          </div>
+          
+          <div className="w-full bg-zinc-50 border-2 border-black p-4 rounded-3xl shadow-[3px_3px_0_0_#000] relative overflow-hidden group">
+             <div className="absolute top-0 right-0 p-4 opacity-[0.05] group-hover:opacity-10 transition-opacity">
+                <Zap size={60} />
+             </div>
+             <div className="relative z-10 flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full border-2 border-black bg-[#CCFF00] flex items-center justify-center font-black italic">
+                   {userName ? userName[0].toUpperCase() : 'P'}
+                </div>
+                <div className="flex-1 min-w-0">
+                   <p className="text-[8px] font-black text-zinc-400 uppercase tracking-widest leading-none">Active Auth:</p>
+                   <p className="font-black text-xs text-black truncate mt-1 uppercase italic tracking-tighter">
+                      {userName || 'System Node'}
+                   </p>
+                </div>
+             </div>
           </div>
           
           {/* Close button inside mobile sidebar */}
-          <button onClick={() => setIsSidebarOpen(false)} className="md:hidden absolute top-6 right-4 text-white hover:text-[#CCFF00] border-2 border-transparent hover:border-[#CCFF00] p-1">
+          <button onClick={() => setIsSidebarOpen(false)} className="md:hidden absolute top-8 right-6 w-10 h-10 border-2 border-black rounded-xl flex items-center justify-center bg-white shadow-[2px_2px_0_0_#000]">
             <X className="w-6 h-6" />
           </button>
         </div>
 
-        <nav className="w-full space-y-0 flex-1 px-4 overflow-y-auto">
+        {/* Navigation Core */}
+        <nav className="w-full space-y-3 flex-1 overflow-y-auto pr-2 no-scrollbar mb-8">
+          <div className="text-[9px] font-black text-zinc-300 uppercase tracking-[0.4em] mb-4 pl-4">System Access</div>
           {navLinks.map((link) => {
             const Icon = link.icon;
             const isActive = pathname === link.href || (link.href !== pathname.split('/').slice(0, 3).join('/') && pathname.startsWith(link.href) && link.href !== '/admin' && link.href !== '/operator' && link.href !== '/fundraising' && link.href !== '/superadmin');
@@ -105,52 +123,62 @@ export function InternalSidebar({ portalName, navLinks, children }: InternalSide
                   key={link.href}
                   href={link.href}
                   onClick={() => setIsSidebarOpen(false)}
-                  className={`flex items-center space-x-4 px-5 py-4 border-2 transition-all duration-200 group mb-3 shadow-[4px_4px_0_0_var(--color-foreground)] hover:-translate-y-1 hover:shadow-brutal-sm ${
+                  className={`flex items-center gap-4 px-6 py-4 rounded-3xl border-2 transition-all duration-300 group shadow-[4px_4px_0_0_transparent] hover:translate-x-1 ${
                     isActive 
-                      ? 'bg-[#CCFF00] border-foreground text-foreground font-black' 
-                      : 'bg-white border-foreground text-zinc-600 hover:bg-[#CCFF00] hover:text-[#001F3F] font-bold'
+                      ? 'bg-[#CCFF00] border-black text-black shadow-[4px_4px_0_0_#000]' 
+                      : 'bg-white border-transparent text-zinc-400 hover:bg-zinc-50 hover:border-zinc-200'
                   }`}
                 >
-                  <Icon className={`w-5 h-5 ${isActive ? 'text-foreground' : 'text-zinc-600 group-hover:text-[#001F3F]'}`} />
-                  <span className="text-sm tracking-widest uppercase">{link.label}</span>
+                  <Icon className={`w-5 h-5 ${isActive ? 'text-black' : 'text-zinc-400 group-hover:text-black'}`} />
+                  <span className={`text-[11px] font-black tracking-widest uppercase italic ${isActive ? 'text-black' : 'text-zinc-400 group-hover:text-black'}`}>{link.label}</span>
                 </Link>
             )
           })}
 
-          <div className="my-6 border-t border-zinc-700/50 mx-4"></div>
-
-          {/* Go Back To Public Site Button */}
+          <div className="my-8 h-[1px] bg-zinc-100 mx-4" />
+          
           <Link 
             href="/"
-            className="flex items-center justify-center space-x-3 px-4 py-4 mx-2 border-4 border-transparent hover:border-[#CCFF00] text-zinc-400 hover:text-[#CCFF00] transition-none group mb-2"
+            className="flex items-center gap-4 px-6 py-4 rounded-3xl text-zinc-300 hover:text-black hover:bg-zinc-50 transition-all group"
           >
-             <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-             <span className="font-bold text-xs uppercase tracking-widest mt-0.5">Buka Website Publik</span>
+             <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
+             <span className="font-black text-[10px] uppercase tracking-widest">Public Website</span>
           </Link>
-
         </nav>
 
-          <div className="mx-4 p-4 bg-amber-100 border-4 border-foreground shadow-[4px_4px_0_0_#000] mb-6">
-            <p className="font-black text-[10px] uppercase tracking-tighter text-zinc-500 mb-1">Butuh Bantuan?</p>
-            <p className="text-xs font-bold leading-tight text-foreground uppercase">Mengalami kendala teknis atau bingung alur? Hubungi Command Center:</p>
-            <a href="https://wa.me/something" className="mt-2 inline-flex items-center text-[10px] font-black bg-foreground text-white px-2 py-1 gap-1 hover:bg-accent hover:text-foreground transition-colors uppercase">
-              Support Center 📡
-            </a>
-          </div>
-
-          <Button onClick={handleLogout} variant="ghost" className="w-full justify-start rounded-none border-2 border-transparent hover:border-red-500 bg-red-600 md:bg-transparent md:hover:bg-red-500 text-white md:text-red-400 hover:text-white font-bold tracking-widest uppercase transition-none h-12 relative overflow-hidden group">
-            <span className="absolute inset-0 w-full h-full bg-red-500 origin-left scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100 -z-10" />
-            <LogOut className="w-5 h-5 mr-3 group-hover:text-white transition-colors" />
-            <span className="group-hover:text-white transition-colors text-sm">KELUAR (LOGOUT)</span>
-          </Button>
+        {/* Support & Logout Node */}
+        <div className="mt-auto space-y-4 pt-6 border-t border-zinc-50">
+           <div className="bg-[#EBF7D3] border-2 border-black p-5 rounded-[2.5rem] shadow-[4px_4px_0_0_#000]">
+              <div className="flex items-center gap-3 mb-2">
+                 <Activity size={14} className="text-green-600" />
+                 <span className="text-[9px] font-black uppercase text-green-700 tracking-widest italic">Core Stability: 100%</span>
+              </div>
+              <p className="text-[10px] font-bold text-zinc-500 uppercase leading-tight italic">
+                 Need assistance? Open a direct uplink to HQ.
+              </p>
+           </div>
+           
+           <button 
+             onClick={handleLogout}
+             className="w-full bg-black text-[#CCFF00] py-4 rounded-full font-black text-[10px] uppercase tracking-widest shadow-[4px_4px_0_0_#000] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all flex items-center justify-center gap-3 active:scale-95"
+           >
+             <LogOut size={16} /> Disconnect Node
+           </button>
+        </div>
       </aside>
 
       {/* Main Content Area */}
-      <main className="flex-1 overflow-x-hidden overflow-y-auto bg-zinc-50 relative">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
+      <main className="flex-1 overflow-x-hidden relative bg-[#F4F4F5]">
+        <div className="absolute top-0 right-0 w-full h-[600px] bg-[radial-gradient(ellipse_at_top_right,rgba(204,255,0,0.05),transparent_50%)] pointer-events-none" />
         
-        <div className="w-full max-w-7xl mx-auto relative z-10 min-h-full p-6 md:p-10 lg:p-14">
-          {children}
+        <div className="w-full max-w-[1400px] mx-auto relative z-10 min-h-screen p-6 md:p-10 lg:p-14">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+          >
+            {children}
+          </motion.div>
         </div>
       </main>
     </div>
