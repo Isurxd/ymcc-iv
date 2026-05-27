@@ -47,9 +47,8 @@ export function Navbar() {
   if (isPortal) return null;
 
   const navItems = [
-    { name: 'Dashboard', icon: <LayoutDashboard size={18} />, path: '/dashboard' },
-    { name: 'Rewards', icon: <Trophy size={18} />, path: '/rewards', badge: 'New' },
-    { name: 'Download App', icon: <Download size={18} />, path: '/download' },
+    { name: 'Live Status', icon: <Activity size={18} />, path: '/status', badge: 'Live' },
+    { name: 'Rewards', icon: <Trophy size={18} />, path: '/rewards' },
     { name: 'Store', icon: <Store size={18} />, path: '/merch' },
   ];
 
@@ -119,13 +118,15 @@ export function Navbar() {
              {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
            </button>
            
-           <div className="h-10 w-10 rounded-full bg-zinc-100 border-[1.5px] border-zinc-200 flex items-center justify-center overflow-hidden cursor-pointer hover:border-black transition-all ml-1">
-             {user?.avatar ? (
-               <img src={user.avatar} alt="User" className="w-full h-full object-cover" />
-             ) : (
-               <User size={20} className="text-zinc-400" />
-             )}
-           </div>
+           {user ? (
+             <Link href="/dashboard" className="flex items-center gap-3 bg-black text-[#CCFF00] px-4 py-2 rounded-xl font-bold text-xs uppercase shadow-[2px_2px_0px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all ml-2">
+               Portal Dashboard
+             </Link>
+           ) : (
+             <Link href="/login" className="flex items-center gap-3 bg-[#CCFF00] text-black px-4 py-2 rounded-xl font-bold text-xs uppercase shadow-[2px_2px_0px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all ml-2">
+               Sign In
+             </Link>
+           )}
         </div>
       </div>
 

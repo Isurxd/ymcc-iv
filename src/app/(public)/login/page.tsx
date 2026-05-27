@@ -50,7 +50,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F4F4F5] flex items-center justify-center p-6 md:p-12">
+    <div className="min-h-screen bg-[#F4F4F5] flex items-center justify-center p-6 md:p-12 text-black">
       
       <motion.div 
         initial={{ opacity: 0, scale: 0.95 }}
@@ -128,12 +128,18 @@ export default function LoginPage() {
            </p>
            
            <div className="flex gap-6">
-              <button className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-zinc-300 hover:text-black transition-all">
-                 <Info size={14} /> Help Center
+              <button 
+                onClick={() => AppSwal.fire({ title: 'COORDINATION HELP', text: 'Connecting to YMCC support nodes...', icon: 'info' })}
+                className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-zinc-300 hover:text-black transition-all"
+              >
+                  <Info size={14} /> Help Center
               </button>
-              <button className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-zinc-300 hover:text-black transition-all">
-                 <ExternalLink size={14} /> System Status
-              </button>
+              <Link 
+                href="/status"
+                className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-zinc-300 hover:text-black transition-all"
+              >
+                  <ExternalLink size={14} /> System Status
+              </Link>
            </div>
         </div>
       </motion.div>
