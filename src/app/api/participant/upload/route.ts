@@ -72,6 +72,12 @@ export async function POST(req: Request) {
       where: { userId, eventId: event.id }
     });
 
+    if (registration && registration.status === 'VERIFIED_ADMIN') {
+      return NextResponse.json({ 
+        message: 'Data administrasi Anda sudah diverifikasi dan tidak dapat diubah (Immutable).' 
+      }, { status: 403 });
+    }
+
     if (!registration) {
       registration = await prisma.registration.create({
         data: {

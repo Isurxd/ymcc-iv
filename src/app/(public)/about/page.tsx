@@ -2,51 +2,88 @@
 
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/lib/LanguageContext';
+import { Shield, Target, Users, Quote, ArrowUpRight } from 'lucide-react';
 
 export default function AboutPage() {
-  const { lang } = useLanguage();
+  const { t } = useLanguage();
 
   return (
-    <div className="min-h-screen bg-zinc-50 pt-20 pb-20">
-      <div className="container mx-auto px-6 max-w-4xl pt-12">
+    <div className="min-h-screen bg-white bg-grid-dots relative text-[#001F3F] font-poppins pt-20 pb-32">
+      
+      {/* Brand Background Accents */}
+      <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-[#CCFF00]/5 rounded-full blur-[140px] -z-10 animate-pulse" />
+      <div className="absolute bottom-[-10rem] left-[-10rem] w-[40rem] h-[40rem] bg-[#E63E00]/5 rounded-full blur-[140px] -z-10" />
+
+      <div className="container mx-auto px-6 max-w-6xl">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="bg-white border-4 border-foreground shadow-[8px_8px_0_0_var(--color-primary)] p-8 md:p-12"
+          className="mb-24"
         >
-          <div className="border-b-4 border-accent pb-6 mb-8">
-            <h1 className="text-5xl font-black uppercase tracking-wide text-[#001F3F]">
-              {lang === 'ID' ? 'TENTANG KAMI' : 'ABOUT US'}
-            </h1>
-            <p className="text-2xl font-bold uppercase mt-4 text-zinc-600">
-              {lang === 'ID' ? 'Temukan Kisah dan Misi Kami' : 'DISCOVER OUR STORY AND MISSION'}
+          <div className="inline-flex items-center gap-3 bg-[#001F3F]/5 border border-[#001F3F]/10 px-5 py-2 rounded-full mb-10">
+             <span className="w-2 h-2 bg-[#CCFF00] rounded-full animate-pulse shadow-[0_0_12px_#CCFF00]" />
+             <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#001F3F]/60">
+               Established Since 2018
+             </span>
+          </div>
+
+          <h1 className="font-black text-6xl md:text-[8rem] tracking-[-0.05em] leading-[0.85] uppercase mb-12">
+            The Green <br/> <span className="text-[#E63E00] drop-shadow-[0_20px_50px_rgba(230,62,0,0.2)]">Compass.</span>
+          </h1>
+
+          <p className="text-xl md:text-3xl font-bold text-[#001F3F]/40 max-w-4xl leading-relaxed uppercase italic">
+            &quot;Sistem navigasi strategis yang dirancang untuk memandu talenta terbaik pertambangan menuju masa depan ekstraksi yang berkelanjutan.&quot;
+          </p>
+        </motion.div>
+
+        {/* Story Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-start mb-32">
+          <div className="space-y-10">
+            <h3 className="font-black text-5xl uppercase tracking-tighter italic border-l-[12px] border-[#CCFF00] pl-8 py-2">
+              Our Legacy.
+            </h3>
+            <p className="text-xl md:text-2xl font-bold text-[#001F3F]/60 leading-relaxed uppercase">
+              YMCC telah berkembang dari kompetisi lokal menjadi ekosistem pendidikan dan profesionalisme pertambangan yang terintegrasi penuh.
+            </p>
+            <p className="text-xl md:text-2xl font-bold text-[#001F3F]/40 leading-relaxed uppercase italic opacity-60">
+              Melalui navigasi yang presisi, kami mencetak pemimpin yang tidak hanya mahir teknis, tapi juga bijak dalam strategi keberlanjutan.
             </p>
           </div>
 
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4, duration: 1 }}
-            className="space-y-6 text-lg md:text-xl font-medium leading-relaxed text-zinc-800"
-          >
-            <p>
-              {lang === 'ID' 
-                ? 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.' 
-                : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'}
-            </p>
-            <p>
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.
-            </p>
-            <p className="border-l-4 border-primary pl-6 py-2 bg-zinc-100 italic font-bold">
-              &quot;Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.&quot;
-            </p>
-            <p>
-              Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur. At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores.
-            </p>
-          </motion.div>
-        </motion.div>
+          <div className="bg-[#001F3F] text-white p-14 rounded-[4rem] shadow-[20px_20px_0_0_#CCFF00] relative overflow-hidden group hover:shadow-[10px_10px_0_0_#E63E00] transition-all duration-500">
+             <div className="absolute top-0 right-0 w-40 h-40 bg-[#CCFF00]/10 rounded-full blur-3xl opacity-20" />
+             <Quote className="w-16 h-16 text-[#CCFF00] mb-8 opacity-40 shrink-0" />
+             <p className="text-3xl md:text-4xl font-black uppercase italic tracking-tight leading-tight mb-12">
+               &quot;The mining industry is evolving. We are the compass that points towards responsible and innovative digital extraction.&quot;
+             </p>
+             <div className="pt-8 border-t border-white/10">
+                <span className="block font-black text-base tracking-widest text-[#CCFF00]">YMCC STRATEGIC COMMAND</span>
+                <span className="block text-[10px] uppercase opacity-40 font-bold mt-1 tracking-widest">VISION 2026 / NODE: ALPHA</span>
+             </div>
+          </div>
+        </div>
+
+        {/* Values Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+           <ValueCard icon={<Shield className="w-10 h-10" />} title="Integrity" desc="Menjaga kejujuran akademik dan profesional dalam setiap kompetisi." />
+           <ValueCard icon={<Target className="w-10 h-10 text-[#E63E00]" />} title="Innovation" desc="Mengadopsi teknologi digital terbaru dalam metodologi ekstraksi." />
+           <ValueCard icon={<Users className="w-10 h-10" />} title="Synergy" desc="Membangun jaringan lintas institusi untuk kemajuan industri." />
+        </div>
       </div>
+    </div>
+  );
+}
+
+function ValueCard({ icon, title, desc }: { icon: React.ReactNode, title: string, desc: string }) {
+  return (
+    <div className="bg-white p-12 rounded-[4rem] border-[3px] border-zinc-100 hover:border-[#001F3F] hover:shadow-2xl transition-all duration-500 group">
+       <div className="w-20 h-20 bg-[#001F3F]/5 text-[#001F3F] rounded-3xl flex items-center justify-center mb-10 group-hover:bg-[#001F3F] group-hover:text-[#CCFF00] transition-all shadow-sm">
+         {icon}
+       </div>
+       <h4 className="font-black text-4xl uppercase tracking-tighter mb-6">{title}</h4>
+       <p className="text-[#001F3F]/40 font-bold text-sm leading-relaxed uppercase italic">
+         {desc}
+       </p>
     </div>
   );
 }

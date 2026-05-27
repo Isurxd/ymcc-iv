@@ -4,11 +4,14 @@ import bcrypt from 'bcryptjs';
 
 export async function POST(req: Request) {
   try {
-    const { name, email, password } = await req.json();
+    const { name: rawName, email: rawEmail, password } = await req.json();
 
-    if (!name || !email || !password) {
+    if (!rawName || !rawEmail || !password) {
       return NextResponse.json({ message: 'Missing fields' }, { status: 400 });
     }
+
+    const name = rawName.trim().toUpperCase();
+    const email = rawEmail.trim().toLowerCase();
 
     // Check existing email
     const existingUser = await prisma.user.findUnique({

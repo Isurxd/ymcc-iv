@@ -5,31 +5,18 @@
   --font-heading: var(--font-anton), ui-sans-serif, system-ui, sans-serif;
   
   --color-primary: #E63E00;     /* Merah-Oranye */
-  --color-primary-pale: rgba(230, 62, 0, 0.15);
   --color-secondary: #001F3F;   /* Biru Navy */
   --color-accent: #CCFF00;      /* Kuning Neon */
-  --color-accent-pale: rgba(204, 255, 0, 0.15);
-  --color-purple: #9333EA;      /* Ungu Kita placeholder */
-  --color-purple-pale: rgba(147, 51, 234, 0.15);
   --color-foreground: #001F3F;
   --color-background: #ffffff;
 }
 
-  --shadow-soft: 0 10px 40px -10px rgba(0, 31, 63, 0.1);
-  --shadow-premium: 0 20px 80px -15px rgba(0, 31, 63, 0.15);
-  --radius: 3rem;
-}
-
-.bg-grid-dots {
-  background-image: radial-gradient(#001f3f10 1px, transparent 1px);
-  background-size: 24px 24px;
-}
-
-.glass-morphism {
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(0, 31, 63, 0.05);
+@theme inline {
+  --shadow-brutal: 4px 4px 0px 0px var(--color-foreground);
+  --shadow-brutal-sm: 2px 2px 0px 0px var(--color-foreground);
+  --shadow-brutal-lg: 8px 8px 0px 0px var(--color-foreground);
+  --shadow-brutal-neon: 4px 4px 0px 0px var(--color-accent);
+  --radius: 0rem;
 }
 
 @layer base {

@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useCart } from '@/components/merch/cart-context';
+import { useLanguage } from '@/lib/LanguageContext';
 import { ShoppingCart, CloudUpload, ArrowLeft } from 'lucide-react';
 import AppSwal from '@/lib/swal';
 import { Button } from '@/components/ui/button';
@@ -21,6 +22,7 @@ const defaultCenter = { lat: -7.7610, lng: 110.4098 }; // Default UPN Veteran Yo
 
 export default function CheckoutPage() {
   const router = useRouter();
+  const { lang, t } = useLanguage();
   const { items, totalPrice, totalItems, clearCart } = useCart();
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -310,6 +312,19 @@ export default function CheckoutPage() {
               </div>
             </Card>
 
+            <div className="space-y-4 mb-2">
+              <p className="text-[10px] font-bold text-zinc-500 leading-tight uppercase">
+                {t('checkout.consent')} {' '}
+                <Link href="/documents/terms-of-service.pdf" target="_blank" className="text-[#001F3F] underline decoration-[#CCFF00] decoration-2 underline-offset-2 hover:text-orange-500 transition-colors">
+                  {lang === 'ID' ? 'KETENTUAN LAYANAN' : 'TERMS OF SERVICE'}
+                </Link> {' '}
+                {t('checkout.and')} {' '}
+                <Link href="/documents/privacy-policy.pdf" target="_blank" className="text-[#001F3F] underline decoration-[#CCFF00] decoration-2 underline-offset-2 hover:text-orange-500 transition-colors">
+                  {lang === 'ID' ? 'KEBIJAKAN PRIVASI' : 'PRIVACY POLICY'}
+                </Link>.
+              </p>
+            </div>
+
             <Button type="submit" disabled={loading} className="w-full h-20 text-2xl font-black uppercase tracking-widest bg-accent hover:bg-orange-500 text-foreground border-4 border-foreground shadow-[8px_8px_0_0_var(--color-primary)] hover:translate-x-1 hover:-translate-y-1 transition-all rounded-none">
               {loading ? 'MEMPROSES KREDENSIAL TRASAKSI...' : 'PROSES PENYELESAIAN ORDER ->'}
             </Button>
@@ -340,15 +355,19 @@ export default function CheckoutPage() {
                 <span className="font-bold text-zinc-500 uppercase">SUBTOTAL ({totalItems} ITEM)</span>
                 <span className="font-bold">Rp {totalPrice.toLocaleString('id-ID')}</span>
               </div>
-              <div className="flex justify-between items-center mb-6">
+              <div className="flex justify-between items-center mb-2">
                 <span className="font-bold text-zinc-500 uppercase">ONGKOS KIRIM</span>
                 <span className="font-bold text-accent uppercase">MENYUSUL (C.O.D)</span>
+              </div>
+              <div className="flex justify-between items-center mb-6">
+                <span className="font-bold text-zinc-500 uppercase">PLATFORM FEE</span>
+                <span className="font-bold text-foreground uppercase">Rp 2.500</span>
               </div>
               
               <div className="border-t-4 border-foreground pt-6 flex justify-between items-center bg-zinc-50 p-4">
                 <span className="font-black text-2xl uppercase ">TOTAL:</span>
                 <span className="font-heading text-4xl text-accent drop-shadow-[4px_4px_0_#001F3F] [-webkit-text-stroke:1px_#001F3F]">
-                  Rp {totalPrice.toLocaleString('id-ID')}
+                  Rp {(totalPrice + 2500).toLocaleString('id-ID')}
                 </span>
               </div>
             </div>

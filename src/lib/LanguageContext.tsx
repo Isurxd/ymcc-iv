@@ -1,13 +1,18 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import id from '@/locales/id.json';
+import en from '@/locales/en.json';
 
 type Lang = 'ID' | 'EN';
+
+const dictionaries: any = { ID: id, EN: en };
 
 interface LanguageContextType {
   lang: Lang;
   toggleLang: () => void;
   setLang: (lang: Lang) => void;
+  t: (key: string) => string;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -37,8 +42,18 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem('ymcc_lang', newLang);
   };
 
+  // Helper to get nested keys (like 'nav.home')
+  const t = (key: string) => {
+    const keys = key.split('.');
+    let value = dictionaries[lang];
+    for (const k of keys) {
+      value = value?.[k];
+    }
+    return value || key;
+  };
+
   return (
-    <LanguageContext.Provider value={{ lang, toggleLang, setLang }}>
+    <LanguageContext.Provider value={{ lang, toggleLang, setLang, t }}>
       {children}
     </LanguageContext.Provider>
   );

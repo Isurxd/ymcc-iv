@@ -1,0 +1,109 @@
+{
+  "nav": {
+    "home": "HOME",
+    "about": "ABOUT",
+    "events": "EVENTS",
+    "news": "NEWS",
+    "store": "STORE",
+    "login": "LOG IN",
+    "register": "GET STARTED",
+    "open_dashboard": "OPEN DASHBOARD"
+  },
+  "hero": {
+    "badge": "OFFICIAL 2026 SELECTION GUIDE",
+    "title_1": "THE",
+    "title_2": "GREEN",
+    "compass": "COMPASS",
+    "desc": "Join the largest mining competition ecosystem. Enhance your competence, build networks, and lead the future of sustainable extraction.",
+    "cta_start": "GET STARTED",
+    "cta_watch": "WATCH TRAILER"
+  },
+  "pillars": {
+    "title": "SYSTEM",
+    "system": "PILLARS",
+    "subtitle": "Core Strategic Nodes of YMCC VII",
+    "comp_t": "Competition",
+    "comp_d": "3 Global categories designed to challenge technical expertise and strategic thinking.",
+    "oper_t": "Operations",
+    "oper_d": "Infrastructure and logistical backbone ensuring seamless ecosystem performance.",
+    "fund_t": "Fundraising",
+    "fund_d": "Integrated digital and physical commerce engine supporting growth."
+  },
+  "requirements": {
+    "criteria": "CRITERIA",
+    "mandatory": "MANDATORY",
+    "selective": "SELECTIVE.",
+    "subtitle": "Mandatory criteria for potential YMCC VII strategic pillars.",
+    "req_1_t": "ACADEMIC STATUS",
+    "req_1_d": "Active students from class of 2024 & 2025 as proven by KTA/KRS.",
+    "req_2_t": "TIME COMMITMENT",
+    "req_2_d": "Consistent until the end of entire agenda series (±1.5 years).",
+    "req_3_t": "GROWTH MINDSET",
+    "req_3_d": "Interest in innovation, sustainability, and openness to learning.",
+    "req_4_t": "ADAPTABILITY",
+    "req_4_d": "Able to work with dynamics, withstand pressure, & solution-oriented.",
+    "req_5_t": "DIGITAL SKILLS",
+    "req_5_d": "Proficient in Google Workspace, Discord, and management tools.",
+    "req_6_t": "COMMUNICATION",
+    "req_6_d": "Professional Indonesian, English as an added value."
+  },
+  "directory": {
+    "matrix": "ORGANIZATIONAL MATRIX",
+    "structural": "STRUCTURAL",
+    "directory": "DIRECTORY.",
+    "subtitle": "Board of Directors & Departmental Node Leaders",
+    "dept_head": "DEPARTMENT HEAD",
+    "dept_comp": "Competition",
+    "dept_fund": "Fundraising",
+    "dept_event": "Event",
+    "dept_oper": "Operational",
+    "dept_media": "Media"
+  },
+  "values": {
+    "title": "EVENT CORE",
+    "event": "VALUES",
+    "val_1_t": "Academic Excellence",
+    "val_1_d": "Testing technical ability and mindset quality through rigid standards.",
+    "val_2_t": "Sustainability",
+    "val_2_d": "Integrating sustainable methodology into every operational decision.",
+    "val_3_t": "Global Collaboration",
+    "val_3_d": "Facilitating cross-border exchange of knowledge and expertise."
+  },
+  "cta": {
+    "ready": "READY TO",
+    "lead": "LEAD THE",
+    "future": "FUTURE?",
+    "join": "JOIN NOW"
+  },
+  "footer": {
+    "desc_1": "The Largest Mining Competition Ecosystem in Southeast Asia.",
+    "desc_2": "Pioneering excellence through sustainable extraction and strategic leadership.",
+    "nav": "Navigation",
+    "connect": "Connect",
+    "news": "News & Press",
+    "copyright": "© 2026 Media Department YMCC VII. All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "General Terms",
+    "refund": "Refund Policy"
+  },
+  "auth": {
+    "login_title": "Command Center.",
+    "login_desc": "Enter secure credentials to access node.",
+    "email_label": "Network ID / Email",
+    "password_label": "Access Key",
+    "lost_key": "Lost Key?",
+    "login_btn": "INITIALIZE ACCESS",
+    "syncing": "SYNCHRONIZING...",
+    "new_user": "New to the ecosystem?",
+    "join_btn": "Join Selection",
+    "register_title": "Create Node Identity.",
+    "onboarding": "PHASE 01: ONBOARDING",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "confirm_password": "Confirm",
+    "terms_agree": "I Agree to the Terms of Engagement and data processing protocols.",
+    "register_btn": "INITIALIZE REGISTRATION",
+    "processing": "PROCESSING...",
+    "already_user": "Already standardized?"
+  }
+}

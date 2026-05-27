@@ -1,0 +1,109 @@
+{
+  "nav": {
+    "home": "BERANDA",
+    "about": "TENTANG",
+    "events": "KEGIATAN",
+    "news": "BERITA",
+    "store": "TOKO",
+    "login": "MASUK",
+    "register": "DAFTAR",
+    "open_dashboard": "BUKA DASHBOARD"
+  },
+  "hero": {
+    "badge": "PANDUAN SELEKSI RESMI 2026",
+    "title_1": "THE",
+    "title_2": "GREEN",
+    "compass": "COMPASS",
+    "desc": "Bergabunglah dengan ekosistem kompetisi pertambangan terbesar. Tingkatkan kompetensi Anda, bangun jaringan, dan pimpin masa depan ekstraksi berkelanjutan.",
+    "cta_start": "DAFTAR SEKARANG",
+    "cta_watch": "TONTON TRAILER"
+  },
+  "pillars": {
+    "title": "PILAR",
+    "system": "SISTEM",
+    "subtitle": "Node Strategis Utama YMCC VII",
+    "comp_t": "Kompetisi",
+    "comp_d": "3 kategori global yang dirancang untuk menguji keahlian teknis dan pemikiran strategis.",
+    "oper_t": "Operasional",
+    "oper_d": "Infrastruktur dan tulang punggung logistik yang memastikan kinerja ekosistem yang mulus.",
+    "fund_t": "Fundraising",
+    "fund_d": "Mesin perdagangan digital dan fisik terintegrasi yang mendukung pertumbuhan."
+  },
+  "requirements": {
+    "criteria": "KRITERIA",
+    "mandatory": "WAJIB",
+    "selective": "SELEKTIF.",
+    "subtitle": "Kriteria wajib bagi calon pilar strategis YMCC VII.",
+    "req_1_t": "STATUS AKADEMIK",
+    "req_1_d": "Mahasiswa aktif angkatan 2024 & 2025 dibuktikan dengan KTA/KRS.",
+    "req_2_t": "KOMITMEN WAKTU",
+    "req_2_d": "Konsisten hingga seluruh rangkaian agenda berakhir (±1,5 tahun).",
+    "req_3_t": "POLA PIKIR PERTUMBUHAN",
+    "req_3_d": "Ketertarikan pada inovasi, keberlanjutan, dan terbuka pada belajar.",
+    "req_4_t": "ADAPTABILITAS",
+    "req_4_d": "Mampu bekerja dengan dinamika, tahan tekanan, & berorientasi solusi.",
+    "req_5_t": "KETERAMPILAN DIGITAL",
+    "req_5_d": "Mahir platform Google Workspace, Discord, tools manajemen.",
+    "req_6_t": "KOMUNIKASI",
+    "req_6_d": "Berbahasa Indonesia profesional, Bahasa Inggris sebagai nilai plus."
+  },
+  "directory": {
+    "matrix": "MATRIKS ORGANISASI",
+    "structural": "STRUKTURAL",
+    "directory": "DIREKTORI.",
+    "subtitle": "Dewan Direksi & Pemimpin Node Departemen",
+    "dept_head": "KEPALA DEPARTEMEN",
+    "dept_comp": "Kompetisi",
+    "dept_fund": "Fundraising",
+    "dept_event": "Kegiatan",
+    "dept_oper": "Operasional",
+    "dept_media": "Media"
+  },
+  "values": {
+    "title": "NILAI INTI",
+    "event": "ACARA",
+    "val_1_t": "Keunggulan Akademik",
+    "val_1_d": "Menguji kemampuan teknis dan kualitas pola pikir melalui standar yang ketat.",
+    "val_2_t": "Keberlanjutan",
+    "val_2_d": "Mengintegrasikan metodologi berkelanjutan ke dalam setiap keputusan operasional.",
+    "val_3_t": "Kolaborasi Global",
+    "val_3_d": "Memfasilitasi pertukaran pengetahuan dan keahlian lintas batas."
+  },
+  "cta": {
+    "ready": "SIAP UNTUK",
+    "lead": "MEMIMPIN",
+    "future": "MASA DEPAN?",
+    "join": "GABUNG SEKARANG"
+  },
+  "footer": {
+    "desc_1": "Ekosistem Kompetisi Pertambangan Terbesar di Asia Tenggara.",
+    "desc_2": "Merintis keunggulan melalui ekstraksi berkelanjutan dan kepemimpinan strategis.",
+    "nav": "Navigasi",
+    "connect": "Hubungkan",
+    "news": "Berita & Pers",
+    "copyright": "© 2026 Departemen Media YMCC VII. Seluruh hak cipta dilindungi.",
+    "privacy": "Kebijakan Privasi",
+    "terms": "Ketentuan Umum",
+    "refund": "Kebijakan Pengembalian"
+  },
+  "auth": {
+    "login_title": "Pusat Komando.",
+    "login_desc": "Masukkan kredensial aman untuk mengakses node.",
+    "email_label": "ID Jaringan / Email",
+    "password_label": "Kunci Akses",
+    "lost_key": "Lupa Kunci?",
+    "login_btn": "INISIALISASI AKSES",
+    "syncing": "SINKRONISASI...",
+    "new_user": "Baru di ekosistem?",
+    "join_btn": "Gabung Seleksi",
+    "register_title": "Buat Identitas Node.",
+    "onboarding": "TAHAP 01: ONBOARDING",
+    "first_name": "Nama Depan",
+    "last_name": "Nama Belakang",
+    "confirm_password": "Konfirmasi",
+    "terms_agree": "Saya setuju dengan Ketentuan Penggunaan dan protokol pengolahan data.",
+    "register_btn": "INISIALISASI REGISTRASI",
+    "processing": "MEMPROSES...",
+    "already_user": "Sudah terstandardisasi?"
+  }
+}

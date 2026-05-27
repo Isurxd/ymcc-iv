@@ -142,6 +142,7 @@ model Order {
   shippingAddress String
   status          String   @default("PENDING_PAYMENT") 
   totalAmount     Float
+  platformFee     Float    @default(0)
   receiptUrl      String?     
   
   // Xendit & Biteship integration fields

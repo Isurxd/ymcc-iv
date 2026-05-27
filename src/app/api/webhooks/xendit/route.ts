@@ -1,15 +1,17 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { decrypt } from '@/lib/encryption';
 
 // Secret token for Xendit callback verification (Set this in your Xendit Dashboard -> Callbacks)
 const XENDIT_WEBHOOK_TOKEN = process.env.XENDIT_WEBHOOK_TOKEN;
 
 export async function POST(req: Request) {
   try {
-    // 1. Verify Xendit Token
+    // 1. Strict Verify Xendit Token (Bab 3.2)
     const xenditToken = req.headers.get('x-callback-token');
     
-    if (XENDIT_WEBHOOK_TOKEN && xenditToken !== XENDIT_WEBHOOK_TOKEN) {
+    if (!XENDIT_WEBHOOK_TOKEN || xenditToken !== XENDIT_WEBHOOK_TOKEN) {
+      console.warn('Unauthorized Xendit Webhook attempt detected or Missing Secret Token');
       return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
     }
 
@@ -61,7 +63,7 @@ export async function POST(req: Request) {
               origin_contact_phone: "081234567890",
               origin_address: "YMCC Headquarters, Indonesia", 
               destination_contact_name: order.customerName,
-              destination_contact_phone: order.customerPhone,
+              destination_contact_phone: decrypt(order.customerPhone),
               destination_contact_email: order.customerEmail,
               destination_address: order.shippingAddress,
               destination_postal_code: 10110, // Example fallback
@@ -81,13 +83,26 @@ export async function POST(req: Request) {
           if (biteshipResponse.ok) {
             const biteshipData = await biteshipResponse.json();
             
+            // 4. Fetch Shipping Label PDF automatically (Bab 3.2)
+            let labelUrl = null;
+            try {
+              const labelRes = await fetch(`https://api.biteship.com/v1/orders/${biteshipData.id}/label`, {
+                headers: { 'Authorization': process.env.BITESHIP_API_KEY as string }
+              });
+              if (labelRes.ok) {
+                const labelData = await labelRes.json();
+                labelUrl = labelData.label_url;
+              }
+            } catch (le) { console.error("Label fetch fail", le); }
+
             // Update the order with tracking and biteship ID
             await prisma.order.update({
               where: { id: order.id },
               data: {
                 biteshipOrderId: biteshipData.id,
                 trackingNumber: biteshipData.courier.tracking_id || biteshipData.courier.waybill_id,
-                status: 'PROCESSING' // Order siap diproses untuk kurir
+                receiptUrl: labelUrl, // Storing Label PDF in receiptUrl field
+                status: 'PROCESSING'
               }
             });
             console.log("Berhasil membuat order pengiriman di Biteship:", biteshipData.id);

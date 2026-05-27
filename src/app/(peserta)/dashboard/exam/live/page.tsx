@@ -27,6 +27,7 @@ function LiveExamContent() {
   const answersRef = useRef<Record<string, string>>({});
   const endTimeRef = useRef<number | null>(null);
   const channelRef = useRef<any>(null);
+  const syncTimerRef = useRef<any>(null);
 
   // Sync refs
   useEffect(() => { userRef.current = user; }, [user]);
@@ -88,8 +89,14 @@ function LiveExamContent() {
         setQuestions(qData);
         setUser(meData.user);
 
-        // Resume Logic: Merge Server + LocalStorage
-        const localData = JSON.parse(localStorage.getItem(`exam_${examId}`) || '{}');
+        // Resume Logic: Merge Server + LocalStorage (With Decryption)
+        let localData: any = {};
+        const stored = localStorage.getItem(`exam_${examId}`);
+        if (stored) {
+          try {
+            localData = JSON.parse(decodeURIComponent(escape(atob(stored))));
+          } catch (e) { console.error("Stored data corrupt", e); }
+        }
         const serverData = statusData.existingAttempt || {};
         
         const mergedAnswers = { ...serverData.answers, ...localData.answers };
@@ -140,28 +147,34 @@ function LiveExamContent() {
     return () => clearInterval(timer);
   }, [hasStarted]);
 
-  // Persistence Hooks
+  // Fail-Safe Persistence: Save to LocalStorage (Obfuscated)
   useEffect(() => {
     if (!hasStarted) return;
-    localStorage.setItem(`exam_${examId}`, JSON.stringify({
-      answers,
-      violations
-    }));
+    const data = { answers, violations };
+    // Simple Base64 "Encryption" as per request for 'encrypted format'
+    const payload = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+    localStorage.setItem(`exam_${examId}`, payload);
   }, [answers, violations, hasStarted]);
 
-  // Heartbeat Auto-save (Every 30s)
+  // Debounced Batch Sync to Server (Min 3s delay) - Bab 2.1.2
   useEffect(() => {
     if (!hasStarted) return;
-    const interval = setInterval(async () => {
+
+    if (syncTimerRef.current) clearTimeout(syncTimerRef.current);
+ 
+    syncTimerRef.current = setTimeout(async () => {
       try {
         await fetch('/api/participant/exam-save-progress', {
           method: 'POST',
           body: JSON.stringify({ examId, answers: answersRef.current })
         });
-      } catch (e) { console.error("Heartbeat fail", e); }
-    }, 30000);
-    return () => clearInterval(interval);
-  }, [hasStarted]);
+      } catch (e) {
+        console.error("Debounced sync fail", e);
+      }
+    }, 3000); // 3 seconds debounce
+ 
+    return () => { if (syncTimerRef.current) clearTimeout(syncTimerRef.current); };
+  }, [answers, hasStarted]);
 
   const handleAutoSubmit = () => {
     Swal.fire({

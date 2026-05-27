@@ -4,22 +4,13 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { ChevronRight, Check } from 'lucide-react';
+import { Check, ArrowRight, Mail, Lock, ShieldCheck, Zap } from 'lucide-react';
 import AppSwal from '@/lib/swal';
-import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { useLanguage } from '@/lib/LanguageContext';
 
 export default function RegisterPage() {
   const router = useRouter();
+  const { t, lang } = useLanguage();
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -35,16 +26,10 @@ export default function RegisterPage() {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
     if (formData.password !== formData.confirmPassword) {
-      return AppSwal.fire({ icon: 'error', title: 'GAGAL', text: 'PASSWORD DAN KONFIRMASI PASSWORD TIDAK SAMA.' });
+      return AppSwal.fire({ icon: 'error', title: 'GAGAL', text: 'PASSWORD TIDAK SAMA.' });
     }
-    if (formData.password.length < 6) {
-      return AppSwal.fire({ icon: 'error', title: 'GAGAL', text: 'PASSWORD MINIMAL 6 KARAKTER.' });
-    }
-    
     setLoading(true);
-
     try {
       const res = await fetch('/api/auth/register', {
         method: 'POST',
@@ -55,142 +40,156 @@ export default function RegisterPage() {
           password: formData.password 
         }),
       });
-
       if (!res.ok) {
         const data = await res.json();
         throw new Error(data.message || 'REGISTRASI GAGAL');
       }
-
       AppSwal.fire({
         icon: 'success',
-        title: 'REGISTRASI BERHASIL',
-        text: 'Akun tim Anda telah dibuat. Silakan login.',
+        title: 'BERHASIL',
+        text: 'Identitas tim divalidasi. Silakan login.',
       }).then(() => {
         router.push('/login');
       });
-      
     } catch (err: any) {
-      AppSwal.fire({ icon: 'error', title: 'REGISTRASI GAGAL', text: err.message.toUpperCase() });
+      AppSwal.fire({ icon: 'error', title: 'GAGAL', text: err.message.toUpperCase() });
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-[85vh] flex items-center justify-center p-6 bg-primary relative">
-      {/* Neo-brutalist decorative shape */}
-      <div className="absolute top-20 right-20 w-32 h-32 bg-accent border-4 border-foreground shadow-brutal-lg hidden xl:block z-0" />
-      <div className="absolute bottom-20 left-10 w-64 h-16 bg-blue-900 border-4 border-foreground shadow-brutal-lg hidden xl:block z-0" />
+    <div className="min-h-screen bg-[#F8F9FA] bg-grid-black/[0.02] relative font-poppins pt-24 pb-48">
       
-      <div className="w-full max-w-5xl grid lg:grid-cols-2 gap-12 items-center z-10">
-        {/* Left Side: Typography & Value Prop */}
+      {/* Background Cinematic Accents */}
+      <div className="absolute top-0 right-0 w-[60rem] h-[60rem] bg-[#CCFF00]/10 rounded-full blur-[160px] -z-10 animate-pulse" />
+      <div className="absolute bottom-[-10rem] left-[-10rem] w-[50rem] h-[50rem] bg-[#E63E00]/5 rounded-full blur-[140px] -z-10" />
+
+      <div className="max-w-[90rem] mx-auto px-8 md:px-16 flex flex-col lg:flex-row gap-32 items-center relative z-10">
+        
+        {/* Left Side: Context & Branding */}
         <motion.div 
-          initial={{ opacity: 0, x: -30 }}
+          initial={{ opacity: 0, x: -60 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-          className="hidden lg:flex flex-col space-y-8 pr-12"
+          transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
+          className="flex-1 lg:pr-12"
         >
-          <div>
-            <h1 className="text-6xl font-black uppercase tracking-wide text-[#001F3F]">
-              THE GREEN COMPASS <br/> <span className="text-accent underline decoration-4 underline-offset-8">IS ASSEMBLING.</span>
-            </h1>
-            <p className="text-lg text-white font-bold border-l-4 border-accent pl-4 mt-6">
-              DAFTARKAN TIM ANDA SEKARANG DAN DAPATKAN AKSES PENUH KE PORTAL STRATEGIS YMCC VII!
-            </p>
+          <div className="inline-flex items-center gap-4 bg-white border border-zinc-100 px-5 py-2.5 rounded-full mb-12 shadow-sm">
+             <div className="w-2 h-2 bg-[#E63E00] rounded-full animate-ping" />
+             <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[#001F3F]/60">
+               {t('auth.onboarding')}
+             </span>
           </div>
           
-          <div className="space-y-6 pt-6">
-            {features.map((feature, i) => (
-              <div key={i} className="flex items-start space-x-4 bg-white border-4 border-foreground p-4 shadow-brutal">
-                <div className="w-8 h-8 bg-accent border-2 border-foreground flex items-center justify-center flex-shrink-0 text-foreground mt-1 shadow-[2px_2px_0_0_var(--color-foreground)]">
-                  <Check className="w-5 h-5 font-bold" />
-                </div>
-                <div>
-                  <h4 className="font-black uppercase text-xl text-foreground tracking-wide leading-tight">{feature.title}</h4>
-                  <p className="text-sm text-zinc-700 font-bold mt-1">{feature.desc}</p>
-                </div>
-              </div>
-            ))}
+          <h1 className="font-black text-7xl md:text-8xl lg:text-9xl tracking-[-0.06em] uppercase leading-[0.82] text-[#001F3F] mb-12">
+            {t('hero.title_1')} <br/> 
+            <span className="text-white text-stroke-navy">{t('hero.title_2')}</span> <br/> 
+            <span className="text-[#E63E00] drop-shadow-2xl">{t('hero.compass')}</span> <br/> 
+            <span className="text-3xl md:text-5xl tracking-tighter opacity-10">{lang === 'ID' ? 'MENANGGAPI.' : 'IS WAITING.'}</span>
+          </h1>
+
+          <div className="grid grid-cols-1 gap-6 max-w-xl">
+            <FeatureBox title={t('auth.onboarding')} desc="Full access to centralized administration and selection updates." />
+            <FeatureBox title="Strategic Pipeline" desc="Real-time document verification and credential monitoring." />
           </div>
         </motion.div>
 
-        {/* Right Side: Register Form Card */}
+        {/* Right Side: Form Card */}
         <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="z-10"
+          initial={{ opacity: 0, y: 60 }} 
+          animate={{ opacity: 1, y: 0 }} 
+          transition={{ duration: 1, delay: 0.2 }}
+          className="flex-1 w-full max-w-3xl"
         >
-          <Card className="w-full bg-white border-4 border-foreground shadow-brutal-lg rounded-none">
-            <CardHeader className="space-y-2 pb-6 pt-8 border-b-4 border-foreground bg-amber-200">
-              <CardTitle className="text-4xl font-black uppercase tracking-tight text-foreground text-center">Registrasi Tim</CardTitle>
-              <CardDescription className="text-foreground text-center font-bold">
-                PROSES PEMBERKASAN DAN KREDENSIAL AWAL
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="pt-8 bg-white">
-              <form onSubmit={onSubmit} className="space-y-6">
-              
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="firstName" className="text-foreground font-bold uppercase tracking-wider text-sm">Nama Depan</Label>
-                    <Input id="firstName" value={formData.firstName} onChange={handleChange} required placeholder="JOHN" className="bg-zinc-100 border-4 border-foreground shadow-brutal-sm text-foreground focus-visible:ring-0 focus-visible:outline-none focus:bg-white transition-none h-12 rounded-none px-4 font-bold uppercase placeholder:normal-case" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="lastName" className="text-foreground font-bold uppercase tracking-wider text-sm">Nama Belakang</Label>
-                    <Input id="lastName" value={formData.lastName} onChange={handleChange} required placeholder="DOE" className="bg-zinc-100 border-4 border-foreground shadow-brutal-sm text-foreground focus-visible:ring-0 focus-visible:outline-none focus:bg-white transition-none h-12 rounded-none px-4 font-bold uppercase placeholder:normal-case" />
-                  </div>
+          <div className="bg-white/80 backdrop-blur-3xl border-[1px] border-white/60 rounded-[5rem] p-12 md:p-20 shadow-[0_100px_150px_-50px_rgba(0,31,63,0.15)] relative group">
+            <div className="absolute top-10 right-10 text-[120px] font-black text-zinc-50 select-none">01</div>
+            
+            <h2 className="font-black text-5xl text-[#001F3F] uppercase tracking-tighter mb-16 italic relative z-10">
+               {t('auth.register_title')}
+            </h2>
+            
+            <form onSubmit={onSubmit} className="space-y-10 relative z-10">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-4">
+                  <label className="text-[11px] font-black text-[#001F3F]/30 uppercase tracking-widest pl-6 italic">{t('auth.first_name')}</label>
+                  <input id="firstName" value={formData.firstName} onChange={handleChange} required placeholder="JOHN" className="w-full bg-[#F8F9FA] border-[2px] border-zinc-100 rounded-full py-6 px-10 font-bold text-lg text-[#001F3F] focus:outline-none focus:border-[#001F3F] transition-all placeholder:text-zinc-200" />
                 </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="email" className="text-foreground font-bold uppercase tracking-wider text-sm">Email Tim</Label>
-                  <Input id="email" type="email" value={formData.email} onChange={handleChange} required placeholder="tim@universitas.ac.id" className="bg-zinc-100 border-4 border-foreground shadow-brutal-sm text-foreground focus-visible:ring-0 focus-visible:outline-none focus:bg-white transition-none h-12 rounded-none px-4 font-bold" />
+                <div className="space-y-4">
+                  <label className="text-[11px] font-black text-[#001F3F]/30 uppercase tracking-widest pl-6 italic">{t('auth.last_name')}</label>
+                  <input id="lastName" value={formData.lastName} onChange={handleChange} required placeholder="DOE" className="w-full bg-[#F8F9FA] border-[2px] border-zinc-100 rounded-full py-6 px-10 font-bold text-lg text-[#001F3F] focus:outline-none focus:border-[#001F3F] transition-all placeholder:text-zinc-200" />
                 </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="password" className="text-foreground font-bold uppercase tracking-wider text-sm">Password</Label>
-                  <Input id="password" type="password" value={formData.password} onChange={handleChange} required placeholder="••••••••" className="bg-zinc-100 border-4 border-foreground shadow-brutal-sm text-foreground focus-visible:ring-0 focus-visible:outline-none focus:bg-white transition-none h-12 rounded-none px-4 font-bold" />
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="confirmPassword" className="text-foreground font-bold uppercase tracking-wider text-sm">Konfirmasi Password</Label>
-                  <Input id="confirmPassword" type="password" value={formData.confirmPassword} onChange={handleChange} required placeholder="••••••••" className="bg-zinc-100 border-4 border-foreground shadow-brutal-sm text-foreground focus-visible:ring-0 focus-visible:outline-none focus:bg-white transition-none h-12 rounded-none px-4 font-bold" />
-                </div>
-
-                <div className="flex items-start space-x-3 pt-2">
-                  <input type="checkbox" id="terms" required className="mt-1 w-5 h-5 accent-primary border-4 border-foreground cursor-pointer shadow-none" />
-                  <label htmlFor="terms" className="text-xs text-foreground font-bold leading-relaxed uppercase">
-                    Saya menyetujui seluruh <Link href="/terms" className="text-primary hover:bg-primary hover:text-white px-1 border-b-2 border-primary hover:border-transparent transition-none">Syarat & Ketentuan</Link> dan <Link href="/privacy" className="text-primary hover:bg-primary hover:text-white px-1 border-b-2 border-primary hover:border-transparent transition-none">Kebijakan Privasi</Link> YMCC VII.
-                  </label>
-                </div>
-
-                <Button type="submit" disabled={loading} className="w-full bg-foreground hover:bg-zinc-800 text-white border-4 border-transparent hover:border-accent hover:shadow-brutal-neon rounded-none h-14 text-xl font-black uppercase shadow-brutal-sm transition-all active:translate-y-1 active:shadow-none mt-6 flex items-center justify-center">
-                  <span>{loading ? 'MEMPROSES KREDENSIAL...' : 'BUAT BASIS DATA TIM'}</span>
-                </Button>
-              </form>
-            </CardContent>
-            <CardFooter className="flex flex-col space-y-4 pt-6 pb-8 border-t-4 border-foreground bg-zinc-50">
-              <div className="text-sm text-foreground font-medium text-center w-full uppercase">
-                SUDAH MEMILIKI AKUN?{' '}
-                <Link href="/login" className="text-primary font-bold hover:bg-primary hover:text-white px-2 py-1 border-2 border-transparent hover:border-foreground border-dashed transition-none">
-                  MASUK KE PORTAL
-                </Link>
               </div>
-            </CardFooter>
-          </Card>
+
+              <div className="space-y-4">
+                <label className="text-[11px] font-black text-[#001F3F]/30 uppercase tracking-widest pl-6 italic">{t('auth.email_label')}</label>
+                <div className="relative">
+                  <Mail className="absolute left-8 top-1/2 -translate-y-1/2 w-5 h-5 text-[#001F3F]/20" />
+                  <input id="email" type="email" value={formData.email} onChange={handleChange} required placeholder="team@university.edu" className="w-full bg-[#F8F9FA] border-[2px] border-zinc-100 rounded-full py-6 pl-16 pr-10 font-bold text-lg text-[#001F3F] focus:outline-none focus:border-[#001F3F] transition-all" />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-4">
+                  <label className="text-[11px] font-black text-[#001F3F]/30 uppercase tracking-widest pl-6 italic">{t('auth.password_label')}</label>
+                  <div className="relative">
+                    <Lock className="absolute left-8 top-1/2 -translate-y-1/2 w-5 h-5 text-[#001F3F]/20" />
+                    <input id="password" type="password" value={formData.password} onChange={handleChange} required placeholder="••••••••" className="w-full bg-[#F8F9FA] border-[2px] border-zinc-100 rounded-full py-6 pl-16 pr-10 font-bold text-lg text-[#001F3F] focus:outline-none focus:border-[#001F3F] transition-all" />
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  <label className="text-[11px] font-black text-[#001F3F]/30 uppercase tracking-widest pl-6 italic">{t('auth.confirm_password')}</label>
+                  <div className="relative">
+                    <Lock className="absolute left-8 top-1/2 -translate-y-1/2 w-5 h-5 text-[#001F3F]/20" />
+                    <input id="confirmPassword" type="password" value={formData.confirmPassword} onChange={handleChange} required placeholder="••••••••" className="w-full bg-[#F8F9FA] border-[2px] border-zinc-100 rounded-full py-6 pl-16 pr-10 font-bold text-lg text-[#001F3F] focus:outline-none focus:border-[#001F3F] transition-all" />
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4 px-6 pt-6">
+                <div className="relative">
+                   <input type="checkbox" required className="peer w-7 h-7 bg-[#F8F9FA] border-2 border-zinc-200 rounded-xl appearance-none checked:bg-[#CCFF00] checked:border-[#CCFF00] transition-all cursor-pointer" />
+                   <div className="absolute top-1.5 left-1.5 text-[#001F3F] opacity-0 peer-checked:opacity-100 transition-opacity pointer-events-none">
+                      <Check className="w-4 h-4 stroke-[4px]" />
+                   </div>
+                </div>
+                <p className="text-[12px] font-bold text-[#001F3F]/40 uppercase tracking-tight leading-relaxed italic">{t('auth.terms_agree')}</p>
+              </div>
+
+              <button type="submit" disabled={loading} className="w-full bg-[#001F3F] text-white py-8 rounded-[3.5rem] font-black text-2xl uppercase tracking-widest hover:bg-[#CCFF00] hover:text-[#001F3F] transition-all shadow-[0_40px_80px_-20px_rgba(0,31,63,0.3)] active:scale-95 flex items-center justify-center gap-6 group">
+                {loading ? t('auth.processing') : t('auth.register_btn')} 
+                <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center group-hover:translate-x-3 group-hover:bg-[#CCFF00] group-hover:text-[#001F3F] transition-all duration-500">
+                  <ArrowRight className="w-6 h-6 stroke-[3px]" />
+                </div>
+              </button>
+            </form>
+
+            <div className="mt-16 text-center">
+               <span className="text-[11px] font-black text-[#001F3F]/10 uppercase tracking-[0.5em] block mb-6">Security Clearance Required</span>
+               <p className="text-[12px] font-black uppercase text-[#001F3F]/30 italic">
+                 {t('auth.already_user')} 
+                 <Link href="/login" className="text-[#E63E00] hover:underline ml-4 border-b-2 border-transparent hover:border-[#E63E00] pb-1 transition-all">
+                   {t('nav.login')}
+                 </Link>
+               </p>
+            </div>
+          </div>
+          <div className="mt-12 text-center opacity-10 font-black text-7xl italic pointer-events-none select-none">YMCC VII 2026.4</div>
         </motion.div>
       </div>
     </div>
   );
 }
 
-const features = [
-  {
-    title: 'OFFICIAL STAFF ACCES',
-    desc: 'Lengkapi administrasi kompetisi secara terpusat.'
-  },
-  {
-    title: 'THE PIPELINE UPDATE',
-    desc: 'Pantau status pendaftaran secara real-time.'
-  }
-];
+function FeatureBox({ title, desc }: { title: string, desc: string }) {
+  return (
+    <div className="bg-white/40 backdrop-blur-md border-[2px] border-white/60 p-10 rounded-[3.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.02)] flex items-start gap-10 hover:shadow-2xl transition-all duration-700 group cursor-default">
+       <div className="w-16 h-16 bg-[#001F3F] text-[#CCFF00] rounded-3xl flex items-center justify-center shrink-0 group-hover:rotate-[15deg] transition-transform shadow-xl">
+          <Zap className="w-8 h-8 fill-current" />
+       </div>
+       <div>
+          <h4 className="font-black text-3xl text-[#001F3F] uppercase tracking-tighter mb-4">{title}</h4>
+          <p className="font-bold text-sm text-[#001F3F]/40 leading-relaxed italic uppercase">{desc}</p>
+       </div>
+    </div>
+  );
+}

@@ -17,7 +17,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ message: 'Invalid token' }, { status: 401 });
     }
 
-    const { examId, answers, cheatCount } = await req.json();
+    const { examId, answers } = await req.json();
 
     // Find registration
     const registration = await prisma.registration.findFirst({
@@ -40,23 +40,32 @@ export async function POST(req: Request) {
       }
     });
 
-    // Create ExamAttempt
-    const attempt = await prisma.examAttempt.create({
-      data: {
+    // Find and update the active ExamAttempt
+    const existingAttempt = await prisma.examAttempt.findFirst({
+      where: {
         registrationId: registration.id,
         examId,
-        startTime: new Date(), // This should ideally be tracked from start
+        status: { in: ['IN_PROGRESS', 'DISQUALIFIED'] } // Can be disqualified but still submitting
+      }
+    });
+
+    if (!existingAttempt) {
+      return NextResponse.json({ message: 'No active attempt found' }, { status: 400 });
+    }
+
+    const updatedAttempt = await prisma.examAttempt.update({
+      where: { id: existingAttempt.id },
+      data: {
         endTime: new Date(),
         score,
-        cheatCount,
         answers,
-        status: 'COMPLETED'
+        status: existingAttempt.status === 'DISQUALIFIED' ? 'DISQUALIFIED' : 'COMPLETED'
       }
     });
 
     return NextResponse.json({ 
       message: 'Ujian berhasil diserahkan', 
-      score: attempt.score 
+      score: updatedAttempt.score 
     });
 
   } catch (error) {

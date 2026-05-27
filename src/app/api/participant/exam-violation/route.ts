@@ -57,8 +57,8 @@ export async function POST(req: Request) {
       });
     }
 
-    // Auto-disqualify logic
-    if (attempt.cheatCount >= 3) {
+    // Auto-disqualify logic (Bab 2.2 - example: 5 times)
+    if (attempt.cheatCount >= 5) {
       await prisma.examAttempt.update({
         where: { id: attempt.id },
         data: { 

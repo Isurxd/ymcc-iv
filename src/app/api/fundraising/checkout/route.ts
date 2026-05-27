@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { Xendit } from 'xendit-node';
+import { encrypt } from '@/lib/encryption';
 
 const xendit = new Xendit({
   secretKey: process.env.XENDIT_SECRET_KEY || 'xnd_development_dummy',
@@ -23,71 +24,75 @@ export async function POST(req: Request) {
       return NextResponse.json({ message: 'Keranjang kosong' }, { status: 400 });
     }
 
-    // 1. Calculate total order amount (Items + Shipping) - VALIDATED AGAINST DB
-    let totalItemsAmount = 0;
-    const verifiedItems = [];
+    // IMPLEMENT ACID TRANSACTION (Bab 3.1)
+    const platformFee = 2500; // Flat Platform Fee as per Directive 3.2
 
-    for (const item of items) {
-      const variant = await prisma.productVariant.findUnique({
-        where: { id: item.variantId },
-        include: { product: true }
-      });
+    const result = await prisma.$transaction(async (tx) => {
+      let currentTotalItemsAmount = 0;
+      const verifiedItems = [];
 
-      if (!variant) {
-        return NextResponse.json({ message: `Varian produk ${item.variantId} tidak ditemukan` }, { status: 404 });
-      }
+      for (const item of items) {
+        // Fetch with lock or inside transaction to ensure fresh stock data
+        const variant = await tx.productVariant.findUnique({
+          where: { id: item.variantId },
+          include: { product: true }
+        });
 
-      if (variant.stock < item.quantity) {
-        return NextResponse.json({ message: `Stok ${variant.product.name} tidak mencukupi` }, { status: 400 });
-      }
+        if (!variant) {
+          throw new Error(`Varian produk ${item.variantId} tidak ditemukan`);
+        }
 
-      const itemPrice = variant.product.price; // Use price from DB
-      totalItemsAmount += item.quantity * itemPrice;
-      
-      verifiedItems.push({
-        variantId: item.variantId,
-        quantity: item.quantity,
-        priceAtBuy: itemPrice
-      });
-    }
-    
-    // Deduct stock in a follow-up transaction or directly
-    await prisma.$transaction(
-      verifiedItems.map(item => 
-        prisma.productVariant.update({
+        if (variant.stock < item.quantity) {
+          throw new Error(`Stok ${variant.product.name} tidak mencukupi (Tersisa: ${variant.stock})`);
+        }
+
+        // Deduct stock immediately in this transaction
+        await tx.productVariant.update({
           where: { id: item.variantId },
           data: { stock: { decrement: item.quantity } }
-        })
-      )
-    );
-    
-    // Fallback shipping cost if not provided
-    const finalShippingCost = shippingCost || 0;
-    const finalTotalAmount = totalItemsAmount + finalShippingCost;
+        });
 
-    // 2. Create Order in Database
-    const order = await prisma.order.create({
-      data: {
-        customerName,
-        customerEmail,
-        customerPhone,
-        shippingAddress,
-        shippingCourier,
-        shippingCost: finalShippingCost,
-        totalAmount: finalTotalAmount,
-        status: 'PENDING_PAYMENT',
-        items: {
-          create: verifiedItems.map((item: any) => ({
-            variantId: item.variantId,
-            quantity: item.quantity,
-            priceAtBuy: item.priceAtBuy,
-          })),
+        const itemPrice = variant.product.price;
+        currentTotalItemsAmount += item.quantity * itemPrice;
+        
+        verifiedItems.push({
+          variantId: item.variantId,
+          quantity: item.quantity,
+          priceAtBuy: itemPrice
+        });
+      }
+
+      const finalShippingCost = shippingCost || 0;
+      const finalTotalAmount = currentTotalItemsAmount + finalShippingCost + platformFee;
+
+      // Create Order
+      const order = await tx.order.create({
+        data: {
+          customerName,
+          customerEmail,
+          customerPhone: encrypt(customerPhone), // ENCRYPT SENSITIVE DATA (Bab 1.1)
+          shippingAddress,
+          shippingCourier,
+          shippingCost: finalShippingCost,
+          platformFee: platformFee,
+          totalAmount: finalTotalAmount,
+          status: 'PENDING_PAYMENT',
+          items: {
+            create: verifiedItems.map((item: any) => ({
+              variantId: item.variantId,
+              quantity: item.quantity,
+              priceAtBuy: item.priceAtBuy,
+            })),
+          },
         },
-      },
+      });
+
+      return { order, finalTotalAmount };
     });
 
+    const { order, finalTotalAmount } = result;
+
     // 3. Create Xendit Invoice
-    // Generate full URL for success/failure redirects based on current host
     const origin = req.headers.get('origin') || process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
     
     const invoiceRequest: any = {
