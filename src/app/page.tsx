@@ -5,16 +5,16 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '@/lib/LanguageContext';
 import { 
   Zap, Trophy, Store, ArrowRight, Play, Globe, Star, HardHat, ChevronDown, 
-  Briefcase, UserCheck, Search, MessageSquare, MonitorCheck, LayoutGrid, Cpu, Users2, DollarSign,
-  Award, HeartHandshake, Calendar, Settings, Tv, Plus, Info, RefreshCw, Wifi, WifiOff, ExternalLink, Package,
-  ChevronRight
+  Briefcase, UserCheck, MessageSquare, MonitorCheck, LayoutGrid, Cpu, Users2,
+  Award, HeartHandshake, Calendar, Settings, Tv, Plus, Info, ChevronRight,
+  ShieldCheck, FileText, Activity
 } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
+import AppSwal from '@/lib/swal';
 
 export default function LandingPage() {
   const { t, lang } = useLanguage();
   const [mounted, setMounted] = useState(false);
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -22,10 +22,20 @@ export default function LandingPage() {
 
   if (!mounted) return <div className="min-h-screen bg-[#F4F4F5]" />;
 
+  const openSupportChat = () => {
+    AppSwal.fire({
+      title: 'SUPPORT NODE',
+      text: 'Starting a high-priority communication link with YMCC Command...',
+      icon: 'info',
+      confirmButtonText: 'INITIALIZE CHAT',
+      confirmButtonColor: '#000000'
+    });
+  }
+
   return (
     <div className="min-h-screen bg-[#F4F4F5] text-black font-poppins pb-32">
       
-      {/* 1. BALANCED HERO SECTION (Keeping YMCC Soul with Grass Aesthetic) */}
+      {/* 1. HERO SECTION */}
       <section className="relative pt-24 pb-32 overflow-hidden">
         <div className="container mx-auto px-6 max-w-7xl flex flex-col lg:flex-row items-center gap-16 relative z-10">
           <div className="flex-[1.2]">
@@ -61,7 +71,10 @@ export default function LandingPage() {
                <Link href="/register" className="bg-[#CCFF00] text-black px-10 py-5 rounded-full font-black text-sm uppercase tracking-widest border-2 border-black shadow-[4px_4px_0px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all flex items-center justify-center gap-4 group">
                   {t('hero.cta_start')} <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
                </Link>
-               <button className="flex items-center gap-5 font-black text-[10px] uppercase tracking-[0.2em] text-zinc-400 hover:text-black transition-all group">
+               <button 
+                onClick={() => AppSwal.fire({ title: 'COORDINATION BROADCAST', html: '<div class="p-4 bg-zinc-50 rounded-2xl border-2 border-black font-bold uppercase text-xs">Official 2026 Orientation Module Loading...</div>', confirmButtonColor: '#000' })}
+                className="flex items-center gap-5 font-black text-[10px] uppercase tracking-[0.2em] text-zinc-400 hover:text-black transition-all group"
+               >
                   <div className="w-12 h-12 border-2 border-black rounded-full flex items-center justify-center group-hover:bg-[#CCFF00] transition-all shadow-[2px_2px_0px_0px_#000] group-hover:shadow-none">
                     <Play className="w-3 h-3 fill-current translate-x-0.5 text-black" />
                   </div>
@@ -89,114 +102,83 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 2. BENTO DASHBOARD WIDGETS (The Grass.io 10000% Replication Parts) */}
+      {/* 2. STRATEGIC COUNCIL */}
       <section className="py-24 container mx-auto px-6 max-w-7xl">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          
-          {/* Main Dashboard Panel */}
-          <div className="lg:col-span-8 flex flex-col gap-8">
-             <div className="bg-[#EBF7D3] border-2 border-black rounded-[3rem] p-8 md:p-12 shadow-[6px_6px_0px_0px_#000]">
-                <div className="flex items-center justify-between mb-12">
-                   <div className="flex items-center gap-4">
-                      <Zap size={24} className="fill-black" />
-                      <h3 className="font-bold text-xl uppercase tracking-tighter">Live Selection Stats</h3>
-                   </div>
-                   <span className="bg-white border-2 border-black px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest shadow-[2px_2px_0px_0px_#000]">Active Phase</span>
+         <div className="flex flex-col md:flex-row items-center justify-between mb-16 gap-8">
+            <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter italic">STRATEGIC <br/> COUNCIL.</h2>
+            <div className="bg-white border-2 border-black px-8 py-4 rounded-[2rem] shadow-[4px_4px_0px_0px_#000] flex items-center gap-6">
+                <div className="flex -space-x-4">
+                   {[1,2,3].map(i => (
+                     <div key={i} className="w-12 h-12 rounded-full bg-zinc-100 border-2 border-black overflow-hidden shadow-sm">
+                        <img src={`https://i.pravatar.cc/100?u=${i}`} alt="Avatar" className="w-full h-full object-cover" />
+                     </div>
+                   ))}
                 </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                   <Link href="/register" className="bg-white border-2 border-black rounded-[2.5rem] p-8 flex flex-col items-center justify-center text-center hover:translate-x-0.5 hover:translate-y-0.5 shadow-[4px_4px_0px_0px_#000] hover:shadow-none transition-all group">
-                      <span className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.25em] mb-4">Registered Teams:</span>
-                      <div className="flex items-center gap-4">
-                         <div className="w-12 h-12 bg-[#CCFF00] border-2 border-black rounded-full flex items-center justify-center transition-transform group-hover:scale-110">
-                            <Users2 size={24} />
-                         </div>
-                         <span className="text-6xl font-black italic tracking-tighter">124</span>
-                      </div>
-                   </Link>
+                <div className="font-black text-xs uppercase tracking-tight">Institutional <br/> Support Active</div>
+            </div>
+         </div>
 
-                   <div className="bg-white border-2 border-black rounded-[2.5rem] p-8 flex flex-col items-center justify-center text-center shadow-[4px_4px_0px_0px_#000]">
-                      <span className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.25em] mb-4">Active Nodes:</span>
-                      <div className="flex items-center gap-4">
-                         <div className="w-12 h-12 bg-black border-2 border-black rounded-full flex items-center justify-center text-[#CCFF00]">
-                            <Cpu size={24} />
-                         </div>
-                         <span className="text-6xl font-black italic tracking-tighter">05</span>
-                      </div>
-                   </div>
-                </div>
-
-                {/* Network Strip */}
-                <div className="mt-10 bg-white border-2 border-black rounded-3xl p-6 flex flex-col md:flex-row items-center justify-between gap-6 shadow-[3px_3px_0px_0px_#000]">
-                   <div className="flex items-center gap-5">
-                      <div className="w-12 h-12 bg-red-100 border-2 border-black rounded-2xl flex items-center justify-center">
-                         <WifiOff size={24} className="text-red-500" />
-                      </div>
-                      <div>
-                         <div className="flex items-center gap-2">
-                           <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-                           <h5 className="font-black text-xs uppercase tracking-tight">System Connection Offline</h5>
-                         </div>
-                         <p className="text-[10px] text-zinc-400 font-bold uppercase">Please sign in to establish permanent node link.</p>
-                      </div>
-                   </div>
-                   <Link href="/login" className="bg-[#CCFF00] border-2 border-black px-10 py-3 rounded-full font-black text-[10px] uppercase tracking-widest shadow-[3px_3px_0px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all">
-                      CONNECT NODE
-                   </Link>
-                </div>
-             </div>
-          </div>
-
-          {/* Quick Actions Column */}
-          <div className="lg:col-span-4">
-             <div className="bg-white border-2 border-black rounded-[3rem] p-10 shadow-[6px_6px_0px_0px_#000] h-full flex flex-col">
-                <div className="flex items-center justify-between mb-10">
-                   <h4 className="font-black text-xl uppercase tracking-tighter italic">Selection Hub</h4>
-                   <button className="p-2 hover:bg-zinc-50 border-2 border-black rounded-xl transition-all shadow-[2px_2px_0px_0px_#000] hover:shadow-none">
-                      <Plus size={20} />
-                   </button>
-                </div>
-
-                <div className="space-y-4 flex-grow">
-                   <QuickTask icon={<MonitorCheck />} title="Verify ID" desc="Official student credentials." />
-                   <QuickTask icon={<Package />} title="Elite Gear" desc="Order official YMCC variants." />
-                   <QuickTask icon={<Trophy />} title="Milestones" desc="Track your evaluation points." />
-                </div>
-
-                <Link href="/dashboard" className="mt-10 bg-[#CCFF00] border-2 border-black py-4 rounded-full font-black text-xs uppercase tracking-[0.2em] shadow-[4px_4px_0px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all flex items-center justify-center gap-3">
-                   LAUNCH PORTAL <ArrowRight size={16} />
-                </Link>
-             </div>
-          </div>
-        </div>
+         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+            <StrategicCard 
+              icon={<ShieldCheck />} 
+              title="Academic Integrity" 
+              desc="Verified selection process under UPN 'Veteran' Yogyakarta supervision."
+            />
+            <StrategicCard 
+              icon={<Activity />} 
+              title="Real-time Eval" 
+              desc="Dynamic scoring and team verification via digital centralized node."
+            />
+            <StrategicCard 
+              icon={<Zap />} 
+              title="Fast Pipeline" 
+              desc="Accelerated registration and technical documentation submission."
+            />
+         </div>
       </section>
 
-      {/* 3. UPTIME REWARDS ROADMAP (The 10000% Replication of Grass Feature) */}
+      {/* 3. DEPARTMENT DIRECTORY */}
+      <section className="py-24 container mx-auto px-6 max-w-7xl">
+          <div className="inline-flex items-center gap-3 bg-black text-[#CCFF00] px-4 py-1 rounded-lg mb-12 font-black text-[9px] uppercase tracking-[0.4em] italic shadow-[3px_3px_0px_0px_#000]">
+             Operational Directory
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+             <CommandCard icon={<Award />} title="COMPETITION" items={['Main Engineering','Theory Level']} color="bg-[#CCFF00]" path="/events" />
+             <CommandCard icon={<HeartHandshake />} title="FUNDRAISING" items={['Link Assets','Public Synergy']} color="bg-red-400" path="/events" />
+             <CommandCard icon={<Calendar />} title="EVENT" items={['Session Sync','Logistics Control']} color="bg-[#CCFF00]" path="/events" />
+             <CommandCard icon={<Settings />} title="OPERATIONAL" items={['Node Sync','Base Audit']} color="bg-red-400" path="/events" />
+             <CommandCard icon={<Tv />} title="MEDIA" items={['Visual Projection','Node Communication']} color="bg-[#CCFF00]" path="/events" />
+             
+             <Link href="/register" className="bg-[#CCFF00] border-2 border-black p-10 rounded-[3rem] flex flex-col justify-between hover:bg-black group transition-all shadow-[6px_6px_0px_0px_#000] relative overflow-hidden">
+                <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 translate-x-4 -translate-y-4">
+                   <Zap size={140} />
+                </div>
+                <h4 className="font-black text-3xl text-black group-hover:text-white uppercase italic tracking-tighter leading-none transition-colors relative z-10">READY TO JOIN <br/> THE NODE?</h4>
+                <div className="w-16 h-16 bg-black rounded-full flex items-center justify-center transition-all group-hover:bg-[#CCFF00] group-hover:translate-x-2 relative z-10">
+                   <ArrowRight className="text-[#CCFF00] group-hover:text-black w-8 h-8" />
+                </div>
+             </Link>
+          </div>
+      </section>
+
+      {/* 4. REWARDS ROADMAP */}
       <section className="py-24 container mx-auto px-6 max-w-7xl">
          <div className="bg-white border-2 border-black rounded-[4rem] p-12 md:p-20 shadow-[8px_8px_0px_0px_#000]">
             <div className="flex flex-col md:flex-row items-center justify-between mb-20 gap-8">
                <div>
-                  <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter italic mb-4">Milestone Roadmap</h2>
+                  <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter italic mb-4 text-[#CCFF00] stroke-black" style={{ WebkitTextStroke: '1.5px black' }}>Milestone Roadmap</h2>
                   <p className="text-zinc-400 font-bold uppercase italic tracking-widest text-sm">Achieve tiers to unlock exclusive nodes.</p>
                </div>
                <div className="bg-[#EBF7D3] border-2 border-black p-8 rounded-[2.5rem] flex items-center gap-8 shadow-[4px_4px_0px_0px_#000]">
-                  <div>
-                     <span className="text-[10px] font-black text-zinc-500 uppercase tracking-widest block mb-2">Level Progress:</span>
-                     <div className="w-48 h-3 bg-white border-2 border-black rounded-full overflow-hidden">
-                        <div className="h-full bg-[#CCFF00]" style={{ width: '55%' }} />
-                     </div>
-                  </div>
-                  <div className="text-right">
-                     <span className="text-2xl font-black italic">55.02%</span>
-                  </div>
+                  <div className="font-black text-2xl italic tracking-tighter">PHASE 2.0</div>
+                  <div className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Active <br/> Registration</div>
                </div>
             </div>
 
-            <div className="relative pt-20 pb-20 overflow-x-auto no-scrollbar">
+            <div className="relative pt-20 pb-12 overflow-x-auto no-scrollbar">
                <div className="min-w-[800px] relative">
-                  {/* Connecting Line */}
-                  <div className="absolute top-12 left-0 w-full h-[3px] bg-zinc-100" />
-                  <div className="absolute top-12 left-0 w-[55%] h-[3px] bg-[#CCFF00] z-10" />
+                  <div className="absolute top-14 left-0 w-full h-[3px] bg-zinc-100" />
+                  <div className="absolute top-14 left-0 w-[40%] h-[3px] bg-[#CCFF00] z-10 shadow-[0_0_10px_#CCFF00]" />
 
                   <div className="flex justify-between relative z-20">
                      <RoadmapTier label="Tier I: Iron" color="bg-zinc-500" progress="0" active />
@@ -206,60 +188,29 @@ export default function LandingPage() {
                   </div>
                </div>
             </div>
-
-            <button className="mt-12 w-full bg-black text-white py-6 rounded-[2.5rem] font-black text-xl uppercase tracking-[0.3em] shadow-[6px_6px_0px_0px_#CCFF00] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all">
-               CLAIM REWARDS
-            </button>
          </div>
       </section>
 
-      {/* 4. DEPARTMENT DIRECTORY (Keeping the old content but in new style) */}
-      <section className="py-24 container mx-auto px-6 max-w-7xl">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-             <CommandCard icon={<Award />} title="COMPETITION" items={['Main Engineering','Theory Level']} color="bg-[#CCFF00]" />
-             <CommandCard icon={<HeartHandshake />} title="FUNDRAISING" items={['Link Assets','Public Synergy']} color="bg-red-400" />
-             <CommandCard icon={<Calendar />} title="EVENT" items={['Session Sync','Logistics Control']} color="bg-[#CCFF00]" />
-             <CommandCard icon={<Settings />} title="OPERATIONAL" items={['Node Sync','Base Audit']} color="bg-red-400" />
-             <CommandCard icon={<Tv />} title="MEDIA" items={['Visual Projection','Node Communication']} color="bg-[#CCFF00]" />
-             
-             <Link href="/register" className="bg-[#CCFF00] border-2 border-black p-10 rounded-[3rem] flex flex-col justify-between hover:bg-black group transition-all shadow-[6px_6px_0px_0px_#000]">
-                <h4 className="font-black text-3xl text-black group-hover:text-white uppercase italic tracking-tighter leading-none transition-colors">READY TO JOIN <br/> THE NODE?</h4>
-                <div className="w-16 h-16 bg-black rounded-full flex items-center justify-center transition-all group-hover:bg-[#CCFF00] group-hover:translate-x-2">
-                   <ArrowRight className="text-[#CCFF00] group-hover:text-black w-8 h-8" />
-                </div>
-             </Link>
-          </div>
-      </section>
-
-      {/* 5. SELECTION FAQ (The Grass-style Chat Help) */}
-      <section className="py-24 container mx-auto px-6 max-w-4xl">
-         <div className="bg-[#CCFF00] border-2 border-black rounded-[3rem] p-10 mb-[-3rem] relative z-20 shadow-[6px_6px_0px_0px_#000]">
-            <h4 className="font-black text-xs uppercase tracking-[0.4em] text-black/40 mb-6">Support Hub</h4>
-            <h2 className="text-5xl font-black uppercase tracking-tighter italic leading-none">How can we <br/> help you?</h2>
-            
-            <button className="mt-12 w-full bg-white border-2 border-black p-8 rounded-[2.5rem] flex items-center justify-between group shadow-[4px_4px_0px_0px_#000] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">
-               <div className="flex items-center gap-8 text-left">
-                  <div className="w-16 h-16 bg-[#CCFF00] rounded-2xl border-2 border-black flex items-center justify-center shadow-[3px_3px_0px_0px_#000]">
-                     <MessageSquare size={28} />
-                  </div>
-                  <div>
-                     <h5 className="font-black text-xl uppercase tracking-tighter">Start a new chat</h5>
-                     <p className="text-[10px] text-zinc-400 font-black uppercase tracking-widest mt-1">Response time: &lt; 5 mins</p>
-                  </div>
+      {/* 5. SUPPORT FAQ */}
+      <section id="support" className="py-24 container mx-auto px-6 max-w-4xl">
+         <div className="bg-white border-2 border-black rounded-[4rem] p-12 shadow-[8px_8px_0px_0px_#000]">
+            <div className="flex items-center gap-6 mb-12 border-b border-zinc-100 pb-12">
+               <div className="w-20 h-20 bg-[#CCFF00] border-2 border-black rounded-3xl flex items-center justify-center shadow-[4px_4px_0px_0px_#000]">
+                  <MessageSquare size={32} />
                </div>
-               <ArrowRight size={24} className="group-hover:translate-x-2 transition-transform" />
-            </button>
-         </div>
-         
-         <div className="bg-white border-2 border-black rounded-[4rem] p-12 pt-24 shadow-[8px_8px_0px_0px_#000]">
-            <div className="flex items-center justify-between mb-12 border-b border-zinc-50 pb-8">
-               <span className="font-black text-xs uppercase tracking-widest text-zinc-300">Operational Inquiries</span>
-               <button className="font-black text-[10px] uppercase tracking-widest text-black bg-[#CCFF00] border-2 border-black px-4 py-1.5 rounded-xl shadow-[2px_2px_0px_0px_#000]">Explore All</button>
+               <div>
+                  <h3 className="text-4xl font-black uppercase tracking-tighter italic">Support Node</h3>
+                  <p className="text-zinc-400 font-bold uppercase text-xs tracking-widest mt-1">Real-time resolution for applicants.</p>
+               </div>
             </div>
             
             <div className="space-y-4">
                {['What is YMCC VII?','How does the selection pipeline work?','What are Node Rewards?','When is the final broadcast?'].map((q, i) => (
-                 <div key={i} className="flex items-center justify-between p-7 bg-zinc-50 border-2 border-black rounded-[2rem] hover:bg-white hover:shadow-[4px_4px_0px_0px_#000] transition-all cursor-pointer group">
+                 <div 
+                  key={i} 
+                  onClick={openSupportChat}
+                  className="flex items-center justify-between p-7 bg-zinc-50 border-2 border-black rounded-[2rem] hover:bg-white hover:shadow-[4px_4px_0px_0px_#000] hover:-translate-y-1 transition-all cursor-pointer group"
+                 >
                     <span className="font-bold text-sm uppercase tracking-tight">{q}</span>
                     <Plus size={20} className="text-zinc-300 group-hover:text-black group-hover:rotate-90 transition-all" />
                  </div>
@@ -274,12 +225,30 @@ export default function LandingPage() {
 
 // ---------------- UI COMPONENTS ---------------- //
 
+function StrategicCard({ icon, title, desc }: any) {
+  return (
+    <div 
+      onClick={() => AppSwal.fire({ title: title.toUpperCase(), text: 'Strategic coordination bridge protocol active.', icon: 'success', confirmButtonColor: '#000' })}
+      className="bg-white border-2 border-black p-10 rounded-[3rem] shadow-[6px_6px_0px_0px_#000] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all group overflow-hidden relative cursor-pointer"
+    >
+       <div className="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity">
+          {React.cloneElement(icon, { size: 120 })}
+       </div>
+       <div className="w-16 h-16 bg-[#CCFF00] border-2 border-black rounded-3xl flex items-center justify-center mb-8 shadow-[3px_3px_0px_0px_#000] group-hover:bg-black group-hover:text-[#CCFF00] transition-all">
+          {React.cloneElement(icon, { size: 28, strokeWidth: 3 })}
+       </div>
+       <h4 className="font-black text-2xl uppercase tracking-tighter mb-4 italic">{title}</h4>
+       <p className="text-zinc-400 font-bold uppercase text-[11px] italic leading-relaxed tracking-tight">{desc}</p>
+    </div>
+  );
+}
+
 function RoadmapTier({ label, color, progress, active = false, pending = false }: any) {
   return (
-    <div className="flex flex-col items-center gap-6 relative">
-       <div className={`w-28 h-28 rounded-full border-2 border-black flex items-center justify-center relative overflow-hidden transition-all duration-500 ${active ? 'bg-white shadow-[6px_6px_0px_0px_#CCFF00] scale-110' : 'bg-zinc-50 border-dashed opacity-40'}`}>
+    <div className="flex flex-col items-center gap-6 relative group cursor-help">
+       <div className={`w-28 h-28 rounded-full border-2 border-black flex items-center justify-center relative overflow-hidden transition-all duration-500 ${active ? 'bg-white shadow-[6px_6px_0px_0px_#CCFF00] scale-110' : 'bg-zinc-50 border-dashed opacity-40 hover:opacity-100 hover:border-solid hover:scale-105'}`}>
           <div className="absolute inset-x-0 bottom-0 h-10 bg-zinc-100 opacity-20" />
-          <div className={`w-12 h-12 rounded-lg ${color} border-2 border-black shadow-[3px_3px_0px_0px_#000] flex items-center justify-center`}>
+          <div className={`w-12 h-12 rounded-lg ${color} border-2 border-black shadow-[3px_3px_0px_0px_#000] flex items-center justify-center group-hover:rotate-[15deg] transition-transform`}>
              <Trophy size={20} className="text-black" />
           </div>
        </div>
@@ -295,27 +264,10 @@ function RoadmapTier({ label, color, progress, active = false, pending = false }
   );
 }
 
-function QuickTask({ icon, title, desc }: any) {
+function CommandCard({ icon, title, items, color, path }: any) {
   return (
-    <div className="bg-zinc-50 border-2 border-black p-6 rounded-[2.5rem] flex items-center gap-6 hover:bg-white hover:shadow-[4px_4px_0px_0px_#000] hover:-translate-y-1 transition-all cursor-pointer group">
-       <div className="w-16 h-16 bg-white border-2 border-black rounded-3xl flex items-center justify-center shadow-inner group-hover:bg-[#CCFF00] transition-all">
-          {React.cloneElement(icon, { size: 28 })}
-       </div>
-       <div className="flex-1">
-          <h5 className="font-black text-sm uppercase tracking-tight mb-1">{title}</h5>
-          <p className="text-[10px] text-zinc-400 font-bold uppercase italic tracking-tight">{desc}</p>
-       </div>
-       <div className="p-2 border-2 border-zinc-100 rounded-full group-hover:border-black group-hover:bg-[#CCFF00] transition-all">
-          <ChevronRight size={16} />
-       </div>
-    </div>
-  );
-}
-
-function CommandCard({ icon, title, items, color }: any) {
-  return (
-    <div className="bg-white border-2 border-black p-10 rounded-[3rem] group hover:translate-x-1 hover:translate-y-1 hover:shadow-none shadow-[6px_6px_0px_0px_#000] transition-all flex flex-col justify-between">
-       <div className={`w-16 h-16 rounded-[1.5rem] border-2 border-black flex items-center justify-center mb-10 ${color} shadow-[3px_3px_0px_0px_#000]`}>
+    <Link href={path || '#'} className="bg-white border-2 border-black p-10 rounded-[3rem] group hover:translate-x-1 hover:translate-y-1 hover:shadow-none shadow-[6px_6px_0px_0px_#000] transition-all flex flex-col justify-between h-full">
+       <div className={`w-16 h-16 rounded-[1.5rem] border-2 border-black flex items-center justify-center mb-10 ${color} shadow-[3px_3px_0px_0px_#000] group-hover:scale-110 transition-transform`}>
           {React.cloneElement(icon, { size: 28, strokeWidth: 3 })}
        </div>
        <div>
@@ -329,6 +281,6 @@ function CommandCard({ icon, title, items, color }: any) {
              ))}
           </div>
        </div>
-    </div>
+    </Link>
   );
 }
