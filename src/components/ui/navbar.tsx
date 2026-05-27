@@ -14,7 +14,9 @@ import {
   Trophy,
   Download,
   Store,
-  User
+  User,
+  Activity,
+  Settings
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';

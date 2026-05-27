@@ -10,7 +10,7 @@ const PROTECTED_ROUTES = {
   SUPERADMIN: '/superadmin'
 };
 
-const PUBLIC_ROUTES = ['/login', '/register', '/about', '/events', '/contact', '/merch', '/api/auth/login', '/api/auth/register', '/api/auth/logout'];
+const PUBLIC_ROUTES = ['/login', '/register', '/about', '/events', '/contact', '/merch', '/status', '/api/auth/login', '/api/auth/register', '/api/auth/logout', '/api/participant-count'];
 
 export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
