@@ -3,7 +3,18 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useLanguage } from '@/lib/LanguageContext';
-import { X, Mail, Globe, MapPin, ShieldCheck, ArrowRight, Star } from 'lucide-react';
+import { 
+  X, 
+  Mail, 
+  LayoutDashboard, 
+  Trophy, 
+  Download, 
+  Store, 
+  User,
+  ExternalLink,
+  ChevronRight
+} from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export function Footer() {
   const { t, lang } = useLanguage();
@@ -12,132 +23,129 @@ export function Footer() {
   const portalRoutes = ['/dashboard', '/admin', '/superadmin', '/operator', '/fundraising', '/exam'];
   const isPortal = portalRoutes.some(route => pathname.startsWith(route));
 
+  // If in portal, don't show the traditional footer (Grass.io style)
   if (isPortal) return null;
 
+  const mobileNavItems = [
+    { name: 'Home', icon: <LayoutDashboard size={24} />, path: '/' },
+    { name: 'Rewards', icon: <Trophy size={24} />, path: '/rewards' },
+    { name: 'Download', icon: <Download size={24} />, path: '/download' },
+    { name: 'Store', icon: <Store size={24} />, path: '/merch' },
+    { name: 'Profile', icon: <User size={24} />, path: '/profile' },
+  ];
+
   return (
-    <footer className="bg-white text-[#001F3F] pt-24 pb-12 border-t-[8px] border-[#001F3F] font-poppins relative z-10 overflow-hidden">
-      
-      {/* Background Graphic Accent */}
-      <div className="absolute top-0 right-0 p-12 opacity-[0.03] select-none pointer-events-none">
-         <span className="font-black text-[15rem] leading-none tracking-tighter uppercase italic">YMCC</span>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        
-        {/* Top Section: Action Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-24">
-           {/* Brand Card */}
-           <div className="lg:col-span-1 bg-[#001F3F] text-white p-10 rounded-[3rem] shadow-[15px_15px_0_0_#CCFF00] flex flex-col justify-between group">
-              <div>
-                 <Link href="/" className="inline-flex items-center gap-4 mb-8">
-                    <img src="/assets/ymcc logo kotak.png" className="w-10 h-10 object-contain" alt="YMCC" />
-                    <span className="font-black text-3xl uppercase tracking-tighter">YMCC VII.</span>
-                 </Link>
-                 <p className="text-sm font-bold uppercase opacity-40 leading-relaxed italic pr-4">
-                    Extending the boundaries of mineral extraction through digital leadership.
-                 </p>
+    <>
+      <footer className="bg-white border-t border-zinc-100 py-16 px-6 md:px-12 font-poppins relative z-20 pb-32 md:pb-16">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+          
+          {/* Brand Info */}
+          <div className="space-y-6">
+            <Link href="/" className="flex items-center gap-2 group">
+              <div className="w-8 h-8">
+                <img src="/assets/ymcc logo kotak.png" alt="YMCC" className="w-full h-full object-contain" />
               </div>
-              <div className="flex gap-4 mt-12">
-                 <SocialIconDark href="#" icon={<X className="w-5 h-5" />} />
-                 <SocialIconDark href="#" icon={<Mail className="w-5 h-5" />} />
-                 <SocialIconDark href="#" icon={<Globe className="w-5 h-5" />} />
-              </div>
-           </div>
-
-           {/* Newsletter/Action Card */}
-           <div className="lg:col-span-2 bg-white border-[4px] border-[#001F3F] p-10 rounded-[3rem] shadow-[15px_15px_0_0_#E63E00] flex flex-col md:flex-row items-center gap-10">
-              <div className="flex-1">
-                 <div className="inline-flex items-center gap-2 bg-[#E63E00] text-white px-4 py-1.5 rounded-full mb-6">
-                    <Star className="w-3 h-3 fill-current" />
-                    <span className="text-[10px] font-black uppercase tracking-widest">Next Deployment</span>
-                 </div>
-                 <h4 className="font-black text-4xl uppercase tracking-tighter mb-4">READY TO JOIN <br/> THE NODE?</h4>
-                 <p className="text-sm font-bold text-[#001F3F]/40 uppercase italic">Registration phase is now active for upcoming sectors.</p>
-              </div>
-              <Link href="/register" className="bg-[#001F3F] text-white px-10 py-6 rounded-3xl font-black uppercase tracking-widest hover:bg-[#CCFF00] hover:text-[#001F3F] transition-all flex items-center gap-4 group">
-                 GET STARTED <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
-              </Link>
-           </div>
-        </div>
-
-        {/* Links Section */}
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-12 gap-16 mb-24">
-          <div className="lg:col-span-3">
-            <h4 className="font-black text-[10px] uppercase tracking-[0.4em] mb-10 text-[#001F3F]/20">{t('footer.nav')}</h4>
-            <div className="flex flex-col gap-6">
-              <FooterLink href="/about">{t('nav.about')}</FooterLink>
-              <FooterLink href="/merch">{t('nav.store')}</FooterLink>
-              <FooterLink href="/events">{t('nav.events')}</FooterLink>
-              <FooterLink href="/news">{t('footer.news')}</FooterLink>
+              <span className="font-bold text-2xl tracking-tighter text-black">ymcc</span>
+              <span className="text-[10px] self-start mt-1 font-medium text-zinc-400 uppercase">tm</span>
+            </Link>
+            <p className="text-zinc-400 text-sm font-medium leading-relaxed max-w-xs">
+              Membangun masa depan industri mineral melalui kepemimpinan digital dan inovasi berkelanjutan.
+            </p>
+            <div className="flex gap-4">
+              <SocialLink href="#" icon={<X size={18} />} />
+              <SocialLink href="#" icon={<Mail size={18} />} />
             </div>
           </div>
 
-          <div className="lg:col-span-3">
-             <h4 className="font-black text-[10px] uppercase tracking-[0.4em] mb-10 text-[#001F3F]/20">Official Media</h4>
-             <div className="flex flex-col gap-6">
-               <FooterLink href="/gallery">Site Gallery</FooterLink>
-               <FooterLink href="/press">Press Kit</FooterLink>
-               <FooterLink href="/archive">Archive Node</FooterLink>
-               <FooterLink href="/identity">Brand Book</FooterLink>
-             </div>
+          {/* Links Column 1 */}
+          <div>
+            <h4 className="font-bold text-xs uppercase tracking-widest text-[#CCFF00] bg-black px-3 py-1 inline-block rounded-lg mb-8">Navigation</h4>
+            <div className="space-y-4">
+              <FooterLink href="/about">About Us</FooterLink>
+              <FooterLink href="/events">Selection Pipeline</FooterLink>
+              <FooterLink href="/merch">Official Store</FooterLink>
+              <FooterLink href="/news">Announcements</FooterLink>
+            </div>
           </div>
 
-          <div className="lg:col-span-6">
-             <h4 className="font-black text-[10px] uppercase tracking-[0.4em] mb-10 text-[#001F3F]/20">Operational Node</h4>
-             <div className="bg-zinc-50 border-[3px] border-zinc-100 p-8 rounded-[2.5rem] flex flex-col md:flex-row items-center gap-8 group hover:border-[#001F3F] transition-all">
-                <div className="w-20 h-20 bg-white border-2 border-zinc-100 rounded-3xl flex items-center justify-center shrink-0 shadow-sm group-hover:shadow-xl transition-all">
-                   <MapPin className="w-8 h-8 text-[#E63E00]" />
-                </div>
-                <div>
-                   <h5 className="font-black text-xl uppercase tracking-tighter mb-2">UPN &quot;VETERAN&quot; YOGYAKARTA</h5>
-                   <p className="text-[11px] font-bold text-[#001F3F]/40 uppercase italic leading-relaxed">
-                     Fakultas Teknologi Mineral, Gedung Teknik Pertambangan. Tambak Bayan, Sleman, DIY.
-                   </p>
-                </div>
-             </div>
+          {/* Links Column 2 */}
+          <div>
+            <h4 className="font-bold text-xs uppercase tracking-widest text-black mb-8 pl-1">Legal Protocols</h4>
+            <div className="space-y-4">
+              <FooterLink href="/privacy">Privacy Policy</FooterLink>
+              <FooterLink href="/terms">Terms of Service</FooterLink>
+              <FooterLink href="/refund">Refund Policy</FooterLink>
+              <FooterLink href="/cookies">Cookie Settings</FooterLink>
+            </div>
           </div>
+
+          {/* Newsletter / Status Component */}
+          <div className="bg-zinc-50 border border-zinc-100 p-8 rounded-[2.5rem] relative overflow-hidden group">
+            <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+               <Trophy size={80} />
+            </div>
+            <div className="relative z-10">
+               <h5 className="font-bold text-sm uppercase tracking-tight mb-2">System Status</h5>
+               <div className="flex items-center gap-2 mb-6">
+                  <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                  <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">Nodes Operational</span>
+               </div>
+               <button className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest hover:text-[#CCFF00] transition-colors">
+                  View help center <ExternalLink size={14} />
+               </button>
+            </div>
+          </div>
+
         </div>
 
-        {/* Bottom Strip */}
-        <div className="pt-12 border-t-[4px] border-zinc-100 flex flex-col lg:flex-row justify-between items-center gap-10">
-          <div className="flex items-center gap-6">
-             <ShieldCheck className="w-6 h-6 text-[#001F3F]" />
-             <p className="text-zinc-400 font-bold text-[10px] uppercase tracking-[0.4em]">
-               {t('footer.copyright')}
-             </p>
-          </div>
-          
-          <div className="flex flex-wrap justify-center gap-x-12 gap-y-4">
-            <LegalLink href="/privacy">{t('footer.privacy')}</LegalLink>
-            <LegalLink href="/terms">{t('footer.terms')}</LegalLink>
-            <LegalLink href="/refund">{t('footer.refund')}</LegalLink>
+        <div className="max-w-7xl mx-auto pt-16 mt-16 border-t border-zinc-50 flex flex-col md:flex-row justify-between items-center gap-6">
+          <p className="text-zinc-300 text-[10px] font-bold uppercase tracking-widest">
+            © 2026 YMCC VII NODE SYSTEM. ALL ACCESS PROTECTED.
+          </p>
+          <div className="flex items-center gap-2 text-zinc-300">
+             <span className="w-2 h-2 rounded-full bg-zinc-200" />
+             <span className="text-[10px] font-bold uppercase tracking-widest">v2026.4.12-Alpha</span>
           </div>
         </div>
-      </div>
-    </footer>
+      </footer>
+
+      {/* MOBILE BOTTOM NAVIGATION (Cloned from Grass Mobile) */}
+      <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-zinc-100 h-20 z-[100] lg:hidden px-4 flex items-center justify-between shadow-[0_-10px_30px_rgba(0,0,0,0.05)]">
+        {mobileNavItems.map((item) => (
+          <Link 
+            key={item.name} 
+            href={item.path}
+            className={`flex flex-col items-center justify-center gap-1.5 flex-1 h-full relative ${
+              pathname === item.path ? 'text-black' : 'text-zinc-300 hover:text-zinc-500'
+            }`}
+          >
+            <div className={`p-2 rounded-xl transition-all ${
+              pathname === item.path ? 'bg-[#CCFF00] border border-black shadow-[2px_2px_0px_0px_#000]' : ''
+            }`}>
+              {item.icon}
+            </div>
+            {pathname === item.path && (
+              <motion.div layoutId="bottomNav" className="absolute -top-1 w-6 h-1 bg-black rounded-full" />
+            )}
+          </Link>
+        ))}
+      </nav>
+    </>
   );
 }
 
 function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
-    <Link href={href} className="text-sm font-black text-[#001F3F] hover:text-[#E63E00] transition-colors uppercase italic flex items-center group">
+    <Link href={href} className="text-xs font-bold text-zinc-500 hover:text-black uppercase tracking-tight flex items-center group transition-all">
       {children}
-      <ArrowRight className="w-4 h-4 ml-3 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+      <ChevronRight size={14} className="ml-1 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
     </Link>
   );
 }
 
-function LegalLink({ href, children }: { href: string; children: React.ReactNode }) {
+function SocialLink({ href, icon }: { href: string; icon: React.ReactNode }) {
   return (
-    <Link href={href} className="text-[#001F3F]/40 font-black text-[10px] uppercase tracking-[0.3em] hover:text-[#001F3F] transition-colors relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-0 after:h-[2px] after:bg-[#CCFF00] hover:after:w-full after:transition-all">
-      {children}
-    </Link>
-  );
-}
-
-function SocialIconDark({ href, icon }: { href: string; icon: React.ReactNode }) {
-  return (
-    <Link href={href} className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-[#CCFF00] hover:text-[#001F3F] hover:border-[#CCFF00] transition-all">
+    <Link href={href} className="w-10 h-10 rounded-xl bg-zinc-50 border border-zinc-100 flex items-center justify-center text-zinc-500 hover:bg-black hover:text-[#CCFF00] hover:border-black transition-all">
       {icon}
     </Link>
   );

@@ -29,7 +29,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="id" className={`${anton.variable} ${poppins.variable} overflow-x-hidden`}>
-      <body className="antialiased min-h-screen flex flex-col font-poppins relative selection:bg-[#CCFF00] selection:text-[#001F3F] overflow-x-hidden">
+      <body className="antialiased min-h-screen flex flex-col font-poppins relative selection:bg-[#CCFF00] selection:text-black overflow-x-hidden bg-[#F4F4F5] text-black">
         <LanguageProvider>
           {/* Public Navigation - Global Centralized Logic */}
           <Navbar />

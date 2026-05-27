@@ -4,47 +4,58 @@
   --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
   --font-heading: var(--font-anton), ui-sans-serif, system-ui, sans-serif;
   
-  --color-primary: #E63E00;     /* Merah-Oranye */
-  --color-secondary: #001F3F;   /* Biru Navy */
-  --color-accent: #CCFF00;      /* Kuning Neon */
-  --color-foreground: #001F3F;
-  --color-background: #ffffff;
-}
-
-@theme inline {
-  --shadow-brutal: 4px 4px 0px 0px var(--color-foreground);
-  --shadow-brutal-sm: 2px 2px 0px 0px var(--color-foreground);
-  --shadow-brutal-lg: 8px 8px 0px 0px var(--color-foreground);
-  --shadow-brutal-neon: 4px 4px 0px 0px var(--color-accent);
-  --radius: 0rem;
+  --color-primary: #CCFF00;
+  --color-secondary: #FFFFFF;
+  --color-accent: #CCFF00;
+  --color-foreground: #000000;
+  --color-background: #F4F4F5;
+  --color-border: #000000;
+  --color-card: #FFFFFF;
+  --color-muted: #F8F9FA;
+  
+  --shadow-brutal: 4px 4px 0px 0px #000000;
+  --shadow-brutal-sm: 2px 2px 0px 0px #000000;
+  --shadow-brutal-lg: 8px 8px 0px 0px #000000;
+  --shadow-brutal-neon: 4px 4px 0px 0px #CCFF00;
+  
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+  --radius-4xl: 2.5rem;
+  --radius-5xl: 3rem;
 }
 
 @layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 210 100% 12%; /* Navy */
-  }
-
   body {
-    background-color: var(--color-background);
-    color: var(--color-foreground);
+    background-color: #F4F4F5;
+    color: #000000;
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+
+  * {
+    border-color: #000000;
+  }
 }
 
-/* Base resets & utilities */
-* {
-  border-color: var(--color-foreground);
-}
+@layer utilities {
+  .grass-card {
+    @apply bg-white border-2 border-black rounded-[2.5rem] shadow-[4px_4px_0px_0px_#000] overflow-hidden;
+  }
+  
+  .grass-button {
+    @apply bg-[#CCFF00] text-black border-2 border-black rounded-full px-6 py-2.5 font-bold shadow-[2px_2px_0px_0px_#000] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 transition-all active:scale-95;
+  }
 
-.font-heading {
-  font-family: var(--font-heading);
-}
+  .grass-input {
+    @apply bg-white border-2 border-black rounded-full px-6 py-3 focus:outline-none focus:ring-2 focus:ring-[#CCFF00] transition-all;
+  }
 
-.font-anton {
-  font-family: var(--font-heading);
+  .text-stroke-navy {
+    -webkit-text-stroke: 1.5px #000000;
+    color: transparent;
+  }
 }
 
 /* Marquee Animation */

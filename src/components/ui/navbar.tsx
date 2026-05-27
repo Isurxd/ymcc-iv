@@ -3,7 +3,19 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useLanguage } from '@/lib/LanguageContext';
-import { LogOut, Menu, X, ChevronRight, Globe } from 'lucide-react';
+import { 
+  Search, 
+  ShoppingBag, 
+  Sun, 
+  Moon, 
+  Menu, 
+  X, 
+  LayoutDashboard,
+  Trophy,
+  Download,
+  Store,
+  User
+} from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -14,23 +26,11 @@ export function Navbar() {
   
   const [user, setUser] = useState<any>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
-  // Daftar prefix rute portal yang tidak boleh menampilkan Navbar publik
+  // List of portal prefixes that shouldn't show public Navbar
   const portalRoutes = ['/dashboard', '/admin', '/superadmin', '/operator', '/fundraising', '/exam'];
   const isPortal = portalRoutes.some(route => pathname.startsWith(route));
-
-  // Deteksi halaman interior untuk visibilitas
-  const isInterior = pathname !== '/';
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 15);
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   useEffect(() => {
     fetch('/api/auth/me')
@@ -41,151 +41,121 @@ export function Navbar() {
       .then(data => {
         if (data.user) setUser(data.user);
       })
-      .catch((_) => setUser(null));
+      .catch(() => setUser(null));
   }, [pathname]);
 
-  const handleLogout = async () => {
-    await fetch('/api/auth/logout', { method: 'POST' });
-    setUser(null);
-    router.push('/');
-    router.refresh();
-  };
-
-  const getDashboardPath = () => {
-    if (!user) return '/login';
-    if (user.role === 'SUPERADMIN') return '/superadmin';
-    if (user.role === 'ADMIN') return '/admin';
-    if (user.role === 'OPERATOR') return '/operator';
-    if (user.role === 'FUNDRAISING') return '/fundraising';
-    return '/dashboard';
-  };
-
-  const isActive = (path: string) => pathname === path;
-
-  // Jika di portal, jangan render apapun
   if (isPortal) return null;
 
-  // State solid jika di-scroll ATAU di halaman interior
-  const isSolid = isScrolled || isInterior;
+  const navItems = [
+    { name: 'Dashboard', icon: <LayoutDashboard size={18} />, path: '/dashboard' },
+    { name: 'Rewards', icon: <Trophy size={18} />, path: '/rewards', badge: 'New' },
+    { name: 'Download App', icon: <Download size={18} />, path: '/download' },
+    { name: 'Store', icon: <Store size={18} />, path: '/merch' },
+  ];
 
   return (
-    <>
-      <header 
-        className="fixed top-0 left-0 right-0 z-[99999] flex justify-center items-center pointer-events-none"
-        style={{ height: '110px' }}
-      >
-        <div 
-          className={`flex items-center justify-between transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] pointer-events-auto ${
-            isSolid 
-              ? 'mt-4 w-[95%] max-w-7xl bg-white/95 backdrop-blur-3xl border border-zinc-200 rounded-full h-16 md:h-20 px-8 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.2)]' 
-              : 'mt-0 w-full bg-transparent h-28 px-12 md:px-24'
-          }`}
+    <nav className="sticky top-0 z-50 w-full bg-white border-b border-zinc-100 h-[72px] px-4 md:px-8 flex items-center justify-between">
+      <div className="flex items-center gap-8">
+        {/* Mobile Menu Toggle */}
+        <button 
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="lg:hidden p-2 hover:bg-zinc-50 rounded-lg transition-colors"
         >
-          
-          {/* Logo Section */}
-          <Link href="/" className="flex items-center gap-4 group shrink-0">
-            <div className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center transition-transform group-hover:scale-110">
-              <img 
-                src="/assets/ymcc logo kotak.png" 
-                alt="YMCC Logo" 
-                className="w-full h-full object-contain" 
-              />
-            </div>
-            <div className="flex flex-col -space-y-1">
-              <span className={`font-black text-2xl tracking-tighter lowercase leading-none transition-colors duration-500 ${isSolid ? 'text-[#001F3F]' : 'text-white'}`}>ymcc</span>
-              <span className="text-[10px] font-black text-[#E63E00] uppercase tracking-[0.25em]">competition</span>
-            </div>
-          </Link>
-          
-          {/* Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-12">
-            {['home', 'about', 'events', 'store'].map((item) => {
-              const path = item === 'home' ? '/' : `/${item === 'store' ? 'merch' : item}`;
-              return (
-                <Link 
-                  key={item}
-                  href={path} 
-                  className={`font-black text-[11px] tracking-[0.15em] uppercase hover:text-[#E63E00] transition-all relative group/link ${
-                    isActive(path) 
-                      ? (isSolid ? 'text-[#001F3F]' : 'text-[#CCFF00]') 
-                      : (isSolid ? 'text-[#001F3F]/30' : 'text-white/60')
-                  }`}
-                >
-                  {t(`nav.${item}`)}
-                  <span className={`absolute -bottom-1 left-0 h-0.5 bg-[#E63E00] transition-all duration-300 ${isActive(path) ? 'w-full' : 'w-0 group-hover/link:w-full'}`} />
-                </Link>
-              );
-            })}
-          </nav>
+          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
 
-          {/* Action Buttons */}
-          <div className="flex items-center gap-6">
-            <button 
-              onClick={() => setLang(lang === 'ID' ? 'EN' : 'ID')}
-              className={`hidden sm:flex items-center gap-2 font-black text-[11px] tracking-widest transition-all ${isSolid ? 'text-[#001F3F]/20 hover:text-[#001F3F]' : 'text-white/30 hover:text-white'}`}
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-2 group">
+          <div className="w-8 h-8 flex items-center justify-center">
+            <img src="/assets/ymcc logo kotak.png" alt="YMCC" className="w-full h-full object-contain" />
+          </div>
+          <span className="font-bold text-2xl tracking-tighter text-black">ymcc</span>
+          <span className="text-[10px] self-start mt-1 font-medium text-zinc-400 uppercase">tm</span>
+        </Link>
+        
+        {/* Desktop Nav */}
+        <div className="hidden lg:flex items-center gap-1">
+          {navItems.map((item) => (
+            <Link 
+              key={item.name}
+              href={item.path}
+              className={`flex items-center gap-3 px-5 py-2.5 rounded-2xl font-bold text-sm transition-all relative ${
+                pathname === item.path 
+                  ? 'bg-[#CCFF00] text-black border-[1.5px] border-black shadow-[2px_2px_0px_0px_#000]' 
+                  : 'text-zinc-500 hover:text-black hover:bg-zinc-50'
+              }`}
             >
-              <Globe className="w-4 h-4" />
-              {lang}
-            </button>
+              {item.icon}
+              {item.name}
+              {item.badge && (
+                <span className="absolute -top-1 -right-1 bg-zinc-200 text-[9px] px-1.5 py-0.5 rounded-full text-zinc-600 font-bold border border-white">
+                  {item.badge}
+                </span>
+              )}
+            </Link>
+          ))}
+        </div>
+      </div>
 
-            {!user ? (
+      {/* Right Controls */}
+      <div className="flex items-center gap-1 md:gap-4">
+        <div className="flex items-center gap-1 mr-2 md:mr-4">
+           <button className="p-2.5 text-zinc-500 hover:text-black hover:bg-zinc-50 rounded-full transition-all">
+             <Search size={20} />
+           </button>
+           <Link href="/merch/cart" className="p-2.5 text-zinc-500 hover:text-black hover:bg-zinc-50 rounded-full transition-all relative">
+             <ShoppingBag size={20} />
+             <span className="absolute top-2 right-2 w-2 h-2 bg-[#CCFF00] border-2 border-white rounded-full" />
+           </Link>
+        </div>
+
+        <div className="h-6 w-[1px] bg-zinc-100 hidden sm:block" />
+
+        <div className="flex items-center gap-1 sm:ml-2">
+           <button 
+             onClick={() => setIsDarkMode(!isDarkMode)}
+             className="p-2.5 text-zinc-500 hover:text-black hover:bg-zinc-50 rounded-xl transition-all border border-transparent hover:border-zinc-200"
+           >
+             {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
+           </button>
+           
+           <div className="h-10 w-10 rounded-full bg-zinc-100 border-[1.5px] border-zinc-200 flex items-center justify-center overflow-hidden cursor-pointer hover:border-black transition-all ml-1">
+             {user?.avatar ? (
+               <img src={user.avatar} alt="User" className="w-full h-full object-cover" />
+             ) : (
+               <User size={20} className="text-zinc-400" />
+             )}
+           </div>
+        </div>
+      </div>
+
+      {/* Mobile Nav Overlay */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            className="fixed inset-0 top-[72px] bg-white z-[100] lg:hidden p-6 flex flex-col gap-4"
+          >
+            {navItems.map((item) => (
               <Link 
-                href="/login" 
-                className={`rounded-full font-black text-[10px] md:text-[11px] tracking-[0.1em] uppercase transition-all flex items-center justify-center min-w-[150px] md:min-w-[190px] h-11 md:h-12 border-2 group/btn relative overflow-hidden ${
-                  isSolid 
-                    ? 'bg-black text-white border-black hover:bg-[#E63E00] hover:border-[#E63E00]' 
-                    : 'bg-white text-[#001F3F] border-white hover:bg-transparent hover:text-white'
+                key={item.name}
+                href={item.path}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`flex items-center gap-4 p-4 rounded-3xl font-bold text-lg transition-all ${
+                  pathname === item.path 
+                    ? 'bg-[#CCFF00] border-2 border-black shadow-[4px_4px_0px_0px_#000]' 
+                    : 'bg-zinc-50 text-zinc-600'
                 }`}
               >
-                 <span className="relative z-10 flex items-center gap-2">
-                   {t('nav.open_dashboard')} <ChevronRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
-                 </span>
+                {item.icon}
+                {item.name}
               </Link>
-            ) : (
-              <div className="flex items-center gap-5">
-                <Link href={getDashboardPath()} className={`px-6 md:px-8 py-3 rounded-full font-black text-[11px] tracking-[0.1em] uppercase transition-all shadow-lg ${isSolid ? 'bg-[#001F3F] text-white hover:bg-black' : 'bg-white text-[#001F3F] hover:bg-[#CCFF00]'}`}>
-                  {user.name.split(' ')[0]}
-                </Link>
-                <button onClick={handleLogout} className="text-[#E63E00] hover:scale-125 transition-transform">
-                  <LogOut className="w-6 h-6" />
-                </button>
-              </div>
-            )}
-
-            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className={`lg:hidden p-2 rounded-full transition-colors ${isSolid ? 'text-[#001F3F] bg-zinc-100' : 'text-white bg-white/10'}`}>
-              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
-
-          {/* Mobile Overlay Menu */}
-          <AnimatePresence>
-              {isMobileMenuOpen && (
-              <motion.div 
-                  initial={{ opacity: 0, scale: 0.95, y: -20 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95, y: -20 }}
-                  className="absolute top-24 left-4 right-4 bg-white/95 backdrop-blur-2xl border border-zinc-200 p-10 flex flex-col gap-8 lg:hidden shadow-2xl rounded-[3rem]"
-              >
-                  {['home', 'about', 'events', 'store'].map((item) => (
-                      <Link 
-                          key={item}
-                          onClick={() => setIsMobileMenuOpen(false)} 
-                          href={item === 'home' ? '/' : `/${item === 'store' ? 'merch' : item}`} 
-                          className="font-black text-2xl uppercase tracking-widest text-[#001F3F] flex justify-between items-center"
-                      >
-                          {t(`nav.${item}`)}
-                          <ChevronRight className="w-6 h-6 text-[#E63E00]" />
-                      </Link>
-                  ))}
-              </motion.div>
-              )}
-          </AnimatePresence>
-        </div>
-      </header>
-      
-      {/* Spacer agar konten tidak tertutup navbar fixed saat di halaman interior */}
-      {isInterior && <div className="h-28 hidden lg:block" />}
-      {isInterior && <div className="h-24 lg:hidden" />}
-    </>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </nav>
   );
 }
